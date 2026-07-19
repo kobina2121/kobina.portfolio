@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowDown, ArrowUpRight, Mail, Phone } from "lucide-react";
 import { SiteNavbar } from "@/components/site-navbar";
 import {
+  certificationItems,
+  educationItems,
   experienceItems,
   projects,
   serviceItems,
@@ -424,6 +426,62 @@ export default function Home() {
                 </div>
               </article>
             ))}
+          </div>
+        </section>
+
+        <section
+          id="credentials"
+          className="relative grid scroll-mt-24 gap-8 pt-20 md:grid-cols-2"
+        >
+          <div>
+            <SectionTitle>education</SectionTitle>
+            <div className="space-y-4">
+              {educationItems.map((item) => (
+                <article
+                  key={item.institution}
+                  className="border border-zinc-950/20 bg-white/75 p-5 dark:border-white/35 dark:bg-black/80"
+                >
+                  <p className="text-xs font-semibold text-[#d76bff]">
+                    {item.period}
+                  </p>
+                  <h3 className="mt-3 text-lg font-bold text-zinc-950 dark:text-white">
+                    {item.institution}
+                  </h3>
+                  <p className="mt-2 text-sm text-zinc-700 dark:text-zinc-300">
+                    {item.qualification}
+                  </p>
+                  <p className="mt-4 text-xs leading-6 text-zinc-700 dark:text-zinc-400">
+                    {item.detail}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div id="certifications" className="scroll-mt-24">
+            <SectionTitle>certifications</SectionTitle>
+            <div className="space-y-4">
+              {certificationItems.map((item) => (
+                <article
+                  key={item.name}
+                  className="border border-zinc-950/20 bg-white/75 p-5 dark:border-white/35 dark:bg-black/80"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-lg font-bold text-zinc-950 dark:text-white">
+                        {item.name}
+                      </h3>
+                      <p className="mt-2 text-xs text-zinc-700 dark:text-zinc-400">
+                        {item.provider}
+                      </p>
+                    </div>
+                    <span className="shrink-0 border border-[#d76bff]/50 px-3 py-1 text-[0.65rem] font-semibold text-[#d76bff]">
+                      {item.status}
+                    </span>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
