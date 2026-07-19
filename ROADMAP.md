@@ -168,20 +168,20 @@ types/
 
 **Outcome:** the full home-page story is implemented with real or approved content.
 
-- [ ] Hero: title, value proposition, CTAs, portrait/visual, availability, and social links.
-- [ ] About: biography, strengths, portrait, and credible highlights.
-- [ ] Skills: meaningful groups, icons, labels, and optional current-learning group.
-- [ ] Services: customer problem, outcome, deliverables, and contact CTA.
-- [ ] Featured Projects: three to six curated project cards.
-- [ ] Experience: responsive timeline with measurable achievements.
-- [ ] Education: institution, qualification, dates, and supporting detail.
-- [ ] Certifications: provider, credential, date, and verification link.
-- [ ] Testimonials: accessible grid or manually controlled carousel.
-- [ ] Contact: introductory copy, form presentation, email, and social alternatives.
-- [ ] Add section anchors matching navigation.
-- [ ] Review page rhythm, content density, and CTA priority.
+- [x] Hero: title, value proposition, CTAs, portrait/visual, availability, and social links.
+- [x] About: biography, strengths, portrait, and credible highlights.
+- [x] Skills: meaningful groups, icons, labels, and optional current-learning group.
+- [x] Services: customer problem, outcome, deliverables, and contact CTA.
+- [x] Featured Projects: three to six curated project cards.
+- [x] Experience: responsive timeline with measurable achievements.
+- [x] Education: institution, qualification, dates, and supporting detail.
+- [x] Certifications: provider, credential, date, and verification link.
+- [x] Testimonials: accessible grid or manually controlled carousel.
+- [x] Contact: introductory copy, form presentation, email, and social alternatives.
+- [x] Add section anchors matching navigation.
+- [x] Review page rhythm, content density, and CTA priority.
 
-**Gate 4:** Every required section is responsive, contains approved content, and has no placeholder text or broken media.
+**Gate 4: Implementation checkpoint on 2026-07-19.** Every required home section now renders with responsive structure, anchors, and content. Final Gate 4 approval still requires replacing anonymous testimonials and learning-track certification labels with the owner’s approved real details, then doing final visual/content QA.
 
 ## Phase 5 — Projects and case studies
 
