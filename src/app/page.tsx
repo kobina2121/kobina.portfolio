@@ -29,8 +29,6 @@ const skillIconMap = {
   java: FaJava,
 };
 
-const mediaLinks = ["GitHub", "LinkedIn", "Mail"];
-
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-7 flex items-center gap-3">
@@ -314,41 +312,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        <footer className="border-t border-zinc-950/20 py-8 dark:border-white/35">
-          <div className="flex flex-col justify-between gap-8 sm:flex-row">
-            <Link href="/" className="text-sm font-bold">
-              @ Kobina
-            </Link>
-            <div>
-              <h2 className="mb-4 text-sm font-semibold">Media</h2>
-              <div className="flex gap-4">
-                {mediaLinks.map((item) => (
-                  <Link
-                    key={item}
-                    href="#contact-me"
-                    className="text-xs text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white"
-                  >
-                    {item}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
-          <p className="mt-10 text-center text-[0.68rem] text-zinc-700 dark:text-zinc-600">
-            © Copyright 2026. Made by Kobina.
-          </p>
-          <p className="mt-2 text-center text-[0.68rem] text-zinc-700 dark:text-zinc-600">
-            Product of Loo<span className="text-[#ff4028]">prompt</span>.
-          </p>
-          <Image
-            src="/images/looprompt-logo.png"
-            alt="Looprompt logo"
-            width={32}
-            height={32}
-            className="mx-auto mt-3 size-8"
-          />
-        </footer>
       </div>
     </main>
   );

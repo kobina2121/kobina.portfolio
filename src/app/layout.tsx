@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Montserrat, MonteCarlo } from "next/font/google";
+import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -82,6 +83,7 @@ export default function RootLayout({
               Skip to content
             </a>
             {children}
+            <SiteFooter />
             <Toaster richColors closeButton position="top-center" />
           </TooltipProvider>
         </ThemeProvider>
