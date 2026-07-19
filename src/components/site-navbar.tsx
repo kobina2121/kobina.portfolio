@@ -64,7 +64,7 @@ export function SiteNavbar({ active }: SiteNavbarProps) {
           </SheetTrigger>
           <SheetContent
             side="right"
-            className="w-[min(22rem,calc(100vw-2rem))] border-zinc-950/10 bg-background/95 p-6 backdrop-blur-xl dark:border-white/12"
+            className="bg-background/95 w-[min(22rem,calc(100vw-2rem))] border-zinc-950/10 p-6 backdrop-blur-xl dark:border-white/12"
           >
             <SheetHeader className="text-left">
               <SheetTitle className="signature-logo text-4xl font-normal">
@@ -90,8 +90,8 @@ export function SiteNavbar({ active }: SiteNavbarProps) {
                           }
                           className={
                             item.key === active
-                              ? "flex rounded-2xl bg-foreground px-4 py-3 text-sm font-semibold text-background"
-                              : "flex rounded-2xl px-4 py-3 text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
+                              ? "bg-foreground text-background flex rounded-2xl px-4 py-3 text-sm font-semibold"
+                              : "text-muted-foreground hover:bg-muted hover:text-foreground flex rounded-2xl px-4 py-3 text-sm font-semibold"
                           }
                         >
                           {item.label}

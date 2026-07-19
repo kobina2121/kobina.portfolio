@@ -85,8 +85,8 @@ export function NavbarStatusPill({
     ? selectedTheme === "system"
       ? "System"
       : isDarkTheme
-      ? "Dark"
-      : "White"
+        ? "Dark"
+        : "White"
     : isTimeMode
       ? localTime
       : "Accra, GH";
@@ -94,7 +94,11 @@ export function NavbarStatusPill({
   const nextTheme =
     themeModes[(themeModes.indexOf(selectedTheme) + 1) % themeModes.length];
   const nextThemeLabel =
-    nextTheme === "system" ? "system" : nextTheme === "light" ? "white" : "dark";
+    nextTheme === "system"
+      ? "system"
+      : nextTheme === "light"
+        ? "white"
+        : "dark";
 
   return (
     <button

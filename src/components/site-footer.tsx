@@ -11,7 +11,7 @@ const mediaLinks = [
 
 export function SiteFooter() {
   return (
-    <footer className="homepage-font bg-background px-5 text-foreground sm:px-8 lg:px-10">
+    <footer className="homepage-font bg-background text-foreground px-5 sm:px-8 lg:px-10">
       <div className="mx-auto w-full max-w-5xl border-t border-zinc-950/20 py-8 dark:border-white/35">
         <div className="grid gap-8 md:grid-cols-[1fr_auto_auto] md:items-start">
           <div>

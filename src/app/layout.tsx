@@ -78,7 +78,7 @@ export default function RootLayout({
           <TooltipProvider>
             <a
               href="#main-content"
-              className="focus-visible:bg-background focus-visible:text-foreground fixed top-3 left-3 z-[100] -translate-y-16 rounded-full border border-border px-4 py-2 text-sm font-semibold shadow-lg transition focus-visible:translate-y-0"
+              className="focus-visible:bg-background focus-visible:text-foreground border-border fixed top-3 left-3 z-[100] -translate-y-16 rounded-full border px-4 py-2 text-sm font-semibold shadow-lg transition focus-visible:translate-y-0"
             >
               Skip to content
             </a>
