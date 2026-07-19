@@ -260,15 +260,17 @@ types/
 
 **Outcome:** the form has complete browser-side behavior before email delivery is connected.
 
-- [ ] Define shared Zod contact schema.
-- [ ] Add name, email, subject/type, optional budget, and message fields.
-- [ ] Connect labels, descriptions, errors, and `aria-invalid` correctly.
-- [ ] Add character limits and useful inline validation.
-- [ ] Add pending and duplicate-submit protection.
-- [ ] Preserve values after validation errors.
-- [ ] Add success and error presentation.
-- [ ] Add accessible toast notifications as secondary feedback.
-- [ ] Add privacy/consent notice.
+- [x] Define shared Zod contact schema.
+- [x] Add name, email, subject/type, optional budget, and message fields.
+- [x] Connect labels, descriptions, errors, and `aria-invalid` correctly.
+- [x] Add character limits and useful inline validation.
+- [x] Add pending and duplicate-submit protection.
+- [x] Preserve values after validation errors.
+- [x] Add success and error presentation.
+- [x] Add accessible toast notifications as secondary feedback.
+- [x] Add privacy/consent notice.
+
+**Gate 9: Passed on 2026-07-19.** The homepage contact form now uses a shared Zod schema, accessible browser-side validation, inline errors, character limits, pending/duplicate-submit protection, success messaging, toast feedback, a privacy/consent notice, and an email-draft fallback until the Phase 12 backend is connected; formatting, linting, type-checking, unit tests, and production build passed.
 
 ## Phase 10 — Convenience, media, and accessibility
 
