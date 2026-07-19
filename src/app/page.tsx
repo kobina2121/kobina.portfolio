@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowDown, ArrowUpRight, Mail, Phone, Send } from "lucide-react";
 import { SiteNavbar } from "@/components/site-navbar";
 import {
+  aboutHighlights,
   certificationItems,
   educationItems,
   experienceItems,
@@ -290,20 +291,28 @@ export default function Home() {
 
         <section id="skills" className="relative scroll-mt-24 pt-20">
           <SectionTitle>skills</SectionTitle>
-          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-5">
-            {skillItems.map(({ label, icon, color }) => {
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {skillItems.map(({ label, icon, color, category, description }) => {
               const Icon = skillIconMap[icon];
 
               return (
-                <div
+                <article
                   key={label}
-                  className="flex aspect-square flex-col items-center justify-center gap-3 border border-zinc-950/20 bg-white/75 text-center transition-colors hover:border-[#d76bff] dark:border-white/35 dark:bg-black/80"
+                  className="border border-zinc-950/20 bg-white/75 p-5 transition-colors hover:border-[#d76bff] dark:border-white/35 dark:bg-black/80"
                 >
-                  <Icon className={`size-10 ${color}`} aria-hidden="true" />
-                  <p className="text-xs text-zinc-700 dark:text-zinc-300">
+                  <div className="mb-7 flex items-center justify-between gap-4">
+                    <Icon className={`size-9 ${color}`} aria-hidden="true" />
+                    <span className="border border-zinc-950/15 px-3 py-1 text-[0.65rem] text-zinc-600 dark:border-white/20 dark:text-zinc-400">
+                      {category}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-bold text-zinc-950 dark:text-white">
                     {label}
+                  </h3>
+                  <p className="mt-3 text-xs leading-6 text-zinc-700 dark:text-zinc-400">
+                    {description}
                   </p>
-                </div>
+                </article>
               );
             })}
           </div>
@@ -329,6 +338,20 @@ export default function Home() {
                 experiences that feel simple to use and polished enough to ship.
               </p>
             </div>
+            <ul className="mt-6 grid gap-3">
+              {aboutHighlights.map((highlight) => (
+                <li
+                  key={highlight}
+                  className="flex gap-3 text-xs leading-6 text-zinc-800 dark:text-zinc-300"
+                >
+                  <span
+                    className="mt-2 size-1.5 shrink-0 bg-[#d76bff]"
+                    aria-hidden="true"
+                  />
+                  {highlight}
+                </li>
+              ))}
+            </ul>
             <Link
               href="#contact-me"
               className="mt-6 inline-flex border border-zinc-950/25 px-4 py-2 text-xs font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/35"
