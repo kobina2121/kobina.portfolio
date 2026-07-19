@@ -130,7 +130,11 @@ export const serviceItems = [
     title: "Frontend implementation",
     description:
       "Clean React and Next.js interfaces built from design direction, wireframes, or rough ideas.",
-    deliverables: ["Component systems", "Accessible markup", "Performance pass"],
+    deliverables: [
+      "Component systems",
+      "Accessible markup",
+      "Performance pass",
+    ],
   },
   {
     title: "Product interface polish",
@@ -183,13 +187,13 @@ export const educationItems = [
 export const certificationItems = [
   {
     name: "Responsive Web Design",
-    provider: "Project-based certification path",
+    provider: "Self-guided certification track",
     status: "In progress",
   },
   {
-    name: "Frontend Libraries",
-    provider: "Project-based certification path",
-    status: "Planned",
+    name: "Frontend Engineering",
+    provider: "Portfolio project practice",
+    status: "Ongoing",
   },
   {
     name: "Accessibility Foundations",
@@ -202,19 +206,19 @@ export const testimonialItems = [
   {
     quote:
       "Kobina brings a calm eye for detail to interfaces. The work feels clean, modern, and easy to understand.",
-    name: "Creative Partner",
-    role: "Brand collaborator",
+    name: "Anonymous collaborator",
+    role: "Brand feedback",
   },
   {
     quote:
       "He turns rough ideas into polished screens quickly, while still caring about usability and structure.",
-    name: "Product Lead",
-    role: "Early-stage product team",
+    name: "Anonymous product partner",
+    role: "Product feedback",
   },
   {
     quote:
       "The final result had the exact mood we wanted: minimal, sharp, and professional without feeling generic.",
-    name: "Founder",
-    role: "Small business client",
+    name: "Anonymous founder",
+    role: "Business feedback",
   },
 ] as const;
