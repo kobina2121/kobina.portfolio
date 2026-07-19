@@ -3,11 +3,17 @@
 import { Clock3, Laptop, MapPin, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 type PillMode = "theme" | "time" | "location";
 
 const pillModes: PillMode[] = ["theme", "time", "location"];
 const themeModes = ["system", "dark", "light"] as const;
+
+type NavbarStatusPillProps = {
+  placement?: "desktop" | "mobile";
+  className?: string;
+};
 
 const timeFormatter = new Intl.DateTimeFormat("en-US", {
   timeZone: "Africa/Accra",
@@ -17,7 +23,10 @@ const timeFormatter = new Intl.DateTimeFormat("en-US", {
   hour12: true,
 });
 
-export function NavbarStatusPill() {
+export function NavbarStatusPill({
+  placement = "desktop",
+  className,
+}: NavbarStatusPillProps) {
   const { resolvedTheme, setTheme, theme } = useTheme();
   const [mode, setMode] = useState<PillMode>("theme");
   const [localTime, setLocalTime] = useState("--:--:--");
@@ -90,7 +99,11 @@ export function NavbarStatusPill() {
   return (
     <button
       type="button"
-      className="group hidden w-[15.75rem] items-center justify-between justify-self-start overflow-hidden rounded-full border border-zinc-950/10 bg-zinc-950/[0.04] px-4 py-2 text-xs shadow-[0_8px_24px_rgba(0,0,0,0.08)] ring-1 ring-zinc-950/5 transition hover:border-zinc-950/20 hover:bg-zinc-950/[0.07] md:flex dark:border-white/10 dark:bg-white/[0.07] dark:shadow-[0_8px_24px_rgba(0,0,0,0.25)] dark:ring-white/5 dark:hover:border-white/20 dark:hover:bg-white/[0.1]"
+      className={cn(
+        "group w-[15.75rem] items-center justify-between overflow-hidden rounded-full border border-zinc-950/10 bg-zinc-950/[0.04] px-4 py-2 text-xs shadow-[0_8px_24px_rgba(0,0,0,0.08)] ring-1 ring-zinc-950/5 transition hover:border-zinc-950/20 hover:bg-zinc-950/[0.07] dark:border-white/10 dark:bg-white/[0.07] dark:shadow-[0_8px_24px_rgba(0,0,0,0.25)] dark:ring-white/5 dark:hover:border-white/20 dark:hover:bg-white/[0.1]",
+        placement === "desktop" ? "hidden justify-self-start md:flex" : "flex",
+        className,
+      )}
       aria-label={
         isThemeMode
           ? `Current theme setting is ${value}. Click to switch to ${nextThemeLabel} theme.`

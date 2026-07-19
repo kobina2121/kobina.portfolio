@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { Menu } from "lucide-react";
 import { NavbarStatusPill } from "@/components/navbar-status-pill";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { siteNavItems, type SiteNavKey } from "@/lib/portfolio-content";
 
 type SiteNavbarProps = {
@@ -30,6 +38,7 @@ export function SiteNavbar({ active }: SiteNavbarProps) {
               <li key={item.key}>
                 <Link
                   href={item.href}
+                  aria-current={item.key === active ? "page" : undefined}
                   className={
                     item.key === active
                       ? "inline-flex rounded-full bg-zinc-950 px-4 py-2 text-white shadow-sm dark:bg-white dark:text-zinc-950"
@@ -43,13 +52,58 @@ export function SiteNavbar({ active }: SiteNavbarProps) {
           </ul>
         </nav>
 
-        <button
-          type="button"
-          className="absolute top-1/2 right-3 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-950/10 text-zinc-950 shadow-sm ring-1 ring-zinc-950/10 md:hidden dark:bg-white/10 dark:text-white dark:ring-white/10"
-          aria-label="Open menu"
-        >
-          <Menu className="size-4" aria-hidden="true" />
-        </button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <button
+              type="button"
+              className="absolute top-1/2 right-3 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-950/10 text-zinc-950 shadow-sm ring-1 ring-zinc-950/10 md:hidden dark:bg-white/10 dark:text-white dark:ring-white/10"
+              aria-label="Open menu"
+            >
+              <Menu className="size-4" aria-hidden="true" />
+            </button>
+          </SheetTrigger>
+          <SheetContent
+            side="right"
+            className="w-[min(22rem,calc(100vw-2rem))] border-zinc-950/10 bg-background/95 p-6 backdrop-blur-xl dark:border-white/12"
+          >
+            <SheetHeader className="text-left">
+              <SheetTitle className="signature-logo text-4xl font-normal">
+                Kobina
+              </SheetTitle>
+            </SheetHeader>
+
+            <div className="mt-8 space-y-8">
+              <NavbarStatusPill
+                placement="mobile"
+                className="w-full text-[0.72rem]"
+              />
+
+              <nav aria-label="Mobile navigation">
+                <ul className="space-y-2">
+                  {siteNavItems.map((item) => (
+                    <li key={item.key}>
+                      <SheetClose asChild>
+                        <Link
+                          href={item.href}
+                          aria-current={
+                            item.key === active ? "page" : undefined
+                          }
+                          className={
+                            item.key === active
+                              ? "flex rounded-2xl bg-foreground px-4 py-3 text-sm font-semibold text-background"
+                              : "flex rounded-2xl px-4 py-3 text-sm font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
+                          }
+                        >
+                          {item.label}
+                        </Link>
+                      </SheetClose>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </header>
   );
