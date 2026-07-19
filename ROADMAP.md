@@ -228,16 +228,18 @@ types/
 
 **Outcome:** navigation and animation improve orientation without blocking content.
 
-- [ ] Highlight the current route.
-- [ ] Highlight the active home section with `IntersectionObserver`.
-- [ ] Add smooth anchor scrolling with sticky-header offset.
-- [ ] Close the mobile menu after navigation and restore focus correctly.
-- [ ] Add section reveal motion.
-- [ ] Add subtle project-card hover and focus motion.
-- [ ] Add route transitions only where compatible with App Router rendering.
-- [ ] Centralize motion durations and easing.
-- [ ] Use `useReducedMotion` and test reduced-motion behavior.
-- [ ] Ensure important content is visible without waiting for JavaScript.
+- [x] Highlight the current route.
+- [x] Highlight the active home section with `IntersectionObserver`.
+- [x] Add smooth anchor scrolling with sticky-header offset.
+- [x] Close the mobile menu after navigation and restore focus correctly.
+- [x] Add section reveal motion.
+- [x] Add subtle project-card hover and focus motion.
+- [x] Add route transitions only where compatible with App Router rendering.
+- [x] Centralize motion durations and easing.
+- [x] Use `useReducedMotion` and test reduced-motion behavior.
+- [x] Ensure important content is visible without waiting for JavaScript.
+
+**Gate 7: Passed on 2026-07-19.** Route and active home-section navigation states, sticky-offset smooth scrolling, Sheet menu close behavior, reduced-motion-safe section reveals, project-card hover/focus motion, centralized motion tokens, and App Router-safe transition wrapping are in place; formatting, linting, type-checking, unit tests, and production build passed.
 
 ## Phase 8 — Project discovery
 
