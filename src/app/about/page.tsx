@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, MapPin, Sparkles } from "lucide-react";
+import { Container } from "@/components/layout/container";
 import { SiteNavbar } from "@/components/site-navbar";
 import { aboutHighlights } from "@/lib/portfolio-content";
 
@@ -26,7 +27,10 @@ export default function AboutPage() {
     >
       <SiteNavbar active="about" />
 
-      <section className="relative mx-auto grid w-full max-w-6xl gap-12 px-5 pt-32 pb-20 sm:px-8 md:grid-cols-[0.95fr_1.05fr] md:items-center lg:px-10">
+      <Container
+        as="section"
+        className="relative grid gap-12 pt-32 pb-20 md:grid-cols-[0.95fr_1.05fr] md:items-center"
+      >
         <div className="relative mx-auto w-full max-w-sm">
           <div className="absolute -inset-6 rounded-[2rem] border border-zinc-950/10 bg-white/50 dark:border-white/10 dark:bg-white/[0.03]" />
           <div className="relative aspect-[0.82] overflow-hidden rounded-[1.75rem] border border-zinc-950/10 bg-gradient-to-b from-zinc-200 to-white dark:border-white/15 dark:from-zinc-900 dark:to-black">
@@ -105,7 +109,7 @@ export default function AboutPage() {
             <ArrowUpRight className="size-4" aria-hidden="true" />
           </Link>
         </div>
-      </section>
+      </Container>
     </main>
   );
 }

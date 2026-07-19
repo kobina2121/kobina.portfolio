@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, Layers3 } from "lucide-react";
+import { Container } from "@/components/layout/container";
 import { SiteNavbar } from "@/components/site-navbar";
 import { projects } from "@/lib/portfolio-content";
 
@@ -19,7 +20,7 @@ export default function ProjectsPage() {
     >
       <SiteNavbar active="projects" />
 
-      <section className="mx-auto w-full max-w-6xl px-5 pt-32 pb-20 sm:px-8 lg:px-10">
+      <Container as="section" className="pt-32 pb-20">
         <div className="mb-12 max-w-3xl">
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-950/10 bg-zinc-950/[0.04] px-4 py-2 text-xs text-zinc-600 dark:border-white/15 dark:bg-white/[0.06] dark:text-zinc-400">
             <Layers3 className="size-3.5 text-[#d76bff]" aria-hidden="true" />
@@ -81,7 +82,7 @@ export default function ProjectsPage() {
             </article>
           ))}
         </div>
-      </section>
+      </Container>
     </main>
   );
 }
