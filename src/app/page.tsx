@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight, Mail, Phone } from "lucide-react";
 import { SiteNavbar } from "@/components/site-navbar";
-import { projects, skillItems } from "@/lib/portfolio-content";
+import { projects, serviceItems, skillItems } from "@/lib/portfolio-content";
 import {
   FaCss3Alt,
   FaFigma,
@@ -340,6 +340,42 @@ export default function Home() {
               className="mx-auto w-56 object-contain drop-shadow-[0_0_35px_rgba(215,107,255,0.2)]"
             />
             <CornerFrame className="absolute right-2 bottom-6 h-24 w-24" />
+          </div>
+        </section>
+
+        <section id="services" className="relative scroll-mt-24 pt-20">
+          <SectionTitle>services</SectionTitle>
+          <div className="grid gap-4 md:grid-cols-3">
+            {serviceItems.map((service, index) => (
+              <article
+                key={service.title}
+                className="group border border-zinc-950/20 bg-white/75 p-5 transition-colors hover:border-[#d76bff] dark:border-white/35 dark:bg-black/80"
+              >
+                <p className="mb-8 text-xs font-semibold text-[#d76bff]">
+                  0{index + 1}
+                </p>
+                <h3 className="text-lg font-bold text-zinc-950 dark:text-white">
+                  {service.title}
+                </h3>
+                <p className="mt-4 min-h-24 text-xs leading-6 text-zinc-700 dark:text-zinc-400">
+                  {service.description}
+                </p>
+                <ul className="mt-6 space-y-2">
+                  {service.deliverables.map((deliverable) => (
+                    <li
+                      key={deliverable}
+                      className="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300"
+                    >
+                      <span
+                        className="size-1.5 bg-[#d76bff]"
+                        aria-hidden="true"
+                      />
+                      {deliverable}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
           </div>
         </section>
 
