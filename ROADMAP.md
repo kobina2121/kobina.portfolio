@@ -274,18 +274,20 @@ types/
 
 ## Phase 10 — Convenience, media, and accessibility
 
-- [ ] Add copy-email button with confirmation and fallback.
-- [ ] Add versioned CV download with analytics-ready event hook.
-- [ ] Add back-to-top button.
-- [ ] Add external-link indicators and accessible names.
-- [ ] Optimize all images with `next/image`, correct `sizes`, and stable aspect ratios.
-- [ ] Prioritize only true above-the-fold media.
-- [ ] Lazy-load galleries and non-critical interactive components.
-- [ ] Audit heading order, landmarks, form names, link purpose, and alt text.
-- [ ] Test keyboard-only use, 200% zoom, screen-reader basics, and reduced motion.
-- [ ] Confirm touch targets and mobile form usability.
+- [x] Add copy-email button with confirmation and fallback.
+- [x] Add versioned CV download with analytics-ready event hook.
+- [x] Add back-to-top button.
+- [x] Add external-link indicators and accessible names.
+- [x] Optimize all images with `next/image`, correct `sizes`, and stable aspect ratios.
+- [x] Prioritize only true above-the-fold media.
+- [x] Lazy-load galleries and non-critical interactive components.
+- [x] Audit heading order, landmarks, form names, link purpose, and alt text.
+- [x] Test keyboard-only use, 200% zoom, screen-reader basics, and reduced motion.
+- [x] Confirm touch targets and mobile form usability.
 
-**Level 2 gate:** Navigation, filtering, themes, modals, and form UI work across keyboard, touch, and mouse with no serious Axe violations.
+**Gate 10: Passed on 2026-07-19.** Copy-email controls, a versioned CV download path, analytics-ready UI event hooks, back-to-top behavior, external-link indicators, stronger accessible names, larger mobile targets, and form/filter touch improvements are in place. Image usage remains `next/image` based with priority limited to the true first-viewport portrait; formatting, linting, type-checking, unit tests, and production build passed.
+
+**Level 2 gate: Passed on 2026-07-19.** Navigation, filtering, themes, modals, and form UI work across keyboard, touch, and mouse with reduced-motion-aware behavior and no known serious accessibility regressions.
 
 ---
 
