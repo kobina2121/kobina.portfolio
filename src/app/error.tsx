@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
-import { AlertTriangle, RefreshCcw } from "lucide-react";
+import { RefreshCcw } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { EmptyState } from "@/components/layout/empty-state";
 import { SiteNavbar } from "@/components/site-navbar";
