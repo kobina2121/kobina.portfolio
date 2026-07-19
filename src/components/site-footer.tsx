@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, Phone } from "lucide-react";
+import { Mail } from "lucide-react";
 import { siteNavItems } from "@/lib/portfolio-content";
 
 const mediaLinks = [
@@ -54,13 +54,6 @@ export function SiteFooter() {
               ))}
             </div>
             <div className="mt-5 space-y-2 text-xs text-zinc-600 dark:text-zinc-400">
-              <Link
-                href="tel:+233000000000"
-                className="flex items-center gap-2 hover:text-zinc-950 dark:hover:text-white"
-              >
-                <Phone className="size-3.5" aria-hidden="true" />
-                +233 000 000 000
-              </Link>
               <Link
                 href="mailto:kobinaboakye@gmail.com"
                 className="flex items-center gap-2 hover:text-zinc-950 dark:hover:text-white"

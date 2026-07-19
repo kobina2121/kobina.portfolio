@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Mail, Phone, Send } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Mail, Send } from "lucide-react";
 import { SiteNavbar } from "@/components/site-navbar";
 import {
   aboutHighlights,
@@ -625,13 +625,6 @@ export default function Home() {
             </form>
 
             <div className="mt-5 space-y-3 border-t border-zinc-950/15 pt-5 text-xs text-zinc-700 dark:border-white/20 dark:text-zinc-400">
-              <Link
-                href="tel:+233000000000"
-                className="flex items-center gap-3 hover:text-zinc-950 dark:hover:text-white"
-              >
-                <Phone className="size-4" aria-hidden="true" />
-                +233 000 000 000
-              </Link>
               <Link
                 href="mailto:kobinaboakye@gmail.com"
                 className="flex items-center gap-3 hover:text-zinc-950 dark:hover:text-white"
