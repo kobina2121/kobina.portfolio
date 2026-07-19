@@ -67,7 +67,11 @@ function CornerFrame({ className = "" }: { className?: string }) {
 
 export default function Home() {
   return (
-    <main className="homepage-font bg-background text-foreground min-h-screen overflow-hidden">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="homepage-font bg-background text-foreground min-h-screen overflow-hidden"
+    >
       <div className="pointer-events-none fixed inset-y-0 left-4 hidden w-px bg-zinc-950/20 md:block dark:bg-white/30" />
       <div className="pointer-events-none fixed top-0 right-[5%] hidden h-28 w-px bg-zinc-950/10 lg:block dark:bg-white/20" />
       <DotGrid className="fixed bottom-48 left-0 hidden md:grid" />

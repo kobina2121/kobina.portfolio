@@ -75,6 +75,12 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col">
         <ThemeProvider>
           <TooltipProvider>
+            <a
+              href="#main-content"
+              className="focus-visible:bg-background focus-visible:text-foreground fixed top-3 left-3 z-[100] -translate-y-16 rounded-full border border-border px-4 py-2 text-sm font-semibold shadow-lg transition focus-visible:translate-y-0"
+            >
+              Skip to content
+            </a>
             {children}
             <Toaster richColors closeButton position="top-center" />
           </TooltipProvider>

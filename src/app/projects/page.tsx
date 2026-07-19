@@ -12,7 +12,11 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <main className="homepage-font bg-background text-foreground min-h-screen">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="homepage-font bg-background text-foreground min-h-screen"
+    >
       <SiteNavbar active="projects" />
 
       <section className="mx-auto w-full max-w-6xl px-5 pt-32 pb-20 sm:px-8 lg:px-10">

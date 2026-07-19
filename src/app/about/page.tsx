@@ -19,7 +19,11 @@ const stats = [
 
 export default function AboutPage() {
   return (
-    <main className="homepage-font bg-background text-foreground min-h-screen overflow-hidden">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="homepage-font bg-background text-foreground min-h-screen overflow-hidden"
+    >
       <SiteNavbar active="about" />
 
       <section className="relative mx-auto grid w-full max-w-6xl gap-12 px-5 pt-32 pb-20 sm:px-8 md:grid-cols-[0.95fr_1.05fr] md:items-center lg:px-10">

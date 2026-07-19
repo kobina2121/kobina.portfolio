@@ -42,7 +42,11 @@ export default function DesignSystemPage() {
   }
 
   return (
-    <main className="homepage-font bg-background text-foreground min-h-screen">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="homepage-font bg-background text-foreground min-h-screen"
+    >
       <SiteNavbar active="home" />
       <Container className="pt-32 pb-20">
         <Section spacing="sm">
