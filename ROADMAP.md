@@ -245,14 +245,16 @@ types/
 
 **Outcome:** projects are easy to find and filter, and filter state is shareable.
 
-- [ ] Add project search over title, summary, technologies, and tags.
-- [ ] Add category filters.
-- [ ] Add optional technology filters if the project count justifies them.
-- [ ] Store filters in URL search parameters.
-- [ ] Show result count and clear-all control.
-- [ ] Add a useful no-results state.
-- [ ] Add accessible modal previews while preserving normal project links.
-- [ ] Confirm Back/Forward navigation behaves predictably.
+- [x] Add project search over title, summary, technologies, and tags.
+- [x] Add category filters.
+- [x] Add optional technology filters if the project count justifies them.
+- [x] Store filters in URL search parameters.
+- [x] Show result count and clear-all control.
+- [x] Add a useful no-results state.
+- [x] Add accessible modal previews while preserving normal project links.
+- [x] Confirm Back/Forward navigation behaves predictably.
+
+**Gate 8: Passed on 2026-07-19.** Project search, category filters, technology filters, URL-backed filter state, result counts, clear-all control, no-results state, and accessible preview dialogs are in place while preserving full case-study links; formatting, linting, type-checking, unit tests, and production build passed.
 
 ## Phase 9 — Contact form experience
 
