@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Montserrat, MonteCarlo } from "next/font/google";
+import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
+import { getWebsiteJsonLd } from "@/lib/structured-data";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -105,6 +107,7 @@ export default function RootLayout({
             >
               Skip to content
             </a>
+            <JsonLd id="website-json-ld" data={getWebsiteJsonLd()} />
             {children}
             <SiteFooter />
             <Toaster richColors closeButton position="top-center" />

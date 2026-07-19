@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight, Lock } from "lucide-react";
+import { JsonLd } from "@/components/json-ld";
 import { Container } from "@/components/layout/container";
 import { ProjectCard } from "@/components/projects/project-card";
 import { SiteNavbar } from "@/components/site-navbar";
@@ -13,6 +14,7 @@ import {
   getRelatedProjects,
   type ProjectLink,
 } from "@/lib/portfolio-content";
+import { getProjectJsonLd } from "@/lib/structured-data";
 
 type ProjectPageProps = {
   params: Promise<{ slug: string }>;
@@ -111,6 +113,7 @@ export default async function ProjectCaseStudyPage({
       className="homepage-font bg-background text-foreground min-h-screen"
     >
       <SiteNavbar active="projects" />
+      <JsonLd id="project-json-ld" data={getProjectJsonLd(project)} />
 
       <Container className="pt-32 pb-20">
         <Link
