@@ -19,8 +19,8 @@ export function ProjectCard({
     <article
       className={
         isCompact
-          ? "group border border-zinc-950/20 bg-white/70 transition-colors hover:border-[#d76bff] dark:border-white/35 dark:bg-black"
-          : "group overflow-hidden rounded-[1.75rem] border border-zinc-950/10 bg-white/70 transition hover:border-[#d76bff]/70 hover:bg-white dark:border-white/12 dark:bg-white/[0.035] dark:hover:bg-white/[0.055]"
+          ? "group border border-zinc-950/20 bg-white/70 transition-colors hover:border-[#d76bff] motion-safe:transition-transform motion-safe:duration-300 motion-safe:focus-within:-translate-y-1 motion-safe:hover:-translate-y-1 dark:border-white/35 dark:bg-black"
+          : "group overflow-hidden rounded-[1.75rem] border border-zinc-950/10 bg-white/70 transition hover:border-[#d76bff]/70 hover:bg-white motion-safe:transition-transform motion-safe:duration-300 motion-safe:focus-within:-translate-y-1 motion-safe:hover:-translate-y-1 dark:border-white/12 dark:bg-white/[0.035] dark:hover:bg-white/[0.055]"
       }
     >
       <Link

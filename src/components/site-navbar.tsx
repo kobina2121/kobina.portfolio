@@ -1,5 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 import { NavbarStatusPill } from "@/components/navbar-status-pill";
 import {
   Sheet,
@@ -10,12 +14,75 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { siteNavItems, type SiteNavKey } from "@/lib/portfolio-content";
+import { cn } from "@/lib/utils";
 
 type SiteNavbarProps = {
   active: SiteNavKey;
 };
 
+const sectionToNavKey: Record<string, SiteNavKey> = {
+  home: "home",
+  "about-me": "about",
+  projects: "projects",
+  skills: "skills",
+};
+
+function getRouteActiveKey(pathname: string, fallback: SiteNavKey): SiteNavKey {
+  if (pathname.startsWith("/about")) return "about";
+  if (pathname.startsWith("/projects")) return "projects";
+  if (pathname.startsWith("/skills")) return "skills";
+  return fallback;
+}
+
 export function SiteNavbar({ active }: SiteNavbarProps) {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<SiteNavKey>("home");
+  const routeActiveKey = getRouteActiveKey(pathname, active);
+  const isHomeRoute = pathname === "/";
+
+  useEffect(() => {
+    if (!isHomeRoute) {
+      return;
+    }
+
+    const sections = Object.keys(sectionToNavKey)
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    if (sections.length === 0) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleEntry = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort(
+            (first, second) =>
+              second.intersectionRatio - first.intersectionRatio,
+          )[0];
+
+        if (visibleEntry?.target.id) {
+          setActiveSection(sectionToNavKey[visibleEntry.target.id]);
+        }
+      },
+      {
+        rootMargin: "-35% 0px -50% 0px",
+        threshold: [0.15, 0.3, 0.55],
+      },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, [isHomeRoute]);
+
+  const displayActiveKey = useMemo(
+    () => (isHomeRoute ? activeSection : routeActiveKey),
+    [activeSection, isHomeRoute, routeActiveKey],
+  );
+
   return (
     <header className="fixed top-2 left-1/2 z-50 w-[min(calc(100%-1.5rem),76rem)] -translate-x-1/2 rounded-2xl border border-zinc-950/10 bg-white/90 px-4 py-2.5 shadow-[0_10px_32px_rgba(0,0,0,0.12)] backdrop-blur-md sm:px-5 dark:border-white/15 dark:bg-black/90 dark:shadow-[0_10px_32px_rgba(0,0,0,0.55)]">
       <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
@@ -38,9 +105,11 @@ export function SiteNavbar({ active }: SiteNavbarProps) {
               <li key={item.key}>
                 <Link
                   href={item.href}
-                  aria-current={item.key === active ? "page" : undefined}
+                  aria-current={
+                    item.key === displayActiveKey ? "page" : undefined
+                  }
                   className={
-                    item.key === active
+                    item.key === displayActiveKey
                       ? "inline-flex rounded-full bg-zinc-950 px-4 py-2 text-white shadow-sm dark:bg-white dark:text-zinc-950"
                       : "inline-flex rounded-full px-4 py-2 hover:bg-zinc-950/10 hover:text-zinc-950 dark:hover:bg-white/10 dark:hover:text-white"
                   }
@@ -52,7 +121,7 @@ export function SiteNavbar({ active }: SiteNavbarProps) {
           </ul>
         </nav>
 
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <button
               type="button"
@@ -86,13 +155,15 @@ export function SiteNavbar({ active }: SiteNavbarProps) {
                         <Link
                           href={item.href}
                           aria-current={
-                            item.key === active ? "page" : undefined
+                            item.key === displayActiveKey ? "page" : undefined
                           }
-                          className={
-                            item.key === active
-                              ? "bg-foreground text-background flex rounded-2xl px-4 py-3 text-sm font-semibold"
-                              : "text-muted-foreground hover:bg-muted hover:text-foreground flex rounded-2xl px-4 py-3 text-sm font-semibold"
-                          }
+                          onClick={() => setOpen(false)}
+                          className={cn(
+                            "flex rounded-2xl px-4 py-3 text-sm font-semibold",
+                            item.key === displayActiveKey
+                              ? "bg-foreground text-background"
+                              : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                          )}
                         >
                           {item.label}
                         </Link>
