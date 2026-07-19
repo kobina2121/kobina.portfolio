@@ -11,6 +11,7 @@ import {
   FaHtml5,
   FaJava,
   FaJs,
+  FaLinkedinIn,
   FaNodeJs,
   FaReact,
 } from "react-icons/fa6";
@@ -28,6 +29,24 @@ const skillIconMap = {
   firebase: SiFirebase,
   java: FaJava,
 };
+
+const heroSocialLinks = [
+  {
+    label: "GitHub",
+    href: "https://github.com/kobina2121",
+    icon: FaGithub,
+  },
+  {
+    label: "LinkedIn",
+    href: "#contact-me",
+    icon: FaLinkedinIn,
+  },
+  {
+    label: "Email",
+    href: "mailto:kobinaboakye@gmail.com",
+    icon: Mail,
+  },
+] as const;
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -83,18 +102,37 @@ export default function Home() {
           className="relative grid min-h-[460px] scroll-mt-24 items-center gap-10 py-16 md:grid-cols-[1.05fr_0.95fr] md:py-20"
           aria-labelledby="home-heading"
         >
-          <aside className="absolute top-28 -left-16 hidden flex-col items-center gap-5 text-zinc-500 md:flex dark:text-zinc-400">
-            <FaGithub className="size-4" aria-hidden="true" />
-            <Mail className="size-4" aria-hidden="true" />
+          <aside
+            className="absolute top-28 -left-16 hidden flex-col items-center gap-5 text-zinc-500 md:flex dark:text-zinc-400"
+            aria-label="Social links"
+          >
+            {heroSocialLinks.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="hover:text-[#d76bff]"
+                  aria-label={item.label}
+                >
+                  <Icon className="size-4" aria-hidden="true" />
+                </Link>
+              );
+            })}
             <span className="h-12 w-px bg-zinc-950/25 dark:bg-white/35" />
           </aside>
 
           <div>
+            <p className="mb-5 inline-flex items-center gap-2 border border-zinc-950/20 bg-white/70 px-3 py-2 text-[0.68rem] font-semibold tracking-wide text-zinc-700 uppercase dark:border-white/20 dark:bg-black/70 dark:text-zinc-300">
+              <span className="size-2 bg-emerald-400" aria-hidden="true" />
+              Available for selected builds
+            </p>
             <h1
               id="home-heading"
               className="max-w-xl text-3xl leading-tight font-bold tracking-tight text-zinc-950 sm:text-4xl dark:text-white"
             >
-              Hi, I&apos;m a{" "}
+              Hi, I&apos;m Kobina — a{" "}
               <span className="bg-gradient-to-r from-[#d76bff] to-[#ff79c6] bg-clip-text text-transparent">
                 web designer
               </span>{" "}
@@ -104,15 +142,41 @@ export default function Home() {
               </span>
             </h1>
             <p className="mt-5 max-w-lg text-sm leading-6 text-zinc-700 dark:text-zinc-500">
-              I craft responsive websites where technologies meet creativity.
+              I craft responsive websites and product interfaces where clean
+              engineering meets visual taste.
             </p>
-            <Link
-              href="#projects"
-              className="mt-6 inline-flex items-center gap-2 border border-zinc-950/45 px-4 py-2 text-xs font-semibold text-zinc-950 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/45 dark:text-white"
-            >
-              Scroll Down
-              <ArrowDown className="size-3" aria-hidden="true" />
-            </Link>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Link
+                href="#projects"
+                className="inline-flex items-center gap-2 bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-[#d76bff] dark:bg-white dark:text-zinc-950"
+              >
+                View projects
+                <ArrowDown className="size-3" aria-hidden="true" />
+              </Link>
+              <Link
+                href="#contact-me"
+                className="inline-flex items-center gap-2 border border-zinc-950/45 px-4 py-2 text-xs font-semibold text-zinc-950 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/45 dark:text-white"
+              >
+                Contact me
+                <ArrowUpRight className="size-3" aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3 md:hidden">
+              {heroSocialLinks.map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="inline-flex size-9 items-center justify-center border border-zinc-950/20 text-zinc-700 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/25 dark:text-zinc-300"
+                    aria-label={item.label}
+                  >
+                    <Icon className="size-4" aria-hidden="true" />
+                  </Link>
+                );
+              })}
+            </div>
           </div>
 
           <div className="relative mx-auto min-h-72 w-full max-w-md">
