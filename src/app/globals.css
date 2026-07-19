@@ -9,6 +9,12 @@
   --foreground: oklch(0.16 0.01 260);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
+  --surface: oklch(1 0 0 / 72%);
+  --surface-muted: oklch(0.94 0.01 90 / 78%);
+  --surface-strong: oklch(1 0 0);
+  --muted-copy: oklch(0.36 0.02 260);
+  --accent-brand: oklch(0.68 0.22 327);
+  --accent-brand-foreground: oklch(0.99 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);
@@ -30,6 +36,12 @@
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
+  --surface: oklch(1 0 0 / 4%);
+  --surface-muted: oklch(1 0 0 / 7%);
+  --surface-strong: oklch(0.13 0 0);
+  --muted-copy: oklch(0.72 0 0);
+  --accent-brand: oklch(0.68 0.22 327);
+  --accent-brand-foreground: oklch(0.99 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
@@ -53,6 +65,12 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-strong: var(--surface-strong);
+  --color-muted-copy: var(--muted-copy);
+  --color-accent-brand: var(--accent-brand);
+  --color-accent-brand-foreground: var(--accent-brand-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
@@ -71,6 +89,10 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --shadow-soft: 0 18px 70px oklch(0 0 0 / 12%);
+  --shadow-panel: 0 24px 100px oklch(0 0 0 / 18%);
+  --spacing-page-gutter: clamp(1.25rem, 3vw, 2.5rem);
+  --spacing-section: clamp(4rem, 8vw, 7rem);
 }
 
 @layer base {
@@ -88,6 +110,25 @@
     text-rendering: optimizeLegibility;
   }
 
+  ::-webkit-scrollbar {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--background);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklch, var(--foreground) 20%, transparent);
+    border: 3px solid var(--background);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklch, var(--accent-brand) 65%, transparent);
+  }
+
   ::selection {
     background: oklch(0.58 0.23 265 / 45%);
     color: white;
@@ -102,6 +143,12 @@
   button:focus-visible {
     @apply outline-ring outline-2;
   }
+
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    @apply outline-ring outline-2 outline-offset-2;
+  }
 }
 
 .signature-logo {
@@ -115,6 +162,22 @@
   font-family:
     var(--font-montserrat), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.text-fluid-xl {
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 0.95;
+}
+
+.text-fluid-2xl {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 0.92;
+}
+
+.design-panel {
+  border: 1px solid color-mix(in oklch, var(--foreground) 12%, transparent);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
 }
 
 @media (prefers-reduced-motion: reduce) {

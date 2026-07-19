@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Montserrat, MonteCarlo } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -38,7 +40,12 @@ export default function RootLayout({
       className={`${montserrat.variable} ${geistMono.variable} ${monteCarlo.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <TooltipProvider>
+            {children}
+            <Toaster richColors closeButton position="top-center" />
+          </TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

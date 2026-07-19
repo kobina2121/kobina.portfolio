@@ -135,17 +135,17 @@ types/
 
 **Outcome:** every page can be built from a consistent visual foundation.
 
-- [ ] Define semantic CSS color variables for light and dark modes.
-- [ ] Define container widths, gutters, spacing, radius, shadows, and elevation.
-- [ ] Define responsive heading, body, label, and code typography.
-- [ ] Load and subset fonts with `next/font`.
-- [ ] Configure focus-ring, selection, scrollbar, and link styles.
-- [ ] Add base Shadcn primitives: Button, Card, Badge, Sheet, Dialog, Input, Textarea, Field, Tooltip, Skeleton, Separator, and Toast/Sonner.
-- [ ] Build reusable `Container`, `Section`, `SectionHeading`, `Prose`, `IconLink`, and `EmptyState` components.
-- [ ] Verify color contrast in both themes.
-- [ ] Create a development-only style/component reference page if useful.
+- [x] Define semantic CSS color variables for light and dark modes.
+- [x] Define container widths, gutters, spacing, radius, shadows, and elevation.
+- [x] Define responsive heading, body, label, and code typography.
+- [x] Load and subset fonts with `next/font`.
+- [x] Configure focus-ring, selection, scrollbar, and link styles.
+- [x] Add base Shadcn primitives: Button, Card, Badge, Sheet, Dialog, Input, Textarea, Field, Tooltip, Skeleton, Separator, and Toast/Sonner.
+- [x] Build reusable `Container`, `Section`, `SectionHeading`, `Prose`, `IconLink`, and `EmptyState` components.
+- [x] Verify color contrast in both themes.
+- [x] Create a development-only style/component reference page if useful.
 
-**Gate 2:** Core components are consistent at mobile, tablet, and desktop sizes; light/dark contrast passes WCAG AA.
+**Gate 2: Passed on 2026-07-19.** Core tokens, Shadcn primitives, layout/content components, tooltip/toast providers, and the development-only design-system reference page are in place; formatting, linting, type-checking, tests, and production build passed.
 
 ## Phase 3 — Global application shell
 
