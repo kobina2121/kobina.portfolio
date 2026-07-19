@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Mail, Phone } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Mail, Phone, Send } from "lucide-react";
 import { SiteNavbar } from "@/components/site-navbar";
 import {
   certificationItems,
@@ -521,11 +521,87 @@ export default function Home() {
               have another request or question, don&apos;t hesitate to contact
               me.
             </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="mailto:kobinaboakye@gmail.com"
+                className="inline-flex items-center gap-2 bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-[#d76bff] dark:bg-white dark:text-zinc-950"
+              >
+                Email me
+                <Mail className="size-3.5" aria-hidden="true" />
+              </Link>
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 border border-zinc-950/25 px-4 py-2 text-xs font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/35"
+              >
+                See work
+                <ArrowUpRight className="size-3.5" aria-hidden="true" />
+              </Link>
+            </div>
           </div>
 
-          <div className="border border-zinc-950/20 p-4 dark:border-white/35">
-            <h3 className="mb-4 text-sm font-bold">Message me here</h3>
-            <div className="space-y-3 text-xs text-zinc-700 dark:text-zinc-400">
+          <div className="border border-zinc-950/20 bg-white/75 p-4 dark:border-white/35 dark:bg-black/80">
+            <h3 className="mb-5 text-sm font-bold">Message me here</h3>
+            <form
+              action="mailto:kobinaboakye@gmail.com"
+              method="post"
+              encType="text/plain"
+              className="space-y-3"
+            >
+              <div>
+                <label
+                  htmlFor="contact-name"
+                  className="mb-2 block text-xs font-semibold text-zinc-700 dark:text-zinc-300"
+                >
+                  Your name
+                </label>
+                <input
+                  id="contact-name"
+                  name="name"
+                  type="text"
+                  className="w-full border border-zinc-950/20 bg-white px-3 py-2 text-xs text-zinc-950 outline-none focus-visible:border-[#d76bff] dark:border-white/20 dark:bg-black dark:text-white"
+                  placeholder="Your full name"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="contact-email"
+                  className="mb-2 block text-xs font-semibold text-zinc-700 dark:text-zinc-300"
+                >
+                  Email address
+                </label>
+                <input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  className="w-full border border-zinc-950/20 bg-white px-3 py-2 text-xs text-zinc-950 outline-none focus-visible:border-[#d76bff] dark:border-white/20 dark:bg-black dark:text-white"
+                  placeholder="you@example.com"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="contact-message"
+                  className="mb-2 block text-xs font-semibold text-zinc-700 dark:text-zinc-300"
+                >
+                  Project details
+                </label>
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  rows={5}
+                  className="w-full resize-none border border-zinc-950/20 bg-white px-3 py-2 text-xs text-zinc-950 outline-none focus-visible:border-[#d76bff] dark:border-white/20 dark:bg-black dark:text-white"
+                  placeholder="Tell me what you want to build..."
+                />
+              </div>
+              <button
+                type="submit"
+                className="inline-flex w-full items-center justify-center gap-2 bg-zinc-950 px-4 py-3 text-xs font-semibold text-white hover:bg-[#d76bff] dark:bg-white dark:text-zinc-950"
+              >
+                Send message
+                <Send className="size-3.5" aria-hidden="true" />
+              </button>
+            </form>
+
+            <div className="mt-5 space-y-3 border-t border-zinc-950/15 pt-5 text-xs text-zinc-700 dark:border-white/20 dark:text-zinc-400">
               <Link
                 href="tel:+233000000000"
                 className="flex items-center gap-3 hover:text-zinc-950 dark:hover:text-white"
