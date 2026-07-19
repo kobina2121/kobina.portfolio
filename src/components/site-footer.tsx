@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail } from "lucide-react";
+import { ArrowUpRight, Mail } from "lucide-react";
+import { CopyEmailButton } from "@/components/copy-email-button";
+import { DownloadCvLink } from "@/components/download-cv-link";
+import { getExternalLinkAttributes, isExternalHref } from "@/lib/links";
 import { siteNavItems } from "@/lib/portfolio-content";
 
 const mediaLinks = [
@@ -22,6 +25,10 @@ export function SiteFooter() {
               Full stack developer crafting polished, accessible digital
               experiences from Accra, Ghana.
             </p>
+            <div className="mt-5 flex flex-wrap gap-3">
+              <DownloadCvLink source="footer" />
+              <CopyEmailButton source="footer" />
+            </div>
           </div>
 
           <nav aria-label="Footer navigation">
@@ -47,16 +54,27 @@ export function SiteFooter() {
                 <Link
                   key={item.label}
                   href={item.href}
+                  {...getExternalLinkAttributes(item.href)}
                   className="text-xs text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white"
+                  aria-label={
+                    isExternalHref(item.href)
+                      ? `${item.label} (opens in a new tab)`
+                      : item.label
+                  }
                 >
-                  {item.label}
+                  <span className="inline-flex items-center gap-1.5">
+                    {item.label}
+                    {isExternalHref(item.href) ? (
+                      <ArrowUpRight className="size-3" aria-hidden="true" />
+                    ) : null}
+                  </span>
                 </Link>
               ))}
             </div>
             <div className="mt-5 space-y-2 text-xs text-zinc-600 dark:text-zinc-400">
               <Link
                 href="mailto:kobinaboakye@gmail.com"
-                className="flex items-center gap-2 hover:text-zinc-950 dark:hover:text-white"
+                className="flex min-h-11 items-center gap-2 hover:text-zinc-950 dark:hover:text-white"
               >
                 <Mail className="size-3.5" aria-hidden="true" />
                 kobinaboakye@gmail.com

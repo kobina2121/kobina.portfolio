@@ -1,10 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
+import { CopyEmailButton } from "@/components/copy-email-button";
+import { DownloadCvLink } from "@/components/download-cv-link";
 import { ContactForm } from "@/components/forms/contact-form";
 import { Reveal } from "@/components/motion/reveal";
 import { SiteNavbar } from "@/components/site-navbar";
 import { ProjectCard } from "@/components/projects/project-card";
+import { getExternalLinkAttributes, isExternalHref } from "@/lib/links";
 import {
   aboutHighlights,
   certificationItems,
@@ -122,15 +125,27 @@ export default function Home() {
           >
             {heroSocialLinks.map((item) => {
               const Icon = item.icon;
+              const isExternal = isExternalHref(item.href);
 
               return (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="hover:text-[#d76bff]"
-                  aria-label={item.label}
+                  className="relative inline-flex size-11 items-center justify-center hover:text-[#d76bff]"
+                  {...getExternalLinkAttributes(item.href)}
+                  aria-label={
+                    isExternal
+                      ? `${item.label} (opens in a new tab)`
+                      : `${item.label} contact link`
+                  }
                 >
                   <Icon className="size-4" aria-hidden="true" />
+                  {isExternal ? (
+                    <ArrowUpRight
+                      className="absolute top-2 right-2 size-2.5"
+                      aria-hidden="true"
+                    />
+                  ) : null}
                 </Link>
               );
             })}
@@ -162,31 +177,47 @@ export default function Home() {
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <Link
                 href="#projects"
-                className="inline-flex items-center gap-2 bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-[#d76bff] dark:bg-white dark:text-zinc-950"
+                className="inline-flex min-h-11 items-center gap-2 bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-[#d76bff] dark:bg-white dark:text-zinc-950"
               >
                 View projects
                 <ArrowDown className="size-3" aria-hidden="true" />
               </Link>
               <Link
                 href="#contact-me"
-                className="inline-flex items-center gap-2 border border-zinc-950/45 px-4 py-2 text-xs font-semibold text-zinc-950 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/45 dark:text-white"
+                className="inline-flex min-h-11 items-center gap-2 border border-zinc-950/45 px-4 py-2 text-xs font-semibold text-zinc-950 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/45 dark:text-white"
               >
                 Contact me
                 <ArrowUpRight className="size-3" aria-hidden="true" />
               </Link>
+              <DownloadCvLink
+                source="hero"
+                className="border-zinc-950/45 dark:border-white/45"
+              />
             </div>
             <div className="mt-6 flex flex-wrap gap-3 md:hidden">
               {heroSocialLinks.map((item) => {
                 const Icon = item.icon;
+                const isExternal = isExternalHref(item.href);
 
                 return (
                   <Link
                     key={item.label}
                     href={item.href}
-                    className="inline-flex size-9 items-center justify-center border border-zinc-950/20 text-zinc-700 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/25 dark:text-zinc-300"
-                    aria-label={item.label}
+                    className="relative inline-flex size-11 items-center justify-center border border-zinc-950/20 text-zinc-700 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/25 dark:text-zinc-300"
+                    {...getExternalLinkAttributes(item.href)}
+                    aria-label={
+                      isExternal
+                        ? `${item.label} (opens in a new tab)`
+                        : `${item.label} contact link`
+                    }
                   >
                     <Icon className="size-4" aria-hidden="true" />
+                    {isExternal ? (
+                      <ArrowUpRight
+                        className="absolute top-1 right-1 size-2.5"
+                        aria-hidden="true"
+                      />
+                    ) : null}
                   </Link>
                 );
               })}
@@ -327,12 +358,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <Link
-                href="#contact-me"
-                className="mt-6 inline-flex border border-zinc-950/25 px-4 py-2 text-xs font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/35"
-              >
-                Resume
-              </Link>
+              <DownloadCvLink source="about-section" className="mt-6" />
             </div>
 
             <div className="relative mx-auto w-full max-w-xs">
@@ -532,14 +558,15 @@ export default function Home() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href="mailto:kobinaboakye@gmail.com"
-                  className="inline-flex items-center gap-2 bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-[#d76bff] dark:bg-white dark:text-zinc-950"
+                  className="inline-flex min-h-11 items-center gap-2 bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-[#d76bff] dark:bg-white dark:text-zinc-950"
                 >
                   Email me
                   <Mail className="size-3.5" aria-hidden="true" />
                 </Link>
+                <CopyEmailButton source="homepage-contact" />
                 <Link
                   href="/projects"
-                  className="inline-flex items-center gap-2 border border-zinc-950/25 px-4 py-2 text-xs font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/35"
+                  className="inline-flex min-h-11 items-center gap-2 border border-zinc-950/25 px-4 py-2 text-xs font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/35"
                 >
                   See work
                   <ArrowUpRight className="size-3.5" aria-hidden="true" />

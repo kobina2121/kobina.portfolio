@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Montserrat, MonteCarlo } from "next/font/google";
+import { BackToTopButton } from "@/components/back-to-top-button";
 import { JsonLd } from "@/components/json-ld";
 import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -110,6 +111,7 @@ export default function RootLayout({
             <JsonLd id="website-json-ld" data={getWebsiteJsonLd()} />
             {children}
             <SiteFooter />
+            <BackToTopButton />
             <Toaster richColors closeButton position="top-center" />
           </TooltipProvider>
         </ThemeProvider>

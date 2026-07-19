@@ -82,7 +82,7 @@ export function ProjectCard({
           </span>
           <Link
             href={`/projects/${project.slug}`}
-            className="inline-flex items-center gap-2 rounded-full border border-zinc-950/15 px-3 py-2 text-xs text-zinc-950 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15 dark:text-white"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-zinc-950/15 px-4 py-2 text-xs text-zinc-950 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15 dark:text-white"
           >
             Case study
             <ArrowUpRight className="size-3" aria-hidden="true" />

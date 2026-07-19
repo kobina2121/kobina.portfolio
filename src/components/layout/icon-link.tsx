@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { getExternalLinkAttributes } from "@/lib/links";
 import { cn } from "@/lib/utils";
 
 type IconLinkProps = React.ComponentProps<typeof Link> & {
@@ -18,8 +19,7 @@ export function IconLink({
         "border-border bg-surface text-foreground hover:border-accent-brand hover:text-accent-brand focus-visible:ring-ring focus-visible:ring-offset-background inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition focus-visible:ring-2 focus-visible:ring-offset-2",
         className,
       )}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noreferrer" : undefined}
+      {...(external ? getExternalLinkAttributes(String(props.href)) : {})}
       {...props}
     >
       {children}

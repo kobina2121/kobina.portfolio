@@ -133,7 +133,7 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
           </div>
 
           {hasActiveFilters ? (
-            <Button variant="outline" onClick={clearFilters}>
+            <Button variant="outline" className="h-11" onClick={clearFilters}>
               <X className="size-4" aria-hidden="true" />
               Clear all
             </Button>
@@ -152,7 +152,7 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
                   type="button"
                   onClick={() => setFilter("category", category)}
                   className={cn(
-                    "rounded-full border px-3 py-2 text-xs font-semibold transition",
+                    "min-h-11 rounded-full border px-3 py-2 text-xs font-semibold transition",
                     selectedCategory === category
                       ? "border-[#d76bff] bg-[#d76bff] text-white"
                       : "border-zinc-950/10 text-zinc-700 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15 dark:text-zinc-400",
@@ -175,7 +175,7 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
                   type="button"
                   onClick={() => setFilter("tech", tech)}
                   className={cn(
-                    "rounded-full border px-3 py-2 text-xs font-semibold transition",
+                    "min-h-11 rounded-full border px-3 py-2 text-xs font-semibold transition",
                     selectedTech === tech
                       ? "border-[#d76bff] bg-[#d76bff] text-white"
                       : "border-zinc-950/10 text-zinc-700 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15 dark:text-zinc-400",
@@ -204,7 +204,7 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full"
+                className="h-11 w-full"
                 onClick={() => setPreviewProject(project)}
               >
                 Preview {project.title}

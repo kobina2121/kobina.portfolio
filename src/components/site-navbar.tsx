@@ -125,7 +125,7 @@ export function SiteNavbar({ active }: SiteNavbarProps) {
           <SheetTrigger asChild>
             <button
               type="button"
-              className="absolute top-1/2 right-3 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-950/10 text-zinc-950 shadow-sm ring-1 ring-zinc-950/10 md:hidden dark:bg-white/10 dark:text-white dark:ring-white/10"
+              className="absolute top-1/2 right-3 inline-flex size-11 -translate-y-1/2 items-center justify-center rounded-full bg-zinc-950/10 text-zinc-950 shadow-sm ring-1 ring-zinc-950/10 md:hidden dark:bg-white/10 dark:text-white dark:ring-white/10"
               aria-label="Open menu"
             >
               <Menu className="size-4" aria-hidden="true" />

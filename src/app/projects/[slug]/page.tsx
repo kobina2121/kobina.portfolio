@@ -6,6 +6,7 @@ import { JsonLd } from "@/components/json-ld";
 import { Container } from "@/components/layout/container";
 import { ProjectCard } from "@/components/projects/project-card";
 import { SiteNavbar } from "@/components/site-navbar";
+import { getExternalLinkAttributes, isExternalHref } from "@/lib/links";
 import { absoluteUrl } from "@/lib/site-url";
 import {
   getAdjacentProjects,
@@ -82,10 +83,16 @@ function ProjectActionLink({ link }: { link: ProjectLink }) {
     );
   }
 
+  const isExternal = isExternalHref(link.href);
+
   return (
     <Link
       href={link.href}
-      className="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-950/15 px-5 py-3 text-sm font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15"
+      {...getExternalLinkAttributes(link.href)}
+      aria-label={
+        isExternal ? `${link.label} (opens in a new tab)` : link.label
+      }
+      className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-zinc-950/15 px-5 py-3 text-sm font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15"
     >
       {link.label}
       <ArrowUpRight className="size-4" aria-hidden="true" />

@@ -180,7 +180,7 @@ export function ContactForm() {
               aria-invalid={Boolean(errors.name)}
               aria-describedby={getDescriptionIds("name", Boolean(errors.name))}
               placeholder="Your full name"
-              className="rounded-none border-zinc-950/20 bg-white text-xs text-zinc-950 dark:border-white/20 dark:bg-black dark:text-white"
+              className="h-11 rounded-none border-zinc-950/20 bg-white text-xs text-zinc-950 dark:border-white/20 dark:bg-black dark:text-white"
               onBlur={() => validateField("name")}
               onChange={(event) => updateField("name", event.target.value)}
             />
@@ -221,7 +221,7 @@ export function ContactForm() {
                 Boolean(errors.email),
               )}
               placeholder="you@example.com"
-              className="rounded-none border-zinc-950/20 bg-white text-xs text-zinc-950 dark:border-white/20 dark:bg-black dark:text-white"
+              className="h-11 rounded-none border-zinc-950/20 bg-white text-xs text-zinc-950 dark:border-white/20 dark:bg-black dark:text-white"
               onBlur={() => validateField("email")}
               onChange={(event) => updateField("email", event.target.value)}
             />
@@ -260,7 +260,7 @@ export function ContactForm() {
                 "subject",
                 Boolean(errors.subject),
               )}
-              className="border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 h-9 w-full border border-zinc-950/20 bg-white px-3 py-1 text-xs text-zinc-950 shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] dark:border-white/20 dark:bg-black dark:text-white"
+              className="border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 h-11 w-full border border-zinc-950/20 bg-white px-3 py-1 text-xs text-zinc-950 shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] dark:border-white/20 dark:bg-black dark:text-white"
               onBlur={() => validateField("subject")}
               onChange={(event) =>
                 updateField(
@@ -309,7 +309,7 @@ export function ContactForm() {
                 "budget",
                 Boolean(errors.budget),
               )}
-              className="border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 h-9 w-full border border-zinc-950/20 bg-white px-3 py-1 text-xs text-zinc-950 shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] dark:border-white/20 dark:bg-black dark:text-white"
+              className="border-input focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 h-11 w-full border border-zinc-950/20 bg-white px-3 py-1 text-xs text-zinc-950 shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] dark:border-white/20 dark:bg-black dark:text-white"
               onBlur={() => validateField("budget")}
               onChange={(event) =>
                 updateField(
