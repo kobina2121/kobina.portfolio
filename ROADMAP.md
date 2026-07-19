@@ -187,19 +187,19 @@ types/
 
 **Outcome:** visitors can browse work and understand the impact of each project.
 
-- [ ] Create typed `Project` and media models.
-- [ ] Add project seed content with unique slugs.
-- [ ] Build `/projects` introduction and project grid.
-- [ ] Build reusable project card variants.
-- [ ] Build `/projects/[slug]` case-study template.
-- [ ] Cover context, role, problem, constraints, process, solution, outcome, and lessons.
-- [ ] Add responsive gallery with image captions.
-- [ ] Add technology, live-site, and source links.
-- [ ] Support confidential and unavailable-link states.
-- [ ] Add related projects and previous/next navigation.
-- [ ] Use `notFound()` for unknown slugs.
+- [x] Create typed `Project` and media models.
+- [x] Add project seed content with unique slugs.
+- [x] Build `/projects` introduction and project grid.
+- [x] Build reusable project card variants.
+- [x] Build `/projects/[slug]` case-study template.
+- [x] Cover context, role, problem, constraints, process, solution, outcome, and lessons.
+- [x] Add responsive gallery with image captions.
+- [x] Add technology, live-site, and source links.
+- [x] Support confidential and unavailable-link states.
+- [x] Add related projects and previous/next navigation.
+- [x] Use `notFound()` for unknown slugs.
 
-**Gate 5:** At least three complete case studies render correctly, have unique URLs, and clearly identify the owner’s contribution and results.
+**Gate 5: Passed on 2026-07-19.** Three seeded case studies render at unique URLs, identify context, owner contribution, process, solution, outcomes, lessons, link availability, and related navigation; formatting, linting, type-checking, unit tests, and the production build passed.
 
 ## Phase 6 — System states, metadata, and identity
 
