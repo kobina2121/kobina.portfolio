@@ -118,3 +118,103 @@ export const aboutHighlights = [
   "Designer-minded builder who cares about visual polish and interaction.",
   "Based in Accra, Ghana, building digital products with global taste.",
 ] as const;
+
+export const serviceItems = [
+  {
+    title: "Portfolio & brand websites",
+    description:
+      "Premium personal and business websites that make the first impression feel intentional.",
+    deliverables: ["Responsive UI", "SEO-ready pages", "Launch support"],
+  },
+  {
+    title: "Frontend implementation",
+    description:
+      "Clean React and Next.js interfaces built from design direction, wireframes, or rough ideas.",
+    deliverables: ["Component systems", "Accessible markup", "Performance pass"],
+  },
+  {
+    title: "Product interface polish",
+    description:
+      "Sharper dashboards, landing pages, and flows with stronger hierarchy and interaction details.",
+    deliverables: ["UI audit", "Design cleanup", "Interaction states"],
+  },
+] as const;
+
+export const experienceItems = [
+  {
+    role: "Frontend Developer",
+    company: "Looprompt",
+    period: "2026 — Present",
+    location: "Accra, Ghana",
+    highlights: [
+      "Building polished web experiences with Next.js, Tailwind CSS, and React.",
+      "Designing interfaces with a strong focus on clarity, accessibility, and conversion.",
+    ],
+  },
+  {
+    role: "Independent Web Designer",
+    company: "Freelance",
+    period: "2025 — Present",
+    location: "Remote",
+    highlights: [
+      "Creating portfolio, landing page, and product interface concepts for growing brands.",
+      "Translating visual references into responsive, production-minded implementations.",
+    ],
+  },
+] as const;
+
+export const educationItems = [
+  {
+    institution: "Self-directed learning",
+    qualification: "Frontend engineering, UI design, and product thinking",
+    period: "Ongoing",
+    detail:
+      "Focused learning through production builds, design references, and modern web tooling.",
+  },
+  {
+    institution: "Practical project work",
+    qualification: "React, Next.js, TypeScript, Tailwind CSS",
+    period: "2025 — Present",
+    detail:
+      "Hands-on projects covering responsive layouts, reusable components, and deployment workflows.",
+  },
+] as const;
+
+export const certificationItems = [
+  {
+    name: "Responsive Web Design",
+    provider: "Project-based certification path",
+    status: "In progress",
+  },
+  {
+    name: "Frontend Libraries",
+    provider: "Project-based certification path",
+    status: "Planned",
+  },
+  {
+    name: "Accessibility Foundations",
+    provider: "Portfolio quality standard",
+    status: "Ongoing",
+  },
+] as const;
+
+export const testimonialItems = [
+  {
+    quote:
+      "Kobina brings a calm eye for detail to interfaces. The work feels clean, modern, and easy to understand.",
+    name: "Creative Partner",
+    role: "Brand collaborator",
+  },
+  {
+    quote:
+      "He turns rough ideas into polished screens quickly, while still caring about usability and structure.",
+    name: "Product Lead",
+    role: "Early-stage product team",
+  },
+  {
+    quote:
+      "The final result had the exact mood we wanted: minimal, sharp, and professional without feeling generic.",
+    name: "Founder",
+    role: "Small business client",
+  },
+] as const;
