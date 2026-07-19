@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Layers3 } from "lucide-react";
 import { Container } from "@/components/layout/container";
+import { EmptyState } from "@/components/layout/empty-state";
 import { ProjectCard } from "@/components/projects/project-card";
 import { SiteNavbar } from "@/components/site-navbar";
 import { getAllProjects } from "@/lib/portfolio-content";
@@ -41,11 +42,18 @@ export default function ProjectsPage() {
           </p>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.slug} project={project} index={index} />
-          ))}
-        </div>
+        {projects.length > 0 ? (
+          <div className="grid gap-5 lg:grid-cols-3">
+            {projects.map((project, index) => (
+              <ProjectCard key={project.slug} project={project} index={index} />
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            title="No projects yet"
+            description="Project case studies will appear here once they are approved for publishing."
+          />
+        )}
       </Container>
     </main>
   );
