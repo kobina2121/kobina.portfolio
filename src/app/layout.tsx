@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { absoluteUrl, siteUrl } from "@/lib/site-url";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -24,6 +25,7 @@ const monteCarlo = MonteCarlo({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   applicationName: "Kobina Portfolio",
   title: {
     default: "Kobina — Front-End Developer",
@@ -42,19 +44,40 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Kobina Boakye" }],
   creator: "Kobina Boakye",
+  alternates: {
+    canonical: "/",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-icon", sizes: "180x180", type: "image/png" }],
+  },
+  manifest: "/manifest.webmanifest",
   openGraph: {
     title: "Kobina — Front-End Developer",
     description:
       "Explore Kobina's portfolio, selected projects, skills, and contact details.",
+    url: absoluteUrl("/"),
     type: "website",
     locale: "en_US",
     siteName: "Kobina Portfolio",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Kobina portfolio social preview",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Kobina — Front-End Developer",
     description:
       "Explore Kobina's portfolio, selected projects, skills, and contact details.",
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,

@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Lock } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { ProjectCard } from "@/components/projects/project-card";
 import { SiteNavbar } from "@/components/site-navbar";
+import { absoluteUrl } from "@/lib/site-url";
 import {
   getAdjacentProjects,
   getAllProjects,
@@ -38,10 +39,28 @@ export async function generateMetadata({
   return {
     title: `${project.title} Case Study — Kobina`,
     description: project.description,
+    alternates: {
+      canonical: `/projects/${project.slug}`,
+    },
     openGraph: {
       title: `${project.title} Case Study — Kobina`,
       description: project.outcome,
+      url: absoluteUrl(`/projects/${project.slug}`),
       type: "article",
+      images: [
+        {
+          url: `/projects/${project.slug}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: `${project.title} case study preview`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} Case Study — Kobina`,
+      description: project.outcome,
+      images: [`/projects/${project.slug}/opengraph-image`],
     },
   };
 }
