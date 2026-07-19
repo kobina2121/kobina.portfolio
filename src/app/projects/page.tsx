@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowUpRight, Layers3 } from "lucide-react";
+import { Layers3 } from "lucide-react";
 import { Container } from "@/components/layout/container";
+import { ProjectCard } from "@/components/projects/project-card";
 import { SiteNavbar } from "@/components/site-navbar";
-import { projects } from "@/lib/portfolio-content";
+import { getAllProjects } from "@/lib/portfolio-content";
 
 export const metadata: Metadata = {
   title: "Projects — Kobina",
@@ -12,6 +12,8 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
+  const projects = getAllProjects();
+
   return (
     <main
       id="main-content"
@@ -41,45 +43,7 @@ export default function ProjectsPage() {
 
         <div className="grid gap-5 lg:grid-cols-3">
           {projects.map((project, index) => (
-            <article
-              key={project.title}
-              className="group overflow-hidden rounded-[1.75rem] border border-zinc-950/10 bg-white/70 transition hover:border-[#d76bff]/70 hover:bg-white dark:border-white/12 dark:bg-white/[0.035] dark:hover:bg-white/[0.055]"
-            >
-              <div
-                className={`relative flex aspect-[1.35] items-center justify-center overflow-hidden bg-gradient-to-br ${project.accent}`}
-              >
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.35),transparent_30%),linear-gradient(180deg,transparent,rgba(0,0,0,0.45))]" />
-                <div className="relative rounded-2xl border border-white/20 bg-black/65 px-6 py-4 text-center text-white shadow-2xl backdrop-blur-sm">
-                  <p className="text-xs text-zinc-400">0{index + 1}</p>
-                  <h2 className="mt-1 text-xl font-black">{project.title}</h2>
-                </div>
-              </div>
-
-              <div className="p-6">
-                <div className="mb-5 flex items-center justify-between gap-4 text-xs text-zinc-600 dark:text-zinc-500">
-                  <span>{project.type}</span>
-                  <span>{project.year}</span>
-                </div>
-                <p className="text-sm leading-6 text-zinc-800 dark:text-zinc-300">
-                  {project.description}
-                </p>
-                <p className="mt-4 text-xs leading-5 text-zinc-700 dark:text-zinc-500">
-                  {project.outcome}
-                </p>
-                <div className="mt-6 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-[#d76bff]">
-                    {project.stack}
-                  </span>
-                  <Link
-                    href="/#contact-me"
-                    className="inline-flex items-center gap-2 rounded-full border border-zinc-950/15 px-3 py-2 text-xs text-zinc-950 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15 dark:text-white"
-                  >
-                    Discuss
-                    <ArrowUpRight className="size-3" aria-hidden="true" />
-                  </Link>
-                </div>
-              </div>
-            </article>
+            <ProjectCard key={project.slug} project={project} index={index} />
           ))}
         </div>
       </Container>

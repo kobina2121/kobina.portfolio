@@ -2,12 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight, Mail, Send } from "lucide-react";
 import { SiteNavbar } from "@/components/site-navbar";
+import { ProjectCard } from "@/components/projects/project-card";
 import {
   aboutHighlights,
   certificationItems,
   educationItems,
   experienceItems,
-  projects,
+  getFeaturedProjects,
   serviceItems,
   skillItems,
   testimonialItems,
@@ -92,6 +93,8 @@ function CornerFrame({ className = "" }: { className?: string }) {
 }
 
 export default function Home() {
+  const featuredProjects = getFeaturedProjects();
+
   return (
     <main
       id="main-content"
@@ -234,57 +237,13 @@ export default function Home() {
           </Link>
 
           <div className="grid gap-4 md:grid-cols-3">
-            {projects.map((project, index) => (
-              <article
-                key={project.title}
-                className="group border border-zinc-950/20 bg-white/70 transition-colors hover:border-[#d76bff] dark:border-white/35 dark:bg-black"
-              >
-                <div
-                  className={`relative flex aspect-[1.55] items-center justify-center overflow-hidden bg-gradient-to-br ${project.accent}`}
-                >
-                  {index === 0 ? (
-                    <div className="rounded-full border border-black/30 bg-white/80 px-5 py-3 text-center text-xs font-black text-zinc-800 shadow-xl">
-                      Search
-                      <br />
-                      Portfolio
-                    </div>
-                  ) : index === 1 ? (
-                    <div className="w-32 rounded-sm border border-white/15 bg-black p-3 shadow-xl">
-                      <div className="mb-3 h-2 w-16 bg-white/70" />
-                      <div className="space-y-2">
-                        <div className="h-1.5 bg-white/20" />
-                        <div className="h-1.5 w-2/3 bg-white/20" />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="grid w-40 grid-cols-4 gap-2">
-                      {Array.from({ length: 16 }).map((_, dot) => (
-                        <span
-                          key={dot}
-                          className="h-2 rounded-full bg-[#d76bff]/60"
-                        />
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <div className="border-t border-zinc-950/15 p-4 dark:border-white/25">
-                  <p className="mb-3 text-[0.68rem] text-zinc-600 dark:text-zinc-500">
-                    {project.stack}
-                  </p>
-                  <h3 className="text-lg font-bold text-zinc-950 dark:text-white">
-                    {project.title}
-                  </h3>
-                  <p className="mt-3 min-h-16 text-xs leading-5 text-zinc-700 dark:text-zinc-400">
-                    {project.description}
-                  </p>
-                  <Link
-                    href="/projects"
-                    className="mt-4 inline-flex items-center gap-2 border border-zinc-950/25 px-3 py-2 text-xs hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/35"
-                  >
-                    Live <ArrowUpRight className="size-3" aria-hidden="true" />
-                  </Link>
-                </div>
-              </article>
+            {featuredProjects.map((project, index) => (
+              <ProjectCard
+                key={project.slug}
+                project={project}
+                index={index}
+                variant="compact"
+              />
             ))}
           </div>
         </section>
