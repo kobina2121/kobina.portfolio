@@ -28,7 +28,7 @@ export default function OpenGraphImage() {
           Front-End Developer
         </div>
       </div>
-      <div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <div
           style={{
             maxWidth: 820,

@@ -38,7 +38,7 @@ export default async function ProjectOpenGraphImage({
           {project?.year ?? "Portfolio"}
         </div>
       </div>
-      <div>
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <div
           style={{
             maxWidth: 860,
