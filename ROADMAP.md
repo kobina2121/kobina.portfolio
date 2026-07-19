@@ -205,18 +205,20 @@ types/
 
 **Outcome:** incomplete, failed, shared, and search-engine experiences are intentional.
 
-- [ ] Build `not-found.tsx`.
-- [ ] Build route-level and global error boundaries.
-- [ ] Build route loading states and reusable skeletons.
-- [ ] Add empty and no-result states.
-- [ ] Add favicon, Apple icon, and web manifest.
-- [ ] Add root title template, description, canonical base, and social metadata.
-- [ ] Generate project-specific metadata.
-- [ ] Add default and project-specific Open Graph images.
-- [ ] Add valid `Person`, `WebSite`, and relevant project JSON-LD.
-- [ ] Verify metadata and social previews.
+- [x] Build `not-found.tsx`.
+- [x] Build route-level and global error boundaries.
+- [x] Build route loading states and reusable skeletons.
+- [x] Add empty and no-result states.
+- [x] Add favicon, Apple icon, and web manifest.
+- [x] Add root title template, description, canonical base, and social metadata.
+- [x] Generate project-specific metadata.
+- [x] Add default and project-specific Open Graph images.
+- [x] Add valid `Person`, `WebSite`, and relevant project JSON-LD.
+- [x] Verify metadata and social previews.
 
-**Level 1 gate:** The visual website is complete, responsive, indexable, and usable without animations or advanced interactions.
+**Gate 6: Passed on 2026-07-19.** Custom 404, error boundaries, loading skeletons, empty states, manifest/icons, canonical/social metadata, generated Open Graph images, project metadata, and JSON-LD structured data are in place; formatting, linting, type-checking, unit tests, and the production build passed.
+
+**Level 1 gate: Passed on 2026-07-19.** The visual website foundation is complete, responsive, indexable, and usable without animations or advanced interactions.
 
 ---
 
