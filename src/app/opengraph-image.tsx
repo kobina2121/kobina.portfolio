@@ -25,7 +25,7 @@ export default function OpenGraphImage() {
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div style={{ fontSize: 34, fontWeight: 800 }}>Kobina</div>
         <div style={{ color: "#d76bff", fontSize: 24 }}>
-          Front-End Developer
+          Full Stack Developer
         </div>
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>

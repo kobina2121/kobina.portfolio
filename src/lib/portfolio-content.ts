@@ -366,7 +366,7 @@ export const skillItems = [
 ] as const;
 
 export const aboutHighlights = [
-  "Front-end developer focused on clean, accessible interfaces.",
+  "Full stack developer focused on clean, accessible product experiences.",
   "Designer-minded builder who cares about visual polish and interaction.",
   "Based in Accra, Ghana, building digital products with global taste.",
 ] as const;
@@ -379,9 +379,9 @@ export const serviceItems = [
     deliverables: ["Responsive UI", "SEO-ready pages", "Launch support"],
   },
   {
-    title: "Frontend implementation",
+    title: "Full-stack implementation",
     description:
-      "Clean React and Next.js interfaces built from design direction, wireframes, or rough ideas.",
+      "Clean React and Next.js experiences connected to practical product foundations.",
     deliverables: [
       "Component systems",
       "Accessible markup",
@@ -398,7 +398,7 @@ export const serviceItems = [
 
 export const experienceItems = [
   {
-    role: "Frontend Developer",
+    role: "Full Stack Developer",
     company: "Looprompt",
     period: "2026 — Present",
     location: "Accra, Ghana",
@@ -422,7 +422,7 @@ export const experienceItems = [
 export const educationItems = [
   {
     institution: "Self-directed learning",
-    qualification: "Frontend engineering, UI design, and product thinking",
+    qualification: "Full-stack engineering, UI design, and product thinking",
     period: "Ongoing",
     detail:
       "Focused learning through production builds, design references, and modern web tooling.",
@@ -443,7 +443,7 @@ export const certificationItems = [
     status: "In progress",
   },
   {
-    name: "Frontend Engineering",
+    name: "Full Stack Engineering",
     provider: "Portfolio project practice",
     status: "Ongoing",
   },

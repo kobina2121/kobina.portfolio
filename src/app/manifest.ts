@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Kobina Portfolio",
     short_name: "Kobina",
     description:
-      "A premium portfolio for Kobina, a Ghana-based front-end developer.",
+      "A premium portfolio for Kobina, a Ghana-based full stack developer.",
     start_url: "/",
     scope: "/",
     display: "standalone",

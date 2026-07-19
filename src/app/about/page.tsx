@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 const stats = [
-  { label: "Focus", value: "Frontend" },
+  { label: "Focus", value: "Full stack" },
   { label: "Base", value: "Accra" },
   { label: "Style", value: "Premium UI" },
 ] as const;
@@ -62,7 +62,7 @@ export default function AboutPage() {
           </h1>
           <div className="mt-6 max-w-2xl space-y-5 text-sm leading-7 text-zinc-700 dark:text-zinc-400">
             <p>
-              Hello, I&apos;m Kobina — a front-end developer with a strong eye
+              Hello, I&apos;m Kobina — a full stack developer with a strong eye
               for visual systems, interaction details, and responsive product
               experiences.
             </p>

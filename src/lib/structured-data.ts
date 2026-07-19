@@ -10,7 +10,7 @@ export function getWebsiteJsonLd() {
         "@id": absoluteUrl("/#person"),
         name: "Kobina Boakye",
         url: absoluteUrl("/"),
-        jobTitle: "Front-End Developer",
+        jobTitle: "Full Stack Developer",
         address: {
           "@type": "PostalAddress",
           addressLocality: "Accra",
@@ -18,7 +18,7 @@ export function getWebsiteJsonLd() {
         },
         sameAs: ["https://github.com/kobina2121"],
         knowsAbout: [
-          "Front-end development",
+          "Full-stack development",
           "React",
           "Next.js",
           "TypeScript",

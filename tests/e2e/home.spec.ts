@@ -5,7 +5,7 @@ test("renders the portfolio hero", async ({ page }) => {
 
   await expect(
     page.getByRole("heading", {
-      name: "Hi, I'm a web designer and front-end developer",
+      name: "Hi, I'm a web designer and full stack developer",
     }),
   ).toBeVisible();
 

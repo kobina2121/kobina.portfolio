@@ -19,7 +19,7 @@ import { skillItems } from "@/lib/portfolio-content";
 export const metadata: Metadata = {
   title: "Skills — Kobina",
   description:
-    "Explore Kobina's frontend, backend, design, database, and workflow skills.",
+    "Explore Kobina's full-stack, design, database, and workflow skills.",
 };
 
 const skillIconMap = {
@@ -117,8 +117,8 @@ export default function SkillsPage() {
             Need these skills on a project?
           </h2>
           <p className="mt-3 max-w-2xl text-sm leading-7 text-zinc-700 dark:text-zinc-400">
-            I can help shape the interface, implement the frontend, and connect
-            the experience into real product workflows.
+            I can help shape the interface, implement the application, and
+            connect the experience into real product workflows.
           </p>
           <Link
             href="/#contact-me"

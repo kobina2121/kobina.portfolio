@@ -152,7 +152,7 @@ export default function Home() {
               </span>{" "}
               and{" "}
               <span className="bg-gradient-to-r from-[#ff79c6] to-[#9d7dff] bg-clip-text text-transparent">
-                front-end developer
+                full stack developer
               </span>
             </h1>
             <p className="mt-5 max-w-lg text-sm leading-6 text-zinc-700 dark:text-zinc-500">
@@ -302,9 +302,9 @@ export default function Home() {
               </p>
               <div className="max-w-xl space-y-4 text-xs leading-6 text-zinc-700 dark:text-zinc-400">
                 <p>
-                  I&apos;m a self-taught front-end developer based in Ghana. I
+                  I&apos;m a self-taught full stack developer based in Ghana. I
                   transform ideas into responsive websites with clean
-                  interfaces, careful interaction design, and modern front-end
+                  interfaces, careful interaction design, and reliable product
                   foundations.
                 </p>
                 <p>

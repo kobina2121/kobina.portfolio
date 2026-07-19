@@ -19,7 +19,7 @@ export function SiteFooter() {
               @ Kobina
             </Link>
             <p className="mt-3 max-w-xs text-xs leading-5 text-zinc-700 dark:text-zinc-500">
-              Front-end developer crafting polished, accessible digital
+              Full stack developer crafting polished, accessible digital
               experiences from Accra, Ghana.
             </p>
           </div>

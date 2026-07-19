@@ -30,14 +30,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   applicationName: "Kobina Portfolio",
   title: {
-    default: "Kobina — Front-End Developer",
+    default: "Kobina — Full Stack Developer",
     template: "%s | Kobina Portfolio",
   },
   description:
-    "A premium personal portfolio for Kobina, a Ghana-based front-end developer building polished, accessible digital experiences.",
+    "A premium personal portfolio for Kobina, a Ghana-based full stack developer building polished, accessible digital experiences.",
   keywords: [
     "Kobina",
-    "front-end developer",
+    "full stack developer",
     "portfolio",
     "web designer",
     "React developer",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.webmanifest",
   openGraph: {
-    title: "Kobina — Front-End Developer",
+    title: "Kobina — Full Stack Developer",
     description:
       "Explore Kobina's portfolio, selected projects, skills, and contact details.",
     url: absoluteUrl("/"),
@@ -76,7 +76,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kobina — Front-End Developer",
+    title: "Kobina — Full Stack Developer",
     description:
       "Explore Kobina's portfolio, selected projects, skills, and contact details.",
     images: ["/opengraph-image"],

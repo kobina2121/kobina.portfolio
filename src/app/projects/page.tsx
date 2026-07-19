@@ -9,7 +9,7 @@ import { getAllProjects } from "@/lib/portfolio-content";
 export const metadata: Metadata = {
   title: "Projects — Kobina",
   description:
-    "Selected portfolio projects by Kobina, including frontend, dashboard, and product interface work.",
+    "Selected portfolio projects by Kobina, including full-stack, dashboard, and product interface work.",
 };
 
 export default function ProjectsPage() {
