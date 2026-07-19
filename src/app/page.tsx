@@ -9,6 +9,7 @@ import {
   projects,
   serviceItems,
   skillItems,
+  testimonialItems,
 } from "@/lib/portfolio-content";
 import {
   FaCss3Alt,
@@ -482,6 +483,30 @@ export default function Home() {
                 </article>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section id="testimonials" className="relative scroll-mt-24 pt-20">
+          <SectionTitle>testimonials</SectionTitle>
+          <div className="grid gap-4 md:grid-cols-3">
+            {testimonialItems.map((testimonial) => (
+              <figure
+                key={testimonial.name}
+                className="border border-zinc-950/20 bg-white/75 p-5 dark:border-white/35 dark:bg-black/80"
+              >
+                <blockquote className="min-h-36 text-sm leading-7 text-zinc-800 dark:text-zinc-300">
+                  “{testimonial.quote}”
+                </blockquote>
+                <figcaption className="mt-8 border-t border-zinc-950/15 pt-4 dark:border-white/20">
+                  <p className="text-sm font-bold text-zinc-950 dark:text-white">
+                    {testimonial.name}
+                  </p>
+                  <p className="mt-1 text-xs text-zinc-600 dark:text-zinc-500">
+                    {testimonial.role}
+                  </p>
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </section>
 
