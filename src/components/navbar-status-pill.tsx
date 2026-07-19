@@ -1,12 +1,13 @@
 "use client";
 
-import { Clock3, MapPin, Moon, Sun } from "lucide-react";
+import { Clock3, Laptop, MapPin, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
 type PillMode = "theme" | "time" | "location";
 
 const pillModes: PillMode[] = ["theme", "time", "location"];
+const themeModes = ["system", "dark", "light"] as const;
 
 const timeFormatter = new Intl.DateTimeFormat("en-US", {
   timeZone: "Africa/Accra",
@@ -17,7 +18,7 @@ const timeFormatter = new Intl.DateTimeFormat("en-US", {
 });
 
 export function NavbarStatusPill() {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme, theme } = useTheme();
   const [mode, setMode] = useState<PillMode>("theme");
   const [localTime, setLocalTime] = useState("--:--:--");
 
@@ -47,11 +48,18 @@ export function NavbarStatusPill() {
   const isThemeMode = mode === "theme";
   const isTimeMode = mode === "time";
   const isLocationMode = mode === "location";
+  const selectedTheme = themeModes.includes(
+    theme as (typeof themeModes)[number],
+  )
+    ? (theme as (typeof themeModes)[number])
+    : "system";
   const isDarkTheme = resolvedTheme !== "light";
 
   const handleClick = () => {
     if (isThemeMode) {
-      setTheme(isDarkTheme ? "light" : "dark");
+      const currentIndex = themeModes.indexOf(selectedTheme);
+      const nextTheme = themeModes[(currentIndex + 1) % themeModes.length];
+      setTheme(nextTheme);
       return;
     }
 
@@ -65,12 +73,19 @@ export function NavbarStatusPill() {
       : "I'm Based In";
 
   const value = isThemeMode
-    ? isDarkTheme
+    ? selectedTheme === "system"
+      ? "System"
+      : isDarkTheme
       ? "Dark"
       : "White"
     : isTimeMode
       ? localTime
       : "Accra, GH";
+
+  const nextTheme =
+    themeModes[(themeModes.indexOf(selectedTheme) + 1) % themeModes.length];
+  const nextThemeLabel =
+    nextTheme === "system" ? "system" : nextTheme === "light" ? "white" : "dark";
 
   return (
     <button
@@ -78,9 +93,7 @@ export function NavbarStatusPill() {
       className="group hidden w-[15.75rem] items-center justify-between justify-self-start overflow-hidden rounded-full border border-zinc-950/10 bg-zinc-950/[0.04] px-4 py-2 text-xs shadow-[0_8px_24px_rgba(0,0,0,0.08)] ring-1 ring-zinc-950/5 transition hover:border-zinc-950/20 hover:bg-zinc-950/[0.07] md:flex dark:border-white/10 dark:bg-white/[0.07] dark:shadow-[0_8px_24px_rgba(0,0,0,0.25)] dark:ring-white/5 dark:hover:border-white/20 dark:hover:bg-white/[0.1]"
       aria-label={
         isThemeMode
-          ? `Current theme is ${isDarkTheme ? "dark" : "white"}. Click to switch to ${
-              isDarkTheme ? "white" : "dark"
-            } theme.`
+          ? `Current theme setting is ${value}. Click to switch to ${nextThemeLabel} theme.`
           : isTimeMode
             ? `Current local time in Accra is ${localTime}. Click to show location.`
             : "Currently based in Accra, Ghana. Click to show theme."
@@ -106,7 +119,12 @@ export function NavbarStatusPill() {
 
       <span className="flex shrink-0 items-center gap-2 font-semibold text-zinc-950 dark:text-white">
         <span>{value}</span>
-        {isThemeMode && isDarkTheme ? (
+        {isThemeMode && selectedTheme === "system" ? (
+          <Laptop
+            className="size-3.5 text-zinc-600 transition group-hover:text-zinc-950 dark:text-zinc-400 dark:group-hover:text-white"
+            aria-hidden="true"
+          />
+        ) : isThemeMode && isDarkTheme ? (
           <Moon
             className="size-3.5 text-zinc-600 transition group-hover:text-zinc-950 dark:text-zinc-400 dark:group-hover:text-white"
             aria-hidden="true"
