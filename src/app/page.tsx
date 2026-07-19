@@ -2,7 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight, Mail, Phone } from "lucide-react";
 import { SiteNavbar } from "@/components/site-navbar";
-import { projects, serviceItems, skillItems } from "@/lib/portfolio-content";
+import {
+  experienceItems,
+  projects,
+  serviceItems,
+  skillItems,
+} from "@/lib/portfolio-content";
 import {
   FaCss3Alt,
   FaFigma,
@@ -374,6 +379,49 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="experience" className="relative scroll-mt-24 pt-20">
+          <SectionTitle>experience</SectionTitle>
+          <div className="space-y-4">
+            {experienceItems.map((item) => (
+              <article
+                key={`${item.role}-${item.company}`}
+                className="grid gap-5 border border-zinc-950/20 bg-white/75 p-5 md:grid-cols-[0.32fr_1fr] dark:border-white/35 dark:bg-black/80"
+              >
+                <div>
+                  <p className="text-xs font-semibold text-[#d76bff]">
+                    {item.period}
+                  </p>
+                  <p className="mt-2 text-xs text-zinc-600 dark:text-zinc-500">
+                    {item.location}
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-zinc-950 dark:text-white">
+                    {item.role}
+                  </h3>
+                  <p className="mt-1 text-sm text-zinc-700 dark:text-zinc-400">
+                    {item.company}
+                  </p>
+                  <ul className="mt-5 space-y-3">
+                    {item.highlights.map((highlight) => (
+                      <li
+                        key={highlight}
+                        className="flex gap-3 text-xs leading-6 text-zinc-700 dark:text-zinc-300"
+                      >
+                        <span
+                          className="mt-2 size-1.5 shrink-0 bg-[#d76bff]"
+                          aria-hidden="true"
+                        />
+                        {highlight}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </article>
             ))}
           </div>
