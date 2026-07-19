@@ -151,18 +151,18 @@ types/
 
 **Outcome:** all routes share a responsive, accessible layout.
 
-- [ ] Build root layout and global metadata defaults.
-- [ ] Add theme provider with system, light, and dark options.
-- [ ] Build skip-to-content link.
-- [ ] Build responsive header and desktop navigation.
-- [ ] Build accessible mobile navigation using Sheet.
-- [ ] Build theme selector/toggle.
-- [ ] Build footer with navigation, social links, contact, and copyright.
-- [ ] Add consistent page container and section spacing.
-- [ ] Add visible keyboard focus states.
-- [ ] Confirm semantic landmarks and heading hierarchy.
+- [x] Build root layout and global metadata defaults.
+- [x] Add theme provider with system, light, and dark options.
+- [x] Build skip-to-content link.
+- [x] Build responsive header and desktop navigation.
+- [x] Build accessible mobile navigation using Sheet.
+- [x] Build theme selector/toggle.
+- [x] Build footer with navigation, social links, contact, and copyright.
+- [x] Add consistent page container and section spacing.
+- [x] Add visible keyboard focus states.
+- [x] Confirm semantic landmarks and heading hierarchy.
 
-**Gate 3:** Header, mobile menu, theme controls, skip link, and footer work with mouse, touch, and keyboard at 320px and above.
+**Gate 3: Passed on 2026-07-19.** Global metadata defaults, skip-to-content behavior, desktop navigation, Sheet-based mobile navigation, system/light/dark theme control, shared footer, semantic landmarks, and shared page spacing are in place; formatting, linting, type-checking, unit tests, and the production build passed.
 
 ## Phase 4 — Home page sections
 
