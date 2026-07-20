@@ -297,14 +297,16 @@ types/
 
 **Outcome:** content is independent from presentation and validated at build time.
 
-- [ ] Define schemas for site config, navigation, projects, skills, services, experience, education, certifications, and testimonials.
-- [ ] Validate dates, URLs, media, duplicate slugs, and required fields.
-- [ ] Create repository functions such as `getAllProjects()` and `getProjectBySlug()`.
-- [ ] Make pages consume repository functions instead of importing raw data.
-- [ ] Organize images by project and purpose.
-- [ ] Decide whether long case studies require MDX.
-- [ ] Add optional blog schema, index, article route, tags, and RSS only if the blog is approved.
-- [ ] Keep a content adapter boundary for a future Sanity migration.
+- [x] Define schemas for site config, navigation, projects, skills, services, experience, education, certifications, and testimonials.
+- [x] Validate dates, URLs, media, duplicate slugs, and required fields.
+- [x] Create repository functions such as `getAllProjects()` and `getProjectBySlug()`.
+- [x] Make pages consume repository functions instead of importing raw data.
+- [x] Organize images by project and purpose.
+- [x] Decide whether long case studies require MDX.
+- [x] Add optional blog schema, index, article route, tags, and RSS only if the blog is approved.
+- [x] Keep a content adapter boundary for a future Sanity migration.
+
+**Gate 11: Passed on 2026-07-20.** Portfolio content now parses through Zod schemas for site config, navigation, projects, skills, services, experience, education, certifications, testimonials, links, dates, image assets, and duplicate project slugs. Pages consume repository getters instead of raw arrays, reusable images are registered by purpose, current case studies remain typed local content without MDX, blog support remains disabled until approved, and the repository API is the adapter boundary for a future CMS/Sanity migration; formatting, linting, type-checking, unit tests, and production build passed.
 
 ## Phase 12 — Contact backend and email
 
