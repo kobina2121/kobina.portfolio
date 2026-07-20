@@ -312,17 +312,19 @@ types/
 
 **Outcome:** production contact submissions are validated, protected, delivered, and observable.
 
-- [ ] Create `POST /api/contact` Route Handler.
-- [ ] Validate and normalize all input on the server.
-- [ ] Reject invalid types, oversized values, and malformed requests.
-- [ ] Create React Email notification template.
-- [ ] Configure Resend with a verified sending domain.
-- [ ] Set the visitor’s address as `replyTo`, never as an untrusted sender.
-- [ ] Add plain-text email output.
-- [ ] Add idempotency handling.
-- [ ] Return stable, non-sensitive error codes to the client.
-- [ ] Connect the browser form to the endpoint.
-- [ ] Test success, validation failure, provider failure, and retry behavior.
+- [x] Create `POST /api/contact` Route Handler.
+- [x] Validate and normalize all input on the server.
+- [x] Reject invalid types, oversized values, and malformed requests.
+- [x] Create React Email notification template.
+- [~] Configure Resend with a verified sending domain.
+- [x] Set the visitor’s address as `replyTo`, never as an untrusted sender.
+- [x] Add plain-text email output.
+- [x] Add idempotency handling.
+- [x] Return stable, non-sensitive error codes to the client.
+- [x] Connect the browser form to the endpoint.
+- [x] Test success, validation failure, provider failure, and retry behavior.
+
+**Phase 12 checkpoint on 2026-07-20.** The contact route, server validation, size/malformed request rejection, HTML and plain-text notification output, Resend REST integration, `reply_to` behavior, idempotency handling, stable client error codes, browser form submission, and route tests are implemented. Final Gate 12 still requires setting `RESEND_API_KEY`, `CONTACT_FROM_EMAIL` from a verified Resend domain, and `CONTACT_TO_EMAIL` in the deployment environment, then confirming a real email delivery smoke test.
 
 ## Phase 13 — SEO, analytics, and observability
 
