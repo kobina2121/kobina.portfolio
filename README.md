@@ -45,6 +45,8 @@ npx playwright install chromium
 Copy `.env.example` to `.env.local`. The site can run locally with defaults, but production contact delivery requires:
 
 - `NEXT_PUBLIC_SITE_URL` — canonical site URL.
+- `NEXT_PUBLIC_SANITY_PROJECT_ID` — Sanity project ID for the `/admin` Studio.
+- `NEXT_PUBLIC_SANITY_DATASET` — Sanity dataset name, usually `production`.
 - `RESEND_API_KEY` — Resend API key.
 - `CONTACT_FROM_EMAIL` — sender address from a verified Resend domain.
 - `CONTACT_TO_EMAIL` — inbox that receives portfolio contact submissions.
@@ -52,6 +54,12 @@ Copy `.env.example` to `.env.local`. The site can run locally with defaults, but
 Abuse-protection credentials are reserved for the later security phase.
 
 Environment parsing is centralized in `src/lib/env.ts`. Server secrets must never be imported into client components.
+
+## Admin CMS
+
+The portfolio includes an embedded Sanity Studio at `/admin`. Until `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` are configured, that route shows setup instructions instead of the editor.
+
+Editable content types include projects, experience, skills, services, education, certifications, testimonials, and site settings. The public site still has typed local fallback content, so it remains stable while Sanity is being connected or seeded.
 
 ## Source structure
 
