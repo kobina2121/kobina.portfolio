@@ -4,7 +4,11 @@ import { ArrowUpRight, Mail } from "lucide-react";
 import { CopyEmailButton } from "@/components/copy-email-button";
 import { DownloadCvLink } from "@/components/download-cv-link";
 import { getExternalLinkAttributes, isExternalHref } from "@/lib/links";
-import { siteNavItems } from "@/lib/portfolio-content";
+import {
+  getNavigationItems,
+  getRequiredImageAsset,
+  getSiteConfig,
+} from "@/lib/portfolio-content";
 
 const mediaLinks = [
   { label: "GitHub", href: "https://github.com/kobina2121" },
@@ -13,6 +17,10 @@ const mediaLinks = [
 ] as const;
 
 export function SiteFooter() {
+  const site = getSiteConfig();
+  const siteNavItems = getNavigationItems();
+  const loopromptLogo = getRequiredImageAsset("looprompt-logo");
+
   return (
     <footer className="homepage-font bg-background text-foreground px-5 sm:px-8 lg:px-10">
       <div className="mx-auto w-full max-w-5xl border-t border-zinc-950/20 py-8 dark:border-white/35">
@@ -73,11 +81,11 @@ export function SiteFooter() {
             </div>
             <div className="mt-5 space-y-2 text-xs text-zinc-600 dark:text-zinc-400">
               <Link
-                href="mailto:kobinaboakye@gmail.com"
+                href={`mailto:${site.email}`}
                 className="flex min-h-11 items-center gap-2 hover:text-zinc-950 dark:hover:text-white"
               >
                 <Mail className="size-3.5" aria-hidden="true" />
-                kobinaboakye@gmail.com
+                {site.email}
               </Link>
             </div>
           </div>
@@ -89,10 +97,10 @@ export function SiteFooter() {
             Product of Loo<span className="text-[#ff4028]">prompt</span>.
           </p>
           <Image
-            src="/images/looprompt-logo.png"
-            alt="Looprompt logo"
-            width={32}
-            height={32}
+            src={loopromptLogo.src}
+            alt={loopromptLogo.alt}
+            width={loopromptLogo.width}
+            height={loopromptLogo.height}
             className="mx-auto mt-3 size-8"
           />
         </div>

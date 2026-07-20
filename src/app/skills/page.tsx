@@ -14,7 +14,7 @@ import {
 import { SiFirebase, SiMysql } from "react-icons/si";
 import { Container } from "@/components/layout/container";
 import { SiteNavbar } from "@/components/site-navbar";
-import { skillItems } from "@/lib/portfolio-content";
+import { getSkillItems } from "@/lib/portfolio-content";
 
 export const metadata: Metadata = {
   title: "Skills — Kobina",
@@ -43,6 +43,8 @@ const focusAreas = [
 ] as const;
 
 export default function SkillsPage() {
+  const skillItems = getSkillItems();
+
   return (
     <main
       id="main-content"

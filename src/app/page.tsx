@@ -9,14 +9,15 @@ import { SiteNavbar } from "@/components/site-navbar";
 import { ProjectCard } from "@/components/projects/project-card";
 import { getExternalLinkAttributes, isExternalHref } from "@/lib/links";
 import {
-  aboutHighlights,
-  certificationItems,
-  educationItems,
-  experienceItems,
+  getAboutHighlights,
+  getCertificationItems,
+  getEducationItems,
+  getExperienceItems,
   getFeaturedProjects,
-  serviceItems,
-  skillItems,
-  testimonialItems,
+  getRequiredImageAsset,
+  getServiceItems,
+  getSkillItems,
+  getTestimonialItems,
 } from "@/lib/portfolio-content";
 import {
   FaCss3Alt,
@@ -99,6 +100,15 @@ function CornerFrame({ className = "" }: { className?: string }) {
 
 export default function Home() {
   const featuredProjects = getFeaturedProjects();
+  const skillItems = getSkillItems();
+  const aboutHighlights = getAboutHighlights();
+  const serviceItems = getServiceItems();
+  const experienceItems = getExperienceItems();
+  const educationItems = getEducationItems();
+  const certificationItems = getCertificationItems();
+  const testimonialItems = getTestimonialItems();
+  const formalPortrait = getRequiredImageAsset("formal-portrait");
+  const developerCharacter = getRequiredImageAsset("developer-character");
 
   return (
     <main
@@ -236,8 +246,8 @@ export default function Home() {
 
             <div className="relative mx-auto aspect-[0.84] w-64 overflow-hidden bg-gradient-to-b from-zinc-200 to-white md:w-72 dark:from-zinc-900 dark:to-black">
               <Image
-                src="/images/kobina-formal-portrait-background-removed.png"
-                alt="Portrait of Kobina Boakye"
+                src={formalPortrait.src}
+                alt={formalPortrait.alt}
                 fill
                 priority
                 sizes="(min-width: 768px) 288px, 70vw"
@@ -364,10 +374,10 @@ export default function Home() {
             <div className="relative mx-auto w-full max-w-xs">
               <DotGrid className="absolute -top-8 -left-6" />
               <Image
-                src="/images/developer-character.png"
-                alt="Developer avatar with laptop"
-                width={420}
-                height={614}
+                src={developerCharacter.src}
+                alt={developerCharacter.alt}
+                width={developerCharacter.width}
+                height={developerCharacter.height}
                 sizes="(min-width: 768px) 260px, 70vw"
                 className="mx-auto w-56 object-contain drop-shadow-[0_0_35px_rgba(215,107,255,0.2)]"
               />

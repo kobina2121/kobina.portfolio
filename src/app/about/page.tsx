@@ -4,7 +4,10 @@ import Link from "next/link";
 import { ArrowUpRight, MapPin, Sparkles } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { SiteNavbar } from "@/components/site-navbar";
-import { aboutHighlights } from "@/lib/portfolio-content";
+import {
+  getAboutHighlights,
+  getRequiredImageAsset,
+} from "@/lib/portfolio-content";
 
 export const metadata: Metadata = {
   title: "About — Kobina",
@@ -19,6 +22,9 @@ const stats = [
 ] as const;
 
 export default function AboutPage() {
+  const aboutHighlights = getAboutHighlights();
+  const formalPortrait = getRequiredImageAsset("formal-portrait");
+
   return (
     <main
       id="main-content"
@@ -35,8 +41,8 @@ export default function AboutPage() {
           <div className="absolute -inset-6 rounded-[2rem] border border-zinc-950/10 bg-white/50 dark:border-white/10 dark:bg-white/[0.03]" />
           <div className="relative aspect-[0.82] overflow-hidden rounded-[1.75rem] border border-zinc-950/10 bg-gradient-to-b from-zinc-200 to-white dark:border-white/15 dark:from-zinc-900 dark:to-black">
             <Image
-              src="/images/kobina-formal-portrait-background-removed.png"
-              alt="Portrait of Kobina Boakye"
+              src={formalPortrait.src}
+              alt={formalPortrait.alt}
               fill
               priority
               sizes="(min-width: 768px) 360px, 80vw"

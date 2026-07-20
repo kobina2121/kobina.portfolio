@@ -1,50 +1,278 @@
-export const siteNavItems = [
+import { z } from "zod";
+
+const routeHrefSchema = z.string().refine(
+  (href) => {
+    if (
+      href.startsWith("/") ||
+      href.startsWith("#") ||
+      href.startsWith("mailto:")
+    ) {
+      return true;
+    }
+
+    return z.url().safeParse(href).success;
+  },
+  {
+    message: "Links must be relative, anchor, mailto, or absolute URLs.",
+  },
+);
+
+const nonEmptyString = z.string().trim().min(1);
+const yearSchema = z.string().regex(/^\d{4}$/, "Expected a four-digit year.");
+const periodSchema = z
+  .string()
+  .regex(
+    /^(\d{4}|Ongoing)( — (\d{4}|Present))?$/,
+    "Expected a year, Ongoing, or a year range.",
+  );
+
+const siteNavKeySchema = z.enum(["home", "about", "projects", "skills"]);
+const skillIconSchema = z.enum([
+  "html",
+  "css",
+  "javascript",
+  "react",
+  "node",
+  "figma",
+  "git",
+  "mysql",
+  "firebase",
+  "java",
+]);
+
+const imageAssetSchema = z.object({
+  key: nonEmptyString,
+  src: z.string().startsWith("/images/"),
+  alt: nonEmptyString,
+  purpose: z.enum(["portrait", "illustration", "brand"]),
+  width: z.number().int().positive(),
+  height: z.number().int().positive(),
+});
+
+const siteConfigSchema = z.object({
+  name: nonEmptyString,
+  owner: nonEmptyString,
+  title: nonEmptyString,
+  email: z.email(),
+  location: nonEmptyString,
+  availability: nonEmptyString,
+  primaryCta: z.object({
+    label: nonEmptyString,
+    href: routeHrefSchema,
+  }),
+  secondaryCta: z.object({
+    label: nonEmptyString,
+    href: routeHrefSchema,
+  }),
+  socialLinks: z.array(
+    z.object({
+      label: nonEmptyString,
+      href: routeHrefSchema,
+    }),
+  ),
+  images: z.array(imageAssetSchema),
+});
+
+const navigationItemSchema = z.object({
+  key: siteNavKeySchema,
+  label: nonEmptyString,
+  href: routeHrefSchema,
+});
+
+const projectMediaSchema = z.object({
+  title: nonEmptyString,
+  caption: nonEmptyString,
+  accent: nonEmptyString,
+});
+
+const projectLinkSchema = z
+  .object({
+    label: nonEmptyString,
+    href: routeHrefSchema.nullable(),
+    unavailableReason: nonEmptyString.optional(),
+  })
+  .refine((link) => link.href || link.unavailableReason, {
+    message: "Unavailable project links need a reason.",
+  });
+
+const projectSchema = z.object({
+  title: nonEmptyString,
+  slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  stack: z.array(nonEmptyString).min(1),
+  tags: z.array(nonEmptyString).min(1),
+  category: nonEmptyString,
+  description: nonEmptyString,
+  accent: nonEmptyString,
+  type: nonEmptyString,
+  year: yearSchema,
+  outcome: nonEmptyString,
+  context: nonEmptyString,
+  role: nonEmptyString,
+  problem: nonEmptyString,
+  constraints: z.array(nonEmptyString).min(1),
+  process: z.array(nonEmptyString).min(1),
+  solution: nonEmptyString,
+  impact: z.array(nonEmptyString).min(1),
+  lessons: z.array(nonEmptyString).min(1),
+  gallery: z.array(projectMediaSchema).min(1),
+  live: projectLinkSchema,
+  source: projectLinkSchema,
+  confidentiality: nonEmptyString.optional(),
+});
+
+const skillSchema = z.object({
+  label: nonEmptyString,
+  icon: skillIconSchema,
+  color: nonEmptyString,
+  category: nonEmptyString,
+  description: nonEmptyString,
+});
+
+const serviceSchema = z.object({
+  title: nonEmptyString,
+  description: nonEmptyString,
+  deliverables: z.array(nonEmptyString).min(1),
+});
+
+const experienceSchema = z.object({
+  role: nonEmptyString,
+  company: nonEmptyString,
+  period: periodSchema,
+  location: nonEmptyString,
+  highlights: z.array(nonEmptyString).min(1),
+});
+
+const educationSchema = z.object({
+  institution: nonEmptyString,
+  qualification: nonEmptyString,
+  period: periodSchema,
+  detail: nonEmptyString,
+});
+
+const certificationSchema = z.object({
+  name: nonEmptyString,
+  provider: nonEmptyString,
+  status: nonEmptyString,
+});
+
+const testimonialSchema = z.object({
+  quote: nonEmptyString,
+  name: nonEmptyString,
+  role: nonEmptyString,
+});
+
+const portfolioContentSchema = z
+  .object({
+    site: siteConfigSchema,
+    navigation: z.array(navigationItemSchema).min(1),
+    projects: z.array(projectSchema).min(1),
+    skills: z.array(skillSchema).min(1),
+    aboutHighlights: z.array(nonEmptyString).min(1),
+    services: z.array(serviceSchema).min(1),
+    experience: z.array(experienceSchema).min(1),
+    education: z.array(educationSchema).min(1),
+    certifications: z.array(certificationSchema).min(1),
+    testimonials: z.array(testimonialSchema).min(1),
+    contentStrategy: z.object({
+      caseStudiesUseMdx: z.boolean(),
+      blogEnabled: z.boolean(),
+      adapter: z.enum(["typed-local", "sanity-ready"]),
+    }),
+  })
+  .superRefine((content, context) => {
+    const projectSlugs = new Set<string>();
+
+    content.projects.forEach((project, index) => {
+      if (projectSlugs.has(project.slug)) {
+        context.addIssue({
+          code: "custom",
+          path: ["projects", index, "slug"],
+          message: `Duplicate project slug: ${project.slug}`,
+        });
+      }
+
+      projectSlugs.add(project.slug);
+    });
+
+    const navKeys = new Set<string>();
+
+    content.navigation.forEach((item, index) => {
+      if (navKeys.has(item.key)) {
+        context.addIssue({
+          code: "custom",
+          path: ["navigation", index, "key"],
+          message: `Duplicate navigation key: ${item.key}`,
+        });
+      }
+
+      navKeys.add(item.key);
+    });
+  });
+
+export type SiteNavKey = z.infer<typeof siteNavKeySchema>;
+export type ProjectMedia = z.infer<typeof projectMediaSchema>;
+export type ProjectLink = z.infer<typeof projectLinkSchema>;
+export type Project = z.infer<typeof projectSchema>;
+export type Skill = z.infer<typeof skillSchema>;
+export type SkillIcon = z.infer<typeof skillIconSchema>;
+export type ImageAsset = z.infer<typeof imageAssetSchema>;
+
+const rawSiteConfig = {
+  name: "Kobina Portfolio",
+  owner: "Kobina Boakye",
+  title: "Full Stack Developer",
+  email: "kobinaboakye@gmail.com",
+  location: "Accra, Ghana",
+  availability: "Available for selected builds",
+  primaryCta: {
+    label: "View projects",
+    href: "#projects",
+  },
+  secondaryCta: {
+    label: "Contact me",
+    href: "#contact-me",
+  },
+  socialLinks: [
+    { label: "GitHub", href: "https://github.com/kobina2121" },
+    { label: "LinkedIn", href: "#contact-me" },
+    { label: "Email", href: "mailto:kobinaboakye@gmail.com" },
+  ],
+  images: [
+    {
+      key: "formal-portrait",
+      src: "/images/kobina-formal-portrait-background-removed.png",
+      alt: "Portrait of Kobina Boakye",
+      purpose: "portrait",
+      width: 1024,
+      height: 1024,
+    },
+    {
+      key: "developer-character",
+      src: "/images/developer-character.png",
+      alt: "Developer avatar with laptop",
+      purpose: "illustration",
+      width: 420,
+      height: 614,
+    },
+    {
+      key: "looprompt-logo",
+      src: "/images/looprompt-logo.png",
+      alt: "Looprompt logo",
+      purpose: "brand",
+      width: 32,
+      height: 32,
+    },
+  ],
+} as const;
+
+const rawSiteNavItems = [
   { key: "home", label: "home", href: "/" },
   { key: "about", label: "about", href: "/about" },
   { key: "projects", label: "projects", href: "/projects" },
   { key: "skills", label: "skills", href: "/skills" },
 ] as const;
 
-export type SiteNavKey = (typeof siteNavItems)[number]["key"];
-
-export type ProjectMedia = {
-  title: string;
-  caption: string;
-  accent: string;
-};
-
-export type ProjectLink = {
-  label: string;
-  href: string | null;
-  unavailableReason?: string;
-};
-
-export type Project = {
-  title: string;
-  slug: string;
-  stack: string[];
-  tags: string[];
-  category: string;
-  description: string;
-  accent: string;
-  type: string;
-  year: string;
-  outcome: string;
-  context: string;
-  role: string;
-  problem: string;
-  constraints: string[];
-  process: string[];
-  solution: string;
-  impact: string[];
-  lessons: string[];
-  gallery: ProjectMedia[];
-  live: ProjectLink;
-  source: ProjectLink;
-  confidentiality?: string;
-};
-
-export const projects: Project[] = [
+const rawProjects = [
   {
     title: "1111Afolio",
     slug: "1111afolio",
@@ -262,36 +490,7 @@ export const projects: Project[] = [
   },
 ];
 
-export function getAllProjects() {
-  return projects;
-}
-
-export function getFeaturedProjects() {
-  return projects.slice(0, 3);
-}
-
-export function getProjectBySlug(slug: string) {
-  return projects.find((project) => project.slug === slug);
-}
-
-export function getRelatedProjects(slug: string, limit = 2) {
-  return projects.filter((project) => project.slug !== slug).slice(0, limit);
-}
-
-export function getAdjacentProjects(slug: string) {
-  const currentIndex = projects.findIndex((project) => project.slug === slug);
-
-  if (currentIndex === -1) {
-    return { previous: null, next: null };
-  }
-
-  return {
-    previous: projects[currentIndex - 1] ?? null,
-    next: projects[currentIndex + 1] ?? null,
-  };
-}
-
-export const skillItems = [
+const rawSkillItems = [
   {
     label: "html",
     icon: "html",
@@ -365,13 +564,13 @@ export const skillItems = [
   },
 ] as const;
 
-export const aboutHighlights = [
+const rawAboutHighlights = [
   "Full stack developer focused on clean, accessible product experiences.",
   "Designer-minded builder who cares about visual polish and interaction.",
   "Based in Accra, Ghana, building digital products with global taste.",
 ] as const;
 
-export const serviceItems = [
+const rawServiceItems = [
   {
     title: "Portfolio & brand websites",
     description:
@@ -396,7 +595,7 @@ export const serviceItems = [
   },
 ] as const;
 
-export const experienceItems = [
+const rawExperienceItems = [
   {
     role: "Full Stack Developer",
     company: "Looprompt",
@@ -419,7 +618,7 @@ export const experienceItems = [
   },
 ] as const;
 
-export const educationItems = [
+const rawEducationItems = [
   {
     institution: "Self-directed learning",
     qualification: "Full-stack engineering, UI design, and product thinking",
@@ -436,7 +635,7 @@ export const educationItems = [
   },
 ] as const;
 
-export const certificationItems = [
+const rawCertificationItems = [
   {
     name: "Responsive Web Design",
     provider: "Self-guided certification track",
@@ -454,7 +653,7 @@ export const certificationItems = [
   },
 ] as const;
 
-export const testimonialItems = [
+const rawTestimonialItems = [
   {
     quote:
       "Kobina brings a calm eye for detail to interfaces. The work feels clean, modern, and easy to understand.",
@@ -474,3 +673,109 @@ export const testimonialItems = [
     role: "Business feedback",
   },
 ] as const;
+
+const rawPortfolioContent = {
+  site: rawSiteConfig,
+  navigation: rawSiteNavItems,
+  projects: rawProjects,
+  skills: rawSkillItems,
+  aboutHighlights: rawAboutHighlights,
+  services: rawServiceItems,
+  experience: rawExperienceItems,
+  education: rawEducationItems,
+  certifications: rawCertificationItems,
+  testimonials: rawTestimonialItems,
+  contentStrategy: {
+    caseStudiesUseMdx: false,
+    blogEnabled: false,
+    adapter: "typed-local",
+  },
+} as const;
+
+const portfolioContent = portfolioContentSchema.parse(rawPortfolioContent);
+
+export function getSiteConfig() {
+  return portfolioContent.site;
+}
+
+export function getNavigationItems() {
+  return portfolioContent.navigation;
+}
+
+export function getImageAsset(key: string) {
+  return portfolioContent.site.images.find((image) => image.key === key);
+}
+
+export function getRequiredImageAsset(key: string) {
+  const asset = getImageAsset(key);
+
+  if (!asset) {
+    throw new Error(`Missing image asset: ${key}`);
+  }
+
+  return asset;
+}
+
+export function getAllProjects() {
+  return portfolioContent.projects;
+}
+
+export function getFeaturedProjects() {
+  return getAllProjects().slice(0, 3);
+}
+
+export function getProjectBySlug(slug: string) {
+  return getAllProjects().find((project) => project.slug === slug);
+}
+
+export function getRelatedProjects(slug: string, limit = 2) {
+  return getAllProjects()
+    .filter((project) => project.slug !== slug)
+    .slice(0, limit);
+}
+
+export function getAdjacentProjects(slug: string) {
+  const projects = getAllProjects();
+  const currentIndex = projects.findIndex((project) => project.slug === slug);
+
+  if (currentIndex === -1) {
+    return { previous: null, next: null };
+  }
+
+  return {
+    previous: projects[currentIndex - 1] ?? null,
+    next: projects[currentIndex + 1] ?? null,
+  };
+}
+
+export function getSkillItems() {
+  return portfolioContent.skills;
+}
+
+export function getAboutHighlights() {
+  return portfolioContent.aboutHighlights;
+}
+
+export function getServiceItems() {
+  return portfolioContent.services;
+}
+
+export function getExperienceItems() {
+  return portfolioContent.experience;
+}
+
+export function getEducationItems() {
+  return portfolioContent.education;
+}
+
+export function getCertificationItems() {
+  return portfolioContent.certifications;
+}
+
+export function getTestimonialItems() {
+  return portfolioContent.testimonials;
+}
+
+export function getContentStrategy() {
+  return portfolioContent.contentStrategy;
+}
