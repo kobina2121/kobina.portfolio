@@ -2,7 +2,8 @@ export type PortfolioEventName =
   | "copy_email"
   | "download_cv"
   | "open_external_link"
-  | "back_to_top";
+  | "back_to_top"
+  | "contact_submit_success";
 
 type PortfolioEventDetail = {
   label?: string;

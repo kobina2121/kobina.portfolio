@@ -8,11 +8,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { trackPortfolioEvent } from "@/lib/analytics/events";
+import type { ContactApiResponse } from "@/lib/contact-api";
 import {
   CONTACT_MESSAGE_MAX_LENGTH,
   contactBudgetOptions,
   contactFormSchema,
   contactSubjectOptions,
+  getContactFieldErrors,
   getInitialContactFormValues,
   type ContactFormErrors,
   type ContactFormField,
@@ -29,15 +32,7 @@ function getFieldErrors(values: ContactFormValues): ContactFormErrors {
     return {};
   }
 
-  return parsed.error.issues.reduce<ContactFormErrors>((errors, issue) => {
-    const field = issue.path[0] as ContactFormField | undefined;
-
-    if (field && !errors[field]) {
-      errors[field] = issue.message;
-    }
-
-    return errors;
-  }, {});
+  return getContactFieldErrors(parsed.error);
 }
 
 function getDescriptionIds(field: ContactFormField, hasError: boolean) {
@@ -49,9 +44,10 @@ export function ContactForm() {
     getInitialContactFormValues(),
   );
   const [errors, setErrors] = useState<ContactFormErrors>({});
-  const [status, setStatus] = useState<"idle" | "submitting" | "success">(
-    "idle",
-  );
+  const [status, setStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
+  const [statusMessage, setStatusMessage] = useState<string | null>(null);
 
   const isSubmitting = status === "submitting";
   const messageCharactersRemaining =
@@ -118,6 +114,7 @@ export function ContactForm() {
     if (!parsed.success) {
       setErrors(getFieldErrors(values));
       setStatus("idle");
+      setStatusMessage(null);
       toast.error("Please check the highlighted fields.");
       return;
     }
@@ -125,11 +122,61 @@ export function ContactForm() {
     setValues(parsed.data);
     setErrors({});
     setStatus("submitting");
+    setStatusMessage(null);
 
-    await new Promise((resolve) => setTimeout(resolve, 650));
+    const idempotencyKey =
+      crypto.randomUUID?.() ??
+      `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
-    setStatus("success");
-    toast.success("Message details are ready.");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Idempotency-Key": idempotencyKey,
+        },
+        body: JSON.stringify(parsed.data),
+      });
+
+      const payload = (await response
+        .json()
+        .catch(() => null)) as ContactApiResponse | null;
+
+      if (!response.ok || !payload?.ok) {
+        setStatus("error");
+
+        if (payload && !payload.ok) {
+          if (payload.fieldErrors) {
+            setErrors(payload.fieldErrors);
+          }
+
+          setStatusMessage(payload.message);
+          toast.error(payload.message);
+          return;
+        }
+
+        const fallbackMessage =
+          "Something went wrong while sending. Please try again or email directly.";
+
+        setStatusMessage(fallbackMessage);
+        toast.error(fallbackMessage);
+        return;
+      }
+
+      setStatus("success");
+      setStatusMessage("Message sent. I’ll reply as soon as I can.");
+      trackPortfolioEvent("contact_submit_success", {
+        source: "homepage-contact",
+      });
+      toast.success("Message sent.");
+    } catch {
+      const fallbackMessage =
+        "Email delivery is temporarily unavailable. Please try again or use the email draft fallback.";
+
+      setStatus("error");
+      setStatusMessage(fallbackMessage);
+      toast.error(fallbackMessage);
+    }
   }
 
   return (
@@ -140,8 +187,8 @@ export function ContactForm() {
             Message me here
           </h3>
           <p className="mt-2 text-xs leading-5 text-zinc-700 dark:text-zinc-400">
-            Share the useful bits now. Secure email delivery connects in the
-            backend phase.
+            Share the useful bits now. I’ll receive it securely and reply from
+            my inbox.
           </p>
         </div>
         {status === "success" ? (
@@ -157,8 +204,16 @@ export function ContactForm() {
           role="status"
           className="mb-4 border border-emerald-500/35 bg-emerald-500/10 px-3 py-2 text-xs leading-5 text-emerald-900 dark:text-emerald-200"
         >
-          Your details passed validation. Until the email backend is connected,
-          use the email draft button below to send it directly.
+          {statusMessage}
+        </div>
+      ) : null}
+
+      {status === "error" && statusMessage ? (
+        <div
+          role="alert"
+          className="mb-4 border border-red-500/35 bg-red-500/10 px-3 py-2 text-xs leading-5 text-red-900 dark:text-red-200"
+        >
+          {statusMessage}
         </div>
       ) : null}
 
@@ -422,7 +477,7 @@ export function ContactForm() {
             <Send className="size-3.5" aria-hidden="true" />
           </Button>
 
-          {status === "success" ? (
+          {status === "success" || status === "error" ? (
             <Button
               asChild
               variant="outline"

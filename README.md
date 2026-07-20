@@ -42,7 +42,14 @@ npx playwright install chromium
 
 ## Environment variables
 
-Copy `.env.example` to `.env.local`. Phase 1 only requires `NEXT_PUBLIC_SITE_URL`; email and abuse-protection credentials become required when those integrations are implemented.
+Copy `.env.example` to `.env.local`. The site can run locally with defaults, but production contact delivery requires:
+
+- `NEXT_PUBLIC_SITE_URL` — canonical site URL.
+- `RESEND_API_KEY` — Resend API key.
+- `CONTACT_FROM_EMAIL` — sender address from a verified Resend domain.
+- `CONTACT_TO_EMAIL` — inbox that receives portfolio contact submissions.
+
+Abuse-protection credentials are reserved for the later security phase.
 
 Environment parsing is centralized in `src/lib/env.ts`. Server secrets must never be imported into client components.
 

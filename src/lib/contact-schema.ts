@@ -79,6 +79,20 @@ export type ContactFormValues = z.infer<typeof contactFormSchema>;
 export type ContactFormField = keyof ContactFormValues;
 export type ContactFormErrors = Partial<Record<ContactFormField, string>>;
 
+export function getContactFieldErrors(
+  result: z.ZodError<ContactFormValues>,
+): ContactFormErrors {
+  return result.issues.reduce<ContactFormErrors>((errors, issue) => {
+    const field = issue.path[0] as ContactFormField | undefined;
+
+    if (field && !errors[field]) {
+      errors[field] = issue.message;
+    }
+
+    return errors;
+  }, {});
+}
+
 export function getInitialContactFormValues(): ContactFormValues {
   return {
     name: "",
