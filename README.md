@@ -61,6 +61,12 @@ The portfolio includes an embedded Sanity Studio at `/admin`. Until `NEXT_PUBLIC
 
 Editable content types include projects, experience, skills, services, education, certifications, testimonials, and site settings. The public site still has typed local fallback content, so it remains stable while Sanity is being connected or seeded.
 
+Seed the current local projects and experience into Sanity with:
+
+```bash
+npm run sanity:seed
+```
+
 ## Source structure
 
 ```text
