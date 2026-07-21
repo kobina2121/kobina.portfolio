@@ -52,6 +52,14 @@ export function SiteFooter() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/admin"
+                  className="text-xs text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white"
+                >
+                  admin login
+                </Link>
+              </li>
             </ul>
           </nav>
 
