@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   title: "About — Kobina",
   description:
     "Learn more about Kobina, a Ghana-based developer creating polished web experiences.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 const stats = [

@@ -20,6 +20,9 @@ export const metadata: Metadata = {
   title: "Skills — Kobina",
   description:
     "Explore Kobina's full-stack, design, database, and workflow skills.",
+  alternates: {
+    canonical: "/skills",
+  },
 };
 
 const skillIconMap = {

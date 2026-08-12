@@ -328,9 +328,9 @@ types/
 
 ## Phase 13 — SEO, analytics, and observability
 
-- [ ] Generate `sitemap.ts` from real routes and content.
-- [ ] Add `robots.ts` with production-only indexing rules.
-- [ ] Add canonical URLs to indexable pages.
+- [x] Generate `sitemap.ts` from real routes and content.
+- [x] Add `robots.ts` with production-only indexing rules.
+- [x] Add canonical URLs to indexable pages.
 - [ ] Validate Open Graph and structured-data output.
 - [ ] Add Vercel Web Analytics and Speed Insights or approved alternatives.
 - [ ] Track project open, live-demo click, CV download, and successful contact submission.

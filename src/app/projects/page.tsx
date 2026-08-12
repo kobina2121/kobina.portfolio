@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: "Projects — Kobina",
   description:
     "Selected portfolio projects by Kobina, including full-stack, dashboard, and product interface work.",
+  alternates: {
+    canonical: "/projects",
+  },
 };
 
 export default function ProjectsPage() {
