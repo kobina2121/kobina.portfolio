@@ -4,6 +4,7 @@ import { Check, Copy } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { trackPortfolioEvent } from "@/lib/analytics/events";
+import { contactEmail } from "@/lib/contact-details";
 import { cn } from "@/lib/utils";
 
 type CopyEmailButtonProps = {
@@ -12,7 +13,7 @@ type CopyEmailButtonProps = {
   source?: string;
 };
 
-const defaultEmail = "kobinaboakye@gmail.com";
+const defaultEmail = contactEmail;
 
 function fallbackCopy(value: string) {
   const textArea = document.createElement("textarea");
@@ -49,9 +50,7 @@ export function CopyEmailButton({
       toast.success("Email copied to clipboard.");
       window.setTimeout(() => setCopied(false), 1800);
     } catch {
-      toast.error(
-        "Could not copy automatically. Email: kobinaboakye@gmail.com",
-      );
+      toast.error(`Could not copy automatically. Email: ${email}`);
     }
   }
 

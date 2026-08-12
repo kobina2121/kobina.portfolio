@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { contactEmail, contactPhoneDisplay } from "@/lib/contact-details";
 
 const routeHrefSchema = z.string().refine(
   (href) => {
@@ -54,6 +55,7 @@ const siteConfigSchema = z.object({
   owner: nonEmptyString,
   title: nonEmptyString,
   email: z.email(),
+  phone: nonEmptyString,
   location: nonEmptyString,
   availability: nonEmptyString,
   primaryCta: z.object({
@@ -221,7 +223,8 @@ const rawSiteConfig = {
   name: "Kobina Portfolio",
   owner: "Kobina Boakye",
   title: "Full Stack Developer",
-  email: "kobinaboakye@gmail.com",
+  email: contactEmail,
+  phone: contactPhoneDisplay,
   location: "Accra, Ghana",
   availability: "Available for selected builds",
   primaryCta: {
@@ -235,7 +238,7 @@ const rawSiteConfig = {
   socialLinks: [
     { label: "GitHub", href: "https://github.com/kobina2121" },
     { label: "LinkedIn", href: "#contact-me" },
-    { label: "Email", href: "mailto:kobinaboakye@gmail.com" },
+    { label: "Email", href: `mailto:${contactEmail}` },
   ],
   images: [
     {

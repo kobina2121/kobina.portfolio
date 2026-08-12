@@ -1,4 +1,5 @@
 import type { Project } from "@/lib/portfolio-content";
+import { contactEmail, contactPhoneHref } from "@/lib/contact-details";
 import { absoluteUrl } from "@/lib/site-url";
 
 export function getWebsiteJsonLd() {
@@ -11,6 +12,8 @@ export function getWebsiteJsonLd() {
         name: "Kobina Boakye",
         url: absoluteUrl("/"),
         jobTitle: "Full Stack Developer",
+        email: contactEmail,
+        telephone: contactPhoneHref.replace("tel:", ""),
         address: {
           "@type": "PostalAddress",
           addressLocality: "Accra",

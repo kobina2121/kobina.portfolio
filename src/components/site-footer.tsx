@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Mail } from "lucide-react";
+import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { CopyEmailButton } from "@/components/copy-email-button";
 import { DownloadCvLink } from "@/components/download-cv-link";
+import { contactEmail, contactPhoneHref } from "@/lib/contact-details";
 import { getExternalLinkAttributes, isExternalHref } from "@/lib/links";
 import {
   getNavigationItems,
@@ -13,7 +14,7 @@ import {
 const mediaLinks = [
   { label: "GitHub", href: "https://github.com/kobina2121" },
   { label: "LinkedIn", href: "/#contact-me" },
-  { label: "Mail", href: "mailto:kobinaboakye@gmail.com" },
+  { label: "Mail", href: `mailto:${contactEmail}` },
 ] as const;
 
 export function SiteFooter() {
@@ -94,6 +95,13 @@ export function SiteFooter() {
               >
                 <Mail className="size-3.5" aria-hidden="true" />
                 {site.email}
+              </Link>
+              <Link
+                href={contactPhoneHref}
+                className="flex min-h-11 items-center gap-2 hover:text-zinc-950 dark:hover:text-white"
+              >
+                <Phone className="size-3.5" aria-hidden="true" />
+                {site.phone}
               </Link>
             </div>
           </div>

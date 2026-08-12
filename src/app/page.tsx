@@ -1,12 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Mail } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Mail, Phone } from "lucide-react";
 import { CopyEmailButton } from "@/components/copy-email-button";
 import { DownloadCvLink } from "@/components/download-cv-link";
 import { ContactForm } from "@/components/forms/contact-form";
 import { Reveal } from "@/components/motion/reveal";
 import { SiteNavbar } from "@/components/site-navbar";
 import { ProjectCard } from "@/components/projects/project-card";
+import {
+  contactEmail,
+  contactPhoneDisplay,
+  contactPhoneHref,
+} from "@/lib/contact-details";
 import { getExternalLinkAttributes, isExternalHref } from "@/lib/links";
 import {
   getAboutHighlights,
@@ -59,7 +64,7 @@ const heroSocialLinks = [
   },
   {
     label: "Email",
-    href: "mailto:kobinaboakye@gmail.com",
+    href: `mailto:${contactEmail}`,
     icon: Mail,
   },
 ] as const;
@@ -567,11 +572,18 @@ export default function Home() {
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
-                  href="mailto:kobinaboakye@gmail.com"
+                  href={`mailto:${contactEmail}`}
                   className="inline-flex min-h-11 items-center gap-2 bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-[#d76bff] dark:bg-white dark:text-zinc-950"
                 >
                   Email me
                   <Mail className="size-3.5" aria-hidden="true" />
+                </Link>
+                <Link
+                  href={contactPhoneHref}
+                  className="inline-flex min-h-11 items-center gap-2 border border-zinc-950/25 px-4 py-2 text-xs font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/35"
+                >
+                  {contactPhoneDisplay}
+                  <Phone className="size-3.5" aria-hidden="true" />
                 </Link>
                 <CopyEmailButton source="homepage-contact" />
                 <Link

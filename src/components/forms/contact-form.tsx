@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { trackPortfolioEvent } from "@/lib/analytics/events";
+import { contactEmail } from "@/lib/contact-details";
 import type { ContactApiResponse } from "@/lib/contact-api";
 import {
   CONTACT_MESSAGE_MAX_LENGTH,
@@ -23,7 +24,7 @@ import {
 } from "@/lib/contact-schema";
 import { cn } from "@/lib/utils";
 
-const emailAddress = "kobinaboakye@gmail.com";
+const emailAddress = contactEmail;
 
 function getFieldErrors(values: ContactFormValues): ContactFormErrors {
   const parsed = contactFormSchema.safeParse(values);

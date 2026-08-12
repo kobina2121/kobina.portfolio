@@ -24,6 +24,12 @@ export const siteSettings = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "phone",
+      title: "Phone",
+      type: "string",
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "location",
       title: "Location",
       type: "string",
