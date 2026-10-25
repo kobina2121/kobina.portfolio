@@ -1,25 +1,26 @@
-import type { Project } from "@/lib/content/schema";
-import { contactEmail, contactPhoneHref } from "@/lib/contact-details";
+import type { Project, SiteSettings } from "@/lib/content/schema";
+import { getPhoneHref } from "@/lib/contact-details";
 import { absoluteUrl } from "@/lib/site-url";
 
-export function getWebsiteJsonLd() {
+export function getWebsiteJsonLd(site: SiteSettings) {
   return {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "Person",
         "@id": absoluteUrl("/#person"),
-        name: "Kobina Boakye",
+        name: site.owner,
         url: absoluteUrl("/"),
-        jobTitle: "Full Stack Developer",
-        email: contactEmail,
-        telephone: contactPhoneHref.replace("tel:", ""),
+        jobTitle: site.title,
+        email: site.email,
+        telephone: getPhoneHref(site.phone).replace("tel:", ""),
         address: {
           "@type": "PostalAddress",
-          addressLocality: "Accra",
-          addressCountry: "GH",
+          addressLocality: site.location,
         },
-        sameAs: ["https://github.com/kobina2121"],
+        sameAs: site.socialLinks
+          .map((link) => link.href)
+          .filter((href) => href.startsWith("http")),
         knowsAbout: [
           "Full-stack development",
           "React",
@@ -32,7 +33,7 @@ export function getWebsiteJsonLd() {
       {
         "@type": "WebSite",
         "@id": absoluteUrl("/#website"),
-        name: "Kobina Portfolio",
+        name: site.name,
         url: absoluteUrl("/"),
         author: {
           "@id": absoluteUrl("/#person"),
@@ -43,7 +44,7 @@ export function getWebsiteJsonLd() {
   };
 }
 
-export function getProjectJsonLd(project: Project) {
+export function getProjectJsonLd(project: Project, site: SiteSettings) {
   return {
     "@context": "https://schema.org",
     "@type": "CreativeWork",
@@ -54,7 +55,7 @@ export function getProjectJsonLd(project: Project) {
     datePublished: `${project.year}-01-01`,
     creator: {
       "@id": absoluteUrl("/#person"),
-      name: "Kobina Boakye",
+      name: site.owner,
     },
     keywords: project.tags.join(", "),
     genre: project.category,

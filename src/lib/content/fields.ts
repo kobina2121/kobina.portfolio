@@ -84,7 +84,12 @@ export const settingsFields: FieldConfig[] = [
   { kind: "text", name: "owner", label: "Owner" },
   { kind: "text", name: "title", label: "Professional title" },
   { kind: "text", name: "email", label: "Email" },
-  { kind: "text", name: "phone", label: "Phone" },
+  {
+    kind: "text",
+    name: "phone",
+    label: "Phone",
+    help: "Numbers starting with 0 are dialed as +233. For other countries, include the country code, e.g. +44 20 7946 0958.",
+  },
   { kind: "text", name: "location", label: "Location" },
   { kind: "text", name: "availability", label: "Availability" },
   {
@@ -103,6 +108,7 @@ export const settingsFields: FieldConfig[] = [
     kind: "repeater",
     name: "socialLinks",
     label: "Social links",
+    help: "Shown in the hero and footer. GitHub, LinkedIn, X, Instagram, and email links get their own icons.",
     itemLabel: "Link",
     fields: linkFields,
   },

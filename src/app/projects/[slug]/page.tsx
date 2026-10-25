@@ -13,6 +13,7 @@ import {
   getAllProjects,
   getProjectBySlug,
   getRelatedProjects,
+  getSiteConfig,
   type ProjectLink,
 } from "@/lib/portfolio-content";
 import { getProjectJsonLd } from "@/lib/structured-data";
@@ -110,7 +111,8 @@ export default async function ProjectCaseStudyPage({
     notFound();
   }
 
-  const [relatedProjects, { previous, next }] = await Promise.all([
+  const [site, relatedProjects, { previous, next }] = await Promise.all([
+    getSiteConfig(),
     getRelatedProjects(project.slug),
     getAdjacentProjects(project.slug),
   ]);
@@ -122,7 +124,7 @@ export default async function ProjectCaseStudyPage({
       className="homepage-font bg-background text-foreground min-h-screen"
     >
       <SiteNavbar active="projects" />
-      <JsonLd id="project-json-ld" data={getProjectJsonLd(project)} />
+      <JsonLd id="project-json-ld" data={getProjectJsonLd(project, site)} />
 
       <Container className="pt-32 pb-20">
         <Link

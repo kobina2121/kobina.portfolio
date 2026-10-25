@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { CopyEmailButton } from "@/components/copy-email-button";
 import { DownloadCvLink } from "@/components/download-cv-link";
-import { contactEmail, contactPhoneHref } from "@/lib/contact-details";
+import { getPhoneHref } from "@/lib/contact-details";
 import { getExternalLinkAttributes, isExternalHref } from "@/lib/links";
 import {
   getNavigationItems,
@@ -11,14 +11,17 @@ import {
   getSiteConfig,
 } from "@/lib/portfolio-content";
 
-const mediaLinks = [
-  { label: "GitHub", href: "https://github.com/kobina2121" },
-  { label: "LinkedIn", href: "/#contact-me" },
-  { label: "Mail", href: `mailto:${contactEmail}` },
-] as const;
+// The footer renders on every page, so home-page anchors need the / prefix.
+function toSiteWideHref(href: string) {
+  return href.startsWith("#") ? `/${href}` : href;
+}
 
 export async function SiteFooter() {
   const site = await getSiteConfig();
+  const mediaLinks = site.socialLinks.map((link) => ({
+    ...link,
+    href: toSiteWideHref(link.href),
+  }));
   const siteNavItems = getNavigationItems();
   const loopromptLogo = getRequiredImageAsset("looprompt-logo");
 
@@ -36,7 +39,7 @@ export async function SiteFooter() {
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <DownloadCvLink source="footer" />
-              <CopyEmailButton source="footer" />
+              <CopyEmailButton email={site.email} source="footer" />
             </div>
           </div>
 
@@ -69,7 +72,7 @@ export async function SiteFooter() {
             <div className="flex flex-wrap gap-4">
               {mediaLinks.map((item) => (
                 <Link
-                  key={item.label}
+                  key={`${item.label}-${item.href}`}
                   href={item.href}
                   {...getExternalLinkAttributes(item.href)}
                   className="text-xs text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-white"
@@ -97,7 +100,7 @@ export async function SiteFooter() {
                 {site.email}
               </Link>
               <Link
-                href={contactPhoneHref}
+                href={getPhoneHref(site.phone)}
                 className="flex min-h-11 items-center gap-2 hover:text-zinc-950 dark:hover:text-white"
               >
                 <Phone className="size-3.5" aria-hidden="true" />

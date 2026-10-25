@@ -24,8 +24,6 @@ import {
 } from "@/lib/contact-schema";
 import { cn } from "@/lib/utils";
 
-const emailAddress = contactEmail;
-
 function getFieldErrors(values: ContactFormValues): ContactFormErrors {
   const parsed = contactFormSchema.safeParse(values);
 
@@ -40,7 +38,7 @@ function getDescriptionIds(field: ContactFormField, hasError: boolean) {
   return cn(`${field}-description`, hasError && `${field}-error`);
 }
 
-export function ContactForm() {
+export function ContactForm({ email = contactEmail }: { email?: string }) {
   const [values, setValues] = useState<ContactFormValues>(() =>
     getInitialContactFormValues(),
   );
@@ -70,10 +68,10 @@ export function ContactForm() {
       values.message,
     ].join("\n");
 
-    return `mailto:${emailAddress}?subject=${encodeURIComponent(
+    return `mailto:${email}?subject=${encodeURIComponent(
       subjectLabel,
     )}&body=${encodeURIComponent(body)}`;
-  }, [values]);
+  }, [email, values]);
 
   function updateField<Field extends ContactFormField>(
     field: Field,
@@ -495,11 +493,11 @@ export function ContactForm() {
 
       <div className="mt-5 space-y-3 border-t border-zinc-950/15 pt-5 text-xs text-zinc-700 dark:border-white/20 dark:text-zinc-400">
         <a
-          href={`mailto:${emailAddress}`}
+          href={`mailto:${email}`}
           className="flex items-center gap-3 hover:text-zinc-950 dark:hover:text-white"
         >
           <Mail className="size-4" aria-hidden="true" />
-          {emailAddress}
+          {email}
         </a>
       </div>
     </div>

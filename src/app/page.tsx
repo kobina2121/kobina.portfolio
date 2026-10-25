@@ -1,17 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Mail, Phone } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Globe, Mail, Phone } from "lucide-react";
 import { CopyEmailButton } from "@/components/copy-email-button";
 import { DownloadCvLink } from "@/components/download-cv-link";
 import { ContactForm } from "@/components/forms/contact-form";
 import { Reveal } from "@/components/motion/reveal";
 import { SiteNavbar } from "@/components/site-navbar";
 import { ProjectCard } from "@/components/projects/project-card";
-import {
-  contactEmail,
-  contactPhoneDisplay,
-  contactPhoneHref,
-} from "@/lib/contact-details";
+import { getPhoneHref } from "@/lib/contact-details";
 import { getExternalLinkAttributes, isExternalHref } from "@/lib/links";
 import {
   getAboutHighlights,
@@ -31,11 +27,13 @@ import {
   FaGitAlt,
   FaGithub,
   FaHtml5,
+  FaInstagram,
   FaJava,
   FaJs,
   FaLinkedinIn,
   FaNodeJs,
   FaReact,
+  FaXTwitter,
 } from "react-icons/fa6";
 import { SiFirebase, SiMysql } from "react-icons/si";
 
@@ -52,23 +50,17 @@ const skillIconMap = {
   java: FaJava,
 };
 
-const heroSocialLinks = [
-  {
-    label: "GitHub",
-    href: "https://github.com/kobina2121",
-    icon: FaGithub,
-  },
-  {
-    label: "LinkedIn",
-    href: "#contact-me",
-    icon: FaLinkedinIn,
-  },
-  {
-    label: "Email",
-    href: `mailto:${contactEmail}`,
-    icon: Mail,
-  },
-] as const;
+// Picks an icon from the link's label or URL, e.g. "LinkedIn" or github.com.
+function getSocialIcon({ label, href }: { label: string; href: string }) {
+  const text = `${label} ${href}`.toLowerCase();
+
+  if (href.startsWith("mailto:")) return Mail;
+  if (text.includes("github")) return FaGithub;
+  if (text.includes("linkedin")) return FaLinkedinIn;
+  if (text.includes("twitter") || /\bx\b|x\.com/.test(text)) return FaXTwitter;
+  if (text.includes("instagram")) return FaInstagram;
+  return Globe;
+}
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -126,6 +118,11 @@ export default async function Home() {
     getCertificationItems(),
     getTestimonialItems(),
   ]);
+  const heroSocialLinks = site.socialLinks.map((link) => ({
+    ...link,
+    icon: getSocialIcon(link),
+  }));
+  const phoneHref = getPhoneHref(site.phone);
   const formalPortrait = getRequiredImageAsset("formal-portrait");
   const developerCharacter = getRequiredImageAsset("developer-character");
 
@@ -158,7 +155,7 @@ export default async function Home() {
 
               return (
                 <Link
-                  key={item.label}
+                  key={`${item.label}-${item.href}`}
                   href={item.href}
                   className="relative inline-flex size-11 items-center justify-center hover:text-[#d76bff]"
                   {...getExternalLinkAttributes(item.href)}
@@ -230,7 +227,7 @@ export default async function Home() {
 
                 return (
                   <Link
-                    key={item.label}
+                    key={`${item.label}-${item.href}`}
                     href={item.href}
                     className="relative inline-flex size-11 items-center justify-center border border-zinc-950/20 text-zinc-700 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/25 dark:text-zinc-300"
                     {...getExternalLinkAttributes(item.href)}
@@ -586,20 +583,20 @@ export default async function Home() {
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
-                  href={`mailto:${contactEmail}`}
+                  href={`mailto:${site.email}`}
                   className="inline-flex min-h-11 items-center gap-2 bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-[#d76bff] dark:bg-white dark:text-zinc-950"
                 >
                   Email me
                   <Mail className="size-3.5" aria-hidden="true" />
                 </Link>
                 <Link
-                  href={contactPhoneHref}
+                  href={phoneHref}
                   className="inline-flex min-h-11 items-center gap-2 border border-zinc-950/25 px-4 py-2 text-xs font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/35"
                 >
-                  {contactPhoneDisplay}
+                  {site.phone}
                   <Phone className="size-3.5" aria-hidden="true" />
                 </Link>
-                <CopyEmailButton source="homepage-contact" />
+                <CopyEmailButton email={site.email} source="homepage-contact" />
                 <Link
                   href="/projects"
                   className="inline-flex min-h-11 items-center gap-2 border border-zinc-950/25 px-4 py-2 text-xs font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/35"
@@ -610,7 +607,7 @@ export default async function Home() {
               </div>
             </div>
 
-            <ContactForm />
+            <ContactForm email={site.email} />
           </section>
         </Reveal>
       </div>

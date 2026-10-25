@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { absoluteUrl, siteUrl } from "@/lib/site-url";
+import { getSiteConfig } from "@/lib/portfolio-content";
 import { getWebsiteJsonLd } from "@/lib/structured-data";
 import "./globals.css";
 
@@ -92,7 +93,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -112,7 +113,10 @@ export default function RootLayout({
             >
               Skip to content
             </a>
-            <JsonLd id="website-json-ld" data={getWebsiteJsonLd()} />
+            <JsonLd
+              id="website-json-ld"
+              data={getWebsiteJsonLd(await getSiteConfig())}
+            />
             {children}
             <SiteFooter />
             <BackToTopButton />
