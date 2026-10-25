@@ -23,6 +23,12 @@ const serverEnvSchema = z.object({
   ),
   NEXT_PUBLIC_TURNSTILE_SITE_KEY: emptyStringToUndefined,
   TURNSTILE_SECRET_KEY: emptyStringToUndefined,
+  ADMIN_EMAIL: z.preprocess(
+    (value) => (value === "" ? undefined : value),
+    z.email().optional(),
+  ),
+  ADMIN_PASSWORD: emptyStringToUndefined,
+  ADMIN_SESSION_SECRET: emptyStringToUndefined,
 });
 
 export const env = serverEnvSchema.parse({
@@ -33,4 +39,7 @@ export const env = serverEnvSchema.parse({
   CONTACT_TO_EMAIL: process.env.CONTACT_TO_EMAIL,
   NEXT_PUBLIC_TURNSTILE_SITE_KEY: process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY,
   TURNSTILE_SECRET_KEY: process.env.TURNSTILE_SECRET_KEY,
+  ADMIN_EMAIL: process.env.ADMIN_EMAIL,
+  ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+  ADMIN_SESSION_SECRET: process.env.ADMIN_SESSION_SECRET,
 });

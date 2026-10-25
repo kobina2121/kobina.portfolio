@@ -45,8 +45,8 @@ const focusAreas = [
   "Clean implementation",
 ] as const;
 
-export default function SkillsPage() {
-  const skillItems = getSkillItems();
+export default async function SkillsPage() {
+  const skillItems = await getSkillItems();
 
   return (
     <main

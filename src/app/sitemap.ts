@@ -4,9 +4,9 @@ import { absoluteUrl } from "@/lib/site-url";
 
 const staticRoutes = ["/", "/about", "/projects", "/skills"] as const;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const projectRoutes = getAllProjects().map((project) => ({
+  const projectRoutes = (await getAllProjects()).map((project) => ({
     url: absoluteUrl(`/projects/${project.slug}`),
     lastModified: now,
     changeFrequency: "monthly" as const,

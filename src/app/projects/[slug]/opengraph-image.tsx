@@ -16,7 +16,7 @@ export default async function ProjectOpenGraphImage({
   params,
 }: ProjectOpenGraphImageProps) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
 
   return new ImageResponse(
     <div

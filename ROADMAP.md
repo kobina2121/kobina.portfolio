@@ -485,23 +485,23 @@ types/
 
 Record material decisions here before implementing them.
 
-| Decision          | Default                        | Change only when                                                 |
-| ----------------- | ------------------------------ | ---------------------------------------------------------------- |
-| Contact provider  | Resend                         | Another provider has a concrete compliance or delivery advantage |
-| Content source    | Sanity Studio + typed fallback | Editors require drafts, previews, or non-code publishing         |
-| Long-form content | MDX                            | A CMS is approved                                                |
-| CAPTCHA           | Turnstile                      | Google reCAPTCHA is a firm requirement                           |
-| Analytics         | Vercel Analytics               | Privacy, cost, or reporting requirements favor another tool      |
-| Global state      | None                           | Multiple unrelated client features genuinely share complex state |
-| Project modal     | Accessible Dialog              | Addressable modal routes materially improve the experience       |
+| Decision          | Default                  | Change only when                                                 |
+| ----------------- | ------------------------ | ---------------------------------------------------------------- |
+| Contact provider  | Resend                   | Another provider has a concrete compliance or delivery advantage |
+| Content source    | MongoDB + typed fallback | Editors require drafts, previews, or non-code publishing         |
+| Long-form content | MDX                      | A CMS is approved                                                |
+| CAPTCHA           | Turnstile                | Google reCAPTCHA is a firm requirement                           |
+| Analytics         | Vercel Analytics         | Privacy, cost, or reporting requirements favor another tool      |
+| Global state      | None                     | Multiple unrelated client features genuinely share complex state |
+| Project modal     | Accessible Dialog        | Addressable modal routes materially improve the experience       |
 
 ## Approved scope changes
 
-- Sanity Studio admin route for editing portfolio content.
+- Password-protected admin route for editing portfolio content stored in MongoDB.
 
 ## Deferred unless explicitly approved
 
-- Full CMS migration from local fallback to Sanity-only content.
+- Full migration from local fallback to MongoDB-only content.
 - User accounts or authentication.
 - Database-backed contact history.
 - Newsletter subscriptions.

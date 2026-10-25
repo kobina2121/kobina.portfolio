@@ -13,7 +13,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { getNavigationItems, type SiteNavKey } from "@/lib/portfolio-content";
+import type { SiteNavKey } from "@/lib/content/schema";
+import { navigationItems } from "@/lib/content/static-content";
 import { cn } from "@/lib/utils";
 
 type SiteNavbarProps = {
@@ -36,7 +37,7 @@ function getRouteActiveKey(pathname: string, fallback: SiteNavKey): SiteNavKey {
 
 export function SiteNavbar({ active }: SiteNavbarProps) {
   const pathname = usePathname();
-  const siteNavItems = getNavigationItems();
+  const siteNavItems = navigationItems;
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<SiteNavKey>("home");
   const routeActiveKey = getRouteActiveKey(pathname, active);

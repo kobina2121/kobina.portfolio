@@ -1,63 +1,37 @@
-import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { contactEmail, contactPhoneDisplay } from "@/lib/contact-details";
+import { portfolioContentSchema } from "@/lib/content/schema";
 
-const envPath = ".env.local";
+const rawAboutHighlights = [
+  "Full stack developer focused on clean, accessible product experiences.",
+  "Designer-minded builder who cares about visual polish and interaction.",
+  "Based in Accra, Ghana, building digital products with global taste.",
+] as const;
 
-function loadLocalEnv() {
-  if (!existsSync(envPath)) {
-    return;
-  }
+const rawSiteSettings = {
+  name: "Kobina Portfolio",
+  owner: "Kobina Boakye",
+  title: "Full Stack Developer",
+  email: contactEmail,
+  phone: contactPhoneDisplay,
+  location: "Accra, Ghana",
+  availability: "Available for selected builds",
+  primaryCta: {
+    label: "View projects",
+    href: "#projects",
+  },
+  secondaryCta: {
+    label: "Contact me",
+    href: "#contact-me",
+  },
+  socialLinks: [
+    { label: "GitHub", href: "https://github.com/kobina2121" },
+    { label: "LinkedIn", href: "#contact-me" },
+    { label: "Email", href: `mailto:${contactEmail}` },
+  ],
+  aboutHighlights: rawAboutHighlights,
+};
 
-  const lines = readFileSync(envPath, "utf8").split(/\r?\n/);
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-
-    if (!trimmed || trimmed.startsWith("#") || !trimmed.includes("=")) {
-      continue;
-    }
-
-    const [key, ...valueParts] = trimmed.split("=");
-    const value = valueParts.join("=").replace(/^['"]|['"]$/g, "");
-
-    if (!process.env[key]) {
-      process.env[key] = value;
-    }
-  }
-}
-
-function requiredEnv(name) {
-  const value = process.env[name];
-
-  if (!value) {
-    throw new Error(`Missing ${name}. Add it to ${envPath} first.`);
-  }
-
-  return value;
-}
-
-function keyFrom(value) {
-  return value
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 48);
-}
-
-function projectLink(link) {
-  return {
-    _type: "projectLink",
-    label: link.label,
-    ...(link.href ? { href: link.href } : {}),
-    ...(link.unavailableReason
-      ? { unavailableReason: link.unavailableReason }
-      : {}),
-  };
-}
-
-const projects = [
+const rawProjects = [
   {
     title: "1111Afolio",
     slug: "1111afolio",
@@ -275,7 +249,106 @@ const projects = [
   },
 ];
 
-const experience = [
+const rawSkillItems = [
+  {
+    label: "html",
+    icon: "html",
+    color: "text-orange-500",
+    category: "Frontend",
+    description:
+      "Semantic structure, accessibility, and polished page layouts.",
+  },
+  {
+    label: "css",
+    icon: "css",
+    color: "text-blue-500",
+    category: "Frontend",
+    description: "Responsive styling, animation, and design-system thinking.",
+  },
+  {
+    label: "javascript",
+    icon: "javascript",
+    color: "text-yellow-300",
+    category: "Language",
+    description: "Interactive UI logic, browser APIs, and product behavior.",
+  },
+  {
+    label: "react.js",
+    icon: "react",
+    color: "text-cyan-400",
+    category: "Frontend",
+    description: "Component-driven interfaces with reusable UI patterns.",
+  },
+  {
+    label: "node.js",
+    icon: "node",
+    color: "text-lime-400",
+    category: "Backend",
+    description: "Server-side JavaScript, APIs, and app foundations.",
+  },
+  {
+    label: "figma",
+    icon: "figma",
+    color: "text-pink-400",
+    category: "Design",
+    description: "Wireframes, visual direction, and interface exploration.",
+  },
+  {
+    label: "git",
+    icon: "git",
+    color: "text-red-500",
+    category: "Workflow",
+    description: "Version control, collaboration, and clean delivery habits.",
+  },
+  {
+    label: "mysql",
+    icon: "mysql",
+    color: "text-sky-500",
+    category: "Database",
+    description: "Relational data modeling for reliable application storage.",
+  },
+  {
+    label: "firebase",
+    icon: "firebase",
+    color: "text-amber-400",
+    category: "Backend",
+    description: "Authentication, real-time data, and rapid product builds.",
+  },
+  {
+    label: "java",
+    icon: "java",
+    color: "text-red-400",
+    category: "Language",
+    description: "Object-oriented programming and structured app logic.",
+  },
+] as const;
+
+const rawServiceItems = [
+  {
+    title: "Portfolio & brand websites",
+    description:
+      "Premium personal and business websites that make the first impression feel intentional.",
+    deliverables: ["Responsive UI", "SEO-ready pages", "Launch support"],
+  },
+  {
+    title: "Full-stack implementation",
+    description:
+      "Clean React and Next.js experiences connected to practical product foundations.",
+    deliverables: [
+      "Component systems",
+      "Accessible markup",
+      "Performance pass",
+    ],
+  },
+  {
+    title: "Product interface polish",
+    description:
+      "Sharper dashboards, landing pages, and flows with stronger hierarchy and interaction details.",
+    deliverables: ["UI audit", "Design cleanup", "Interaction states"],
+  },
+] as const;
+
+const rawExperienceItems = [
   {
     role: "Full Stack Developer",
     company: "Looprompt",
@@ -296,120 +369,72 @@ const experience = [
       "Translating visual references into responsive, production-minded implementations.",
     ],
   },
-];
+] as const;
 
-function toProjectDocument(project, index) {
-  return {
-    _id: `project-${project.slug}`,
-    _type: "project",
-    title: project.title,
-    slug: {
-      _type: "slug",
-      current: project.slug,
-    },
-    category: project.category,
-    type: project.type,
-    year: project.year,
-    description: project.description,
-    outcome: project.outcome,
-    accent: project.accent,
-    stack: project.stack,
-    tags: project.tags,
-    context: project.context,
-    role: project.role,
-    problem: project.problem,
-    constraints: project.constraints,
-    process: project.process,
-    solution: project.solution,
-    impact: project.impact,
-    lessons: project.lessons,
-    gallery: project.gallery.map((item, galleryIndex) => ({
-      _key: keyFrom(`${project.slug}-${item.title}-${galleryIndex}`),
-      _type: "projectMedia",
-      title: item.title,
-      caption: item.caption,
-      accent: item.accent,
-    })),
-    live: projectLink(project.live),
-    source: projectLink(project.source),
-    confidentiality: project.confidentiality,
-    featured: true,
-    orderRank: index + 1,
-  };
-}
+const rawEducationItems = [
+  {
+    institution: "Self-directed learning",
+    qualification: "Full-stack engineering, UI design, and product thinking",
+    period: "Ongoing",
+    detail:
+      "Focused learning through production builds, design references, and modern web tooling.",
+  },
+  {
+    institution: "Practical project work",
+    qualification: "React, Next.js, TypeScript, Tailwind CSS",
+    period: "2025 — Present",
+    detail:
+      "Hands-on projects covering responsive layouts, reusable components, and deployment workflows.",
+  },
+] as const;
 
-function toExperienceDocument(item, index) {
-  return {
-    _id: `experience-${keyFrom(`${item.company}-${item.role}`)}`,
-    _type: "experience",
-    role: item.role,
-    company: item.company,
-    period: item.period,
-    location: item.location,
-    highlights: item.highlights,
-    orderRank: index + 1,
-  };
-}
+const rawCertificationItems = [
+  {
+    name: "Responsive Web Design",
+    provider: "Self-guided certification track",
+    status: "In progress",
+  },
+  {
+    name: "Full Stack Engineering",
+    provider: "Portfolio project practice",
+    status: "Ongoing",
+  },
+  {
+    name: "Accessibility Foundations",
+    provider: "Portfolio quality standard",
+    status: "Ongoing",
+  },
+] as const;
 
-function run(command, args) {
-  const result = spawnSync(command, args, {
-    stdio: "inherit",
-    shell: false,
-  });
+const rawTestimonialItems = [
+  {
+    quote:
+      "Kobina brings a calm eye for detail to interfaces. The work feels clean, modern, and easy to understand.",
+    name: "Anonymous collaborator",
+    role: "Brand feedback",
+  },
+  {
+    quote:
+      "He turns rough ideas into polished screens quickly, while still caring about usability and structure.",
+    name: "Anonymous product partner",
+    role: "Product feedback",
+  },
+  {
+    quote:
+      "The final result had the exact mood we wanted: minimal, sharp, and professional without feeling generic.",
+    name: "Anonymous founder",
+    role: "Business feedback",
+  },
+] as const;
 
-  if (result.error) {
-    throw result.error;
-  }
-
-  if (result.status !== 0) {
-    process.exit(result.status ?? 1);
-  }
-}
-
-loadLocalEnv();
-
-const projectId = requiredEnv("NEXT_PUBLIC_SANITY_PROJECT_ID");
-const dataset = requiredEnv("NEXT_PUBLIC_SANITY_DATASET");
-const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION ?? "2026-07-20";
-const seedPath = join(tmpdir(), "kobina-portfolio-sanity-seed.ndjson");
-const documents = [
-  ...projects.map(toProjectDocument),
-  ...experience.map(toExperienceDocument),
-];
-
-writeFileSync(
-  seedPath,
-  `${documents.map((document) => JSON.stringify(document)).join("\n")}\n`,
-);
-
-console.log(
-  `Seeding ${projects.length} projects and ${experience.length} experience items into Sanity...`,
-);
-console.log("Existing Sanity documents with the same IDs will be skipped.");
-
-run("npx", [
-  "sanity",
-  "datasets",
-  "import",
-  seedPath,
-  "--project-id",
-  projectId,
-  "--dataset",
-  dataset,
-  "--missing",
-]);
-
-console.log("Verifying seeded document counts...");
-
-run("npx", [
-  "sanity",
-  "documents",
-  "query",
-  '{ "projects": count(*[_type == "project"]), "experience": count(*[_type == "experience"]) }',
-  "--project-id",
-  projectId,
-  "--dataset",
-  dataset,
-  "--api-version",
-  apiVersion,
-]);
+/** Content seeded into MongoDB and served whenever the database is unavailable. */
+export const defaultPortfolioContent = portfolioContentSchema.parse({
+  settings: rawSiteSettings,
+  projects: rawProjects,
+  skills: rawSkillItems,
+  services: rawServiceItems,
+  experience: rawExperienceItems,
+  education: rawEducationItems,
+  certifications: rawCertificationItems,
+  testimonials: rawTestimonialItems,
+});

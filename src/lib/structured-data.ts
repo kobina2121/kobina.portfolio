@@ -1,4 +1,4 @@
-import type { Project } from "@/lib/portfolio-content";
+import type { Project } from "@/lib/content/schema";
 import { contactEmail, contactPhoneHref } from "@/lib/contact-details";
 import { absoluteUrl } from "@/lib/site-url";
 

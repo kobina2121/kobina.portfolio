@@ -21,8 +21,8 @@ type ProjectPageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return getAllProjects().map((project) => ({
+export async function generateStaticParams() {
+  return (await getAllProjects()).map((project) => ({
     slug: project.slug,
   }));
 }
@@ -31,7 +31,7 @@ export async function generateMetadata({
   params,
 }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     return {
@@ -104,14 +104,16 @@ export default async function ProjectCaseStudyPage({
   params,
 }: ProjectPageProps) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     notFound();
   }
 
-  const relatedProjects = getRelatedProjects(project.slug);
-  const { previous, next } = getAdjacentProjects(project.slug);
+  const [relatedProjects, { previous, next }] = await Promise.all([
+    getRelatedProjects(project.slug),
+    getAdjacentProjects(project.slug),
+  ]);
 
   return (
     <main

@@ -21,6 +21,7 @@ import {
   getFeaturedProjects,
   getRequiredImageAsset,
   getServiceItems,
+  getSiteConfig,
   getSkillItems,
   getTestimonialItems,
 } from "@/lib/portfolio-content";
@@ -103,15 +104,28 @@ function CornerFrame({ className = "" }: { className?: string }) {
   );
 }
 
-export default function Home() {
-  const featuredProjects = getFeaturedProjects();
-  const skillItems = getSkillItems();
-  const aboutHighlights = getAboutHighlights();
-  const serviceItems = getServiceItems();
-  const experienceItems = getExperienceItems();
-  const educationItems = getEducationItems();
-  const certificationItems = getCertificationItems();
-  const testimonialItems = getTestimonialItems();
+export default async function Home() {
+  const [
+    site,
+    featuredProjects,
+    skillItems,
+    aboutHighlights,
+    serviceItems,
+    experienceItems,
+    educationItems,
+    certificationItems,
+    testimonialItems,
+  ] = await Promise.all([
+    getSiteConfig(),
+    getFeaturedProjects(),
+    getSkillItems(),
+    getAboutHighlights(),
+    getServiceItems(),
+    getExperienceItems(),
+    getEducationItems(),
+    getCertificationItems(),
+    getTestimonialItems(),
+  ]);
   const formalPortrait = getRequiredImageAsset("formal-portrait");
   const developerCharacter = getRequiredImageAsset("developer-character");
 
@@ -170,7 +184,7 @@ export default function Home() {
           <div>
             <p className="mb-5 inline-flex items-center gap-2 border border-zinc-950/20 bg-white/70 px-3 py-2 text-[0.68rem] font-semibold tracking-wide text-zinc-700 uppercase dark:border-white/20 dark:bg-black/70 dark:text-zinc-300">
               <span className="size-2 bg-emerald-400" aria-hidden="true" />
-              Available for selected builds
+              {site.availability}
             </p>
             <h1
               id="home-heading"
@@ -191,17 +205,17 @@ export default function Home() {
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <Link
-                href="#projects"
+                href={site.primaryCta.href}
                 className="inline-flex min-h-11 items-center gap-2 bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-[#d76bff] dark:bg-white dark:text-zinc-950"
               >
-                View projects
+                {site.primaryCta.label}
                 <ArrowDown className="size-3" aria-hidden="true" />
               </Link>
               <Link
-                href="#contact-me"
+                href={site.secondaryCta.href}
                 className="inline-flex min-h-11 items-center gap-2 border border-zinc-950/45 px-4 py-2 text-xs font-semibold text-zinc-950 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/45 dark:text-white"
               >
-                Contact me
+                {site.secondaryCta.label}
                 <ArrowUpRight className="size-3" aria-hidden="true" />
               </Link>
               <DownloadCvLink

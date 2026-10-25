@@ -15,7 +15,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import type { Project } from "@/lib/portfolio-content";
+import type { Project } from "@/lib/content/schema";
 import { cn } from "@/lib/utils";
 
 type ProjectDiscoveryProps = {

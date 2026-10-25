@@ -45,8 +45,11 @@ npx playwright install chromium
 Copy `.env.example` to `.env.local`. The site can run locally with defaults, but production contact delivery requires:
 
 - `NEXT_PUBLIC_SITE_URL` — canonical site URL.
-- `NEXT_PUBLIC_SANITY_PROJECT_ID` — Sanity project ID for the `/admin` Studio.
-- `NEXT_PUBLIC_SANITY_DATASET` — Sanity dataset name, usually `production`.
+- `MONGODB_URI` — MongoDB connection string that stores portfolio content.
+- `MONGODB_DB` — database name, defaults to `portfolio`.
+- `ADMIN_EMAIL` — the only email allowed to sign in to `/admin`.
+- `ADMIN_PASSWORD` — password for that admin account.
+- `ADMIN_SESSION_SECRET` — at least 32 random characters used to sign admin sessions (`openssl rand -base64 32`).
 - `RESEND_API_KEY` — Resend API key.
 - `CONTACT_FROM_EMAIL` — sender address from a verified Resend domain.
 - `CONTACT_TO_EMAIL` — inbox that receives portfolio contact submissions.
@@ -55,17 +58,25 @@ Abuse-protection credentials are reserved for the later security phase.
 
 Environment parsing is centralized in `src/lib/env.ts`. Server secrets must never be imported into client components.
 
-## Admin CMS
+## Content database and admin
 
-The portfolio includes an embedded Sanity Studio at `/admin`. Until `NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET` are configured, that route shows setup instructions instead of the editor.
+Portfolio content (site settings, projects, skills, services, experience, education, certifications, and testimonials) is stored in MongoDB. Navigation and image assets stay in code because they point at routes and files in the repository.
 
-Editable content types include projects, experience, skills, services, education, certifications, testimonials, and site settings. The public site still has typed local fallback content, so it remains stable while Sanity is being connected or seeded.
+Until `MONGODB_URI` is set, or while the database is empty or unreachable, the site serves the built-in content from `src/lib/content/default-content.ts`, so it never goes blank.
 
-Seed the current local projects and experience into Sanity with:
+To set up MongoDB:
+
+1. Create a free cluster at [MongoDB Atlas](https://www.mongodb.com/cloud/atlas), add a database user, and allow your IP address (and `0.0.0.0/0` for Vercel) under Network Access.
+2. Copy the connection string into `MONGODB_URI` in `.env.local` and in your hosting provider.
+3. Seed the built-in content, either with the **Import built-in content** button at `/admin` or with:
 
 ```bash
-npm run sanity:seed
+npm run db:seed
 ```
+
+Pass `-- --replace` to overwrite existing database content with the built-in content.
+
+The `/admin` dashboard has a single account: only `ADMIN_EMAIL` with `ADMIN_PASSWORD` can sign in. From there you can create, edit, reorder, and delete items in every collection and update site settings. Saving revalidates the public pages immediately; edits made directly in MongoDB appear within an hour.
 
 ## Source structure
 

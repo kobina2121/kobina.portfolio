@@ -27,6 +27,10 @@ const monteCarlo = MonteCarlo({
   weight: "400",
 });
 
+// Admin edits revalidate pages immediately; this catches edits made directly
+// in MongoDB.
+export const revalidate = 3600;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   applicationName: "Kobina Portfolio",

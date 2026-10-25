@@ -7,6 +7,7 @@ import { SiteNavbar } from "@/components/site-navbar";
 import {
   getAboutHighlights,
   getRequiredImageAsset,
+  getSiteConfig,
 } from "@/lib/portfolio-content";
 
 export const metadata: Metadata = {
@@ -24,8 +25,11 @@ const stats = [
   { label: "Style", value: "Premium UI" },
 ] as const;
 
-export default function AboutPage() {
-  const aboutHighlights = getAboutHighlights();
+export default async function AboutPage() {
+  const [site, aboutHighlights] = await Promise.all([
+    getSiteConfig(),
+    getAboutHighlights(),
+  ]);
   const formalPortrait = getRequiredImageAsset("formal-portrait");
 
   return (
@@ -61,7 +65,7 @@ export default function AboutPage() {
         <div>
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-950/10 bg-zinc-950/[0.04] px-4 py-2 text-xs text-zinc-600 dark:border-white/15 dark:bg-white/[0.06] dark:text-zinc-400">
             <MapPin className="size-3.5 text-emerald-400" aria-hidden="true" />
-            Based in Accra, Ghana
+            Based in {site.location}
           </p>
           <h1 className="text-4xl leading-tight font-black tracking-tight sm:text-6xl">
             I build interfaces that feel{" "}

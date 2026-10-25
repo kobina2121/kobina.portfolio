@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight, Lock } from "lucide-react";
-import type { Project } from "@/lib/portfolio-content";
+import type { Project } from "@/lib/content/schema";
 
 type ProjectCardProps = {
   project: Project;

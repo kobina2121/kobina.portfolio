@@ -17,8 +17,8 @@ const mediaLinks = [
   { label: "Mail", href: `mailto:${contactEmail}` },
 ] as const;
 
-export function SiteFooter() {
-  const site = getSiteConfig();
+export async function SiteFooter() {
+  const site = await getSiteConfig();
   const siteNavItems = getNavigationItems();
   const loopromptLogo = getRequiredImageAsset("looprompt-logo");
 
