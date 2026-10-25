@@ -197,8 +197,7 @@ export default async function Home() {
               </span>
             </h1>
             <p className="mt-5 max-w-lg text-sm leading-6 text-zinc-700 dark:text-zinc-500">
-              I craft responsive websites and product interfaces where clean
-              engineering meets visual taste.
+              {site.heroIntro}
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <Link

@@ -113,10 +113,39 @@ export const settingsFields: FieldConfig[] = [
     fields: linkFields,
   },
   {
+    kind: "textarea",
+    name: "heroIntro",
+    label: "Hero intro",
+    help: "The short paragraph under the headline on the home page.",
+  },
+  {
     kind: "list",
     name: "aboutHighlights",
     label: "About highlights",
     help: "One highlight per line.",
+  },
+  {
+    kind: "repeater",
+    name: "aboutStats",
+    label: "About page cards",
+    itemLabel: "Card",
+    help: "Short facts shown as cards on the about page, e.g. Base: Accra.",
+    fields: [
+      { kind: "text", name: "label", label: "Label" },
+      { kind: "text", name: "value", label: "Value" },
+    ],
+  },
+  {
+    kind: "text",
+    name: "metaTitle",
+    label: "Browser and search title",
+    help: "Shown in the browser tab and search results for the home page.",
+  },
+  {
+    kind: "textarea",
+    name: "metaDescription",
+    label: "Search description",
+    help: "Shown under the title in search results and link previews.",
   },
 ];
 

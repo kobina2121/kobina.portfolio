@@ -19,12 +19,6 @@ export const metadata: Metadata = {
   },
 };
 
-const stats = [
-  { label: "Focus", value: "Full stack" },
-  { label: "Base", value: "Accra" },
-  { label: "Style", value: "Premium UI" },
-] as const;
-
 export default async function AboutPage() {
   const [site, aboutHighlights] = await Promise.all([
     getSiteConfig(),
@@ -44,22 +38,15 @@ export default async function AboutPage() {
         as="section"
         className="relative grid gap-12 pt-32 pb-20 md:grid-cols-[0.95fr_1.05fr] md:items-center"
       >
-        <div className="relative mx-auto w-full max-w-sm">
-          <div className="absolute -inset-6 rounded-[2rem] border border-zinc-950/10 bg-white/50 dark:border-white/10 dark:bg-white/[0.03]" />
-          <div className="relative aspect-[0.82] overflow-hidden rounded-[1.75rem] border border-zinc-950/10 bg-gradient-to-b from-zinc-200 to-white dark:border-white/15 dark:from-zinc-900 dark:to-black">
-            <Image
-              src={formalPortrait.src}
-              alt={formalPortrait.alt}
-              fill
-              priority
-              sizes="(min-width: 768px) 360px, 80vw"
-              className="object-cover object-top"
-            />
-          </div>
-          <div className="absolute right-5 bottom-5 rounded-full border border-zinc-950/10 bg-white/75 px-4 py-2 text-xs text-zinc-700 backdrop-blur-md dark:border-white/15 dark:bg-black/75 dark:text-zinc-300">
-            <span className="mr-2 inline-block size-2 rounded-full bg-emerald-400" />
-            Available for work
-          </div>
+        <div className="relative mx-auto aspect-[0.82] w-full max-w-sm">
+          <Image
+            src={formalPortrait.src}
+            alt={formalPortrait.alt}
+            fill
+            priority
+            sizes="(min-width: 768px) 360px, 80vw"
+            className="object-cover object-top"
+          />
         </div>
 
         <div>
@@ -86,7 +73,7 @@ export default async function AboutPage() {
           </div>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
-            {stats.map((item) => (
+            {site.aboutStats.map((item) => (
               <div
                 key={item.label}
                 className="rounded-2xl border border-zinc-950/10 bg-white/60 p-4 dark:border-white/12 dark:bg-white/[0.04]"

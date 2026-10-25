@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist_Mono, Montserrat, MonteCarlo } from "next/font/google";
 import { BackToTopButton } from "@/components/back-to-top-button";
 import { JsonLd } from "@/components/json-ld";
+import { SiteLocationProvider } from "@/components/site-location-provider";
 import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
@@ -32,65 +33,68 @@ const monteCarlo = MonteCarlo({
 // in MongoDB.
 export const revalidate = 3600;
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  applicationName: "Kobina Portfolio",
-  title: {
-    default: "Kobina — Full Stack Developer",
-    template: "%s | Kobina Portfolio",
-  },
-  description:
-    "A premium personal portfolio for Kobina, a Ghana-based full stack developer building polished, accessible digital experiences.",
-  keywords: [
-    "Kobina",
-    "full stack developer",
-    "portfolio",
-    "web designer",
-    "React developer",
-    "Next.js developer",
-    "Accra Ghana",
-  ],
-  authors: [{ name: "Kobina Boakye" }],
-  creator: "Kobina Boakye",
-  alternates: {
-    canonical: "/",
-  },
-  manifest: "/manifest.webmanifest",
-  openGraph: {
-    title: "Kobina — Full Stack Developer",
-    description:
-      "Explore Kobina's portfolio, selected projects, skills, and contact details.",
-    url: absoluteUrl("/"),
-    type: "website",
-    locale: "en_US",
-    siteName: "Kobina Portfolio",
-    images: [
-      {
-        url: "/opengraph-image",
-        width: 1200,
-        height: 630,
-        alt: "Kobina portfolio social preview",
-      },
+export async function generateMetadata(): Promise<Metadata> {
+  const site = await getSiteConfig();
+
+  return {
+    metadataBase: new URL(siteUrl),
+    applicationName: site.name,
+    title: {
+      default: site.metaTitle,
+      template: `%s | ${site.name}`,
+    },
+    description: site.metaDescription,
+    keywords: [
+      "Kobina",
+      "full stack developer",
+      "portfolio",
+      "web designer",
+      "React developer",
+      "Next.js developer",
+      "Accra Ghana",
     ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Kobina — Full Stack Developer",
-    description:
-      "Explore Kobina's portfolio, selected projects, skills, and contact details.",
-    images: ["/opengraph-image"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+    authors: [{ name: site.owner }],
+    creator: site.owner,
+    alternates: {
+      canonical: "/",
+    },
+    manifest: "/manifest.webmanifest",
+    openGraph: {
+      title: site.metaTitle,
+      description: site.metaDescription,
+      url: absoluteUrl("/"),
+      type: "website",
+      locale: "en_US",
+      siteName: site.name,
+      images: [
+        {
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: `${site.name} social preview`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: site.metaTitle,
+      description: site.metaDescription,
+      images: ["/opengraph-image"],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const site = await getSiteConfig();
+
   return (
     <html
       lang="en"
@@ -98,24 +102,23 @@ export default async function RootLayout({
       className={`${montserrat.variable} ${geistMono.variable} ${monteCarlo.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <ThemeProvider>
-          <TooltipProvider>
-            <a
-              href="#main-content"
-              className="focus-visible:bg-background focus-visible:text-foreground border-border fixed top-3 left-3 z-[100] -translate-y-16 rounded-full border px-4 py-2 text-sm font-semibold shadow-lg transition focus-visible:translate-y-0"
-            >
-              Skip to content
-            </a>
-            <JsonLd
-              id="website-json-ld"
-              data={getWebsiteJsonLd(await getSiteConfig())}
-            />
-            {children}
-            <SiteFooter />
-            <BackToTopButton />
-            <Toaster richColors closeButton position="top-center" />
-          </TooltipProvider>
-        </ThemeProvider>
+        <SiteLocationProvider location={site.location}>
+          <ThemeProvider>
+            <TooltipProvider>
+              <a
+                href="#main-content"
+                className="focus-visible:bg-background focus-visible:text-foreground border-border fixed top-3 left-3 z-[100] -translate-y-16 rounded-full border px-4 py-2 text-sm font-semibold shadow-lg transition focus-visible:translate-y-0"
+              >
+                Skip to content
+              </a>
+              <JsonLd id="website-json-ld" data={getWebsiteJsonLd(site)} />
+              {children}
+              <SiteFooter />
+              <BackToTopButton />
+              <Toaster richColors closeButton position="top-center" />
+            </TooltipProvider>
+          </ThemeProvider>
+        </SiteLocationProvider>
       </body>
     </html>
   );

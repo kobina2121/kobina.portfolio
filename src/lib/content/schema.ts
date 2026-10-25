@@ -78,6 +78,12 @@ export const siteSettingsSchema = z.object({
   secondaryCta: linkSchema,
   socialLinks: z.array(linkSchema),
   aboutHighlights: z.array(nonEmptyString).min(1),
+  aboutStats: z.array(
+    z.object({ label: nonEmptyString, value: nonEmptyString }),
+  ),
+  heroIntro: nonEmptyString,
+  metaTitle: nonEmptyString,
+  metaDescription: nonEmptyString,
 });
 
 const projectMediaSchema = z.object({

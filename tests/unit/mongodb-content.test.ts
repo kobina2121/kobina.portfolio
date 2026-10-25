@@ -1,6 +1,6 @@
 // @vitest-environment node
 import { type Db, MongoClient } from "mongodb";
-import { MongoMemoryServer } from "mongodb-memory-server";
+import { MongoMemoryServer } from "mongodb-memory-server-core";
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from "vitest";
 
 import { defaultPortfolioContent } from "@/lib/content/default-content";

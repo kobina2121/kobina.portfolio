@@ -3,6 +3,7 @@
 import { Clock3, Laptop, MapPin, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState, useSyncExternalStore } from "react";
+import { useSiteLocation } from "@/components/site-location-provider";
 import { cn } from "@/lib/utils";
 
 type PillMode = "theme" | "time" | "location";
@@ -42,6 +43,7 @@ export function NavbarStatusPill({
 }: NavbarStatusPillProps) {
   const { resolvedTheme, setTheme, theme: storedTheme } = useTheme();
   const isClient = useIsClient();
+  const location = useSiteLocation();
   const theme = isClient ? storedTheme : undefined;
   const [mode, setMode] = useState<PillMode>("theme");
   const [localTime, setLocalTime] = useState("--:--:--");
@@ -104,7 +106,7 @@ export function NavbarStatusPill({
         : "White"
     : isTimeMode
       ? localTime
-      : "Accra, GH";
+      : location;
 
   const nextTheme =
     themeModes[(themeModes.indexOf(selectedTheme) + 1) % themeModes.length];
@@ -128,7 +130,7 @@ export function NavbarStatusPill({
           ? `Current theme setting is ${value}. Click to switch to ${nextThemeLabel} theme.`
           : isTimeMode
             ? `Current local time in Accra is ${localTime}. Click to show location.`
-            : "Currently based in Accra, Ghana. Click to show theme."
+            : `Currently based in ${location}. Click to show theme.`
       }
       onClick={handleClick}
     >
