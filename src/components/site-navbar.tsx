@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
+import { BrandMark } from "@/components/brand-mark";
 import { NavbarStatusPill } from "@/components/navbar-status-pill";
 import {
   Sheet,
@@ -92,10 +93,10 @@ export function SiteNavbar({ active }: SiteNavbarProps) {
 
         <Link
           href="/"
-          className="signature-logo col-start-2 justify-self-center text-[1.3rem] leading-none text-zinc-950 sm:text-[2.05rem] dark:text-white"
+          className="col-start-2 flex items-center justify-self-center"
           aria-label="Kobina home"
         >
-          Kobina
+          <BrandMark className="h-7 sm:h-9" priority />
         </Link>
 
         <nav
@@ -138,8 +139,9 @@ export function SiteNavbar({ active }: SiteNavbarProps) {
             className="bg-background/95 w-[min(22rem,calc(100vw-2rem))] border-zinc-950/10 p-6 backdrop-blur-xl dark:border-white/12"
           >
             <SheetHeader className="text-left">
-              <SheetTitle className="signature-logo text-4xl font-normal">
-                Kobina
+              <SheetTitle>
+                <BrandMark className="h-10" />
+                <span className="sr-only">Kobina</span>
               </SheetTitle>
             </SheetHeader>
 

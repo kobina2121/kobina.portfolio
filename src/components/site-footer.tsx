@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
+import { BrandMark } from "@/components/brand-mark";
 import { CopyEmailButton } from "@/components/copy-email-button";
 import { DownloadCvLink } from "@/components/download-cv-link";
 import { getPhoneHref } from "@/lib/contact-details";
@@ -30,8 +31,12 @@ export async function SiteFooter() {
       <div className="mx-auto w-full max-w-5xl border-t border-zinc-950/20 py-8 dark:border-white/35">
         <div className="grid gap-8 md:grid-cols-[1fr_auto_auto] md:items-start">
           <div>
-            <Link href="/" className="text-sm font-bold">
-              @ Kobina
+            <Link
+              href="/"
+              className="inline-flex items-center"
+              aria-label="Kobina home"
+            >
+              <BrandMark className="h-7" />
             </Link>
             <p className="mt-3 max-w-xs text-xs leading-5 text-zinc-700 dark:text-zinc-500">
               Full stack developer crafting polished, accessible digital
