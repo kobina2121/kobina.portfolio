@@ -43,7 +43,10 @@ export function ContactForm({ email = contactEmail }: { email?: string }) {
     getInitialContactFormValues(),
   );
   const [errors, setErrors] = useState<ContactFormErrors>({});
-  const [hasOpenedDraft, setHasOpenedDraft] = useState(false);
+  const [draftState, setDraftState] = useState<"idle" | "opening" | "opened">(
+    "idle",
+  );
+  const hasOpenedDraft = draftState !== "idle";
   const messageCharactersRemaining =
     CONTACT_MESSAGE_MAX_LENGTH - values.message.length;
 
@@ -90,11 +93,20 @@ export function ContactForm({ email = contactEmail }: { email?: string }) {
 
     setValues(parsed.data);
     setErrors({});
-    setHasOpenedDraft(true);
+    setDraftState("opening");
     trackPortfolioEvent("contact_draft_opened", {
       source: "homepage-contact",
     });
-    window.location.href = getContactMailtoHref(email, parsed.data);
+
+    // Handing the draft to the email app can take a moment and blocks the
+    // page meanwhile, so paint the confirmation first, then open the draft.
+    const draftHref = getContactMailtoHref(email, parsed.data);
+    requestAnimationFrame(() => {
+      window.setTimeout(() => {
+        window.location.href = draftHref;
+        window.setTimeout(() => setDraftState("opened"), 1500);
+      }, 0);
+    });
   }
 
   return (
@@ -374,9 +386,12 @@ export function ContactForm({ email = contactEmail }: { email?: string }) {
         <div className="flex flex-col gap-3 sm:flex-row">
           <Button
             type="submit"
+            disabled={draftState === "opening"}
             className="h-11 flex-1 rounded-none bg-zinc-950 text-xs font-semibold text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-300"
           >
-            Write email
+            {draftState === "opening"
+              ? "Opening your email app…"
+              : "Write email"}
             <Send className="size-3.5" aria-hidden="true" />
           </Button>
 
