@@ -25,7 +25,10 @@ const rawSiteSettings = {
   },
   socialLinks: [
     { label: "GitHub", href: "https://github.com/kobina2121" },
-    { label: "LinkedIn", href: "#contact-me" },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/kobina-kyereboah-219172364",
+    },
     { label: "Email", href: `mailto:${contactEmail}` },
   ],
   aboutHighlights: rawAboutHighlights,
