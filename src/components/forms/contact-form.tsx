@@ -1,7 +1,7 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
-import { CheckCircle2, Mail, Send } from "lucide-react";
+import { FormEvent, useState } from "react";
+import { Mail, Send } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -10,12 +10,12 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { trackPortfolioEvent } from "@/lib/analytics/events";
 import { contactEmail } from "@/lib/contact-details";
-import type { ContactApiResponse } from "@/lib/contact-api";
 import {
   CONTACT_MESSAGE_MAX_LENGTH,
   contactBudgetOptions,
   contactFormSchema,
   contactSubjectOptions,
+  getContactMailtoHref,
   getContactFieldErrors,
   getInitialContactFormValues,
   type ContactFormErrors,
@@ -43,35 +43,11 @@ export function ContactForm({ email = contactEmail }: { email?: string }) {
     getInitialContactFormValues(),
   );
   const [errors, setErrors] = useState<ContactFormErrors>({});
-  const [status, setStatus] = useState<
-    "idle" | "submitting" | "success" | "error"
-  >("idle");
-  const [statusMessage, setStatusMessage] = useState<string | null>(null);
-
-  const isSubmitting = status === "submitting";
+  const [hasOpenedDraft, setHasOpenedDraft] = useState(false);
   const messageCharactersRemaining =
     CONTACT_MESSAGE_MAX_LENGTH - values.message.length;
 
-  const mailtoHref = useMemo(() => {
-    const subjectLabel =
-      contactSubjectOptions.find((option) => option.value === values.subject)
-        ?.label ?? "Portfolio inquiry";
-    const budgetLabel =
-      contactBudgetOptions.find((option) => option.value === values.budget)
-        ?.label ?? "Not sure yet";
-    const body = [
-      `Name: ${values.name}`,
-      `Email: ${values.email}`,
-      `Inquiry type: ${subjectLabel}`,
-      `Budget: ${budgetLabel}`,
-      "",
-      values.message,
-    ].join("\n");
-
-    return `mailto:${email}?subject=${encodeURIComponent(
-      subjectLabel,
-    )}&body=${encodeURIComponent(body)}`;
-  }, [email, values]);
+  const mailtoHref = getContactMailtoHref(email, values);
 
   function updateField<Field extends ContactFormField>(
     field: Field,
@@ -101,81 +77,24 @@ export function ContactForm({ email = contactEmail }: { email?: string }) {
     }));
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
-    if (isSubmitting) {
-      return;
-    }
 
     const parsed = contactFormSchema.safeParse(values);
 
     if (!parsed.success) {
       setErrors(getFieldErrors(values));
-      setStatus("idle");
-      setStatusMessage(null);
       toast.error("Please check the highlighted fields.");
       return;
     }
 
     setValues(parsed.data);
     setErrors({});
-    setStatus("submitting");
-    setStatusMessage(null);
-
-    const idempotencyKey =
-      crypto.randomUUID?.() ??
-      `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Idempotency-Key": idempotencyKey,
-        },
-        body: JSON.stringify(parsed.data),
-      });
-
-      const payload = (await response
-        .json()
-        .catch(() => null)) as ContactApiResponse | null;
-
-      if (!response.ok || !payload?.ok) {
-        setStatus("error");
-
-        if (payload && !payload.ok) {
-          if (payload.fieldErrors) {
-            setErrors(payload.fieldErrors);
-          }
-
-          setStatusMessage(payload.message);
-          toast.error(payload.message);
-          return;
-        }
-
-        const fallbackMessage =
-          "Something went wrong while sending. Please try again or email directly.";
-
-        setStatusMessage(fallbackMessage);
-        toast.error(fallbackMessage);
-        return;
-      }
-
-      setStatus("success");
-      setStatusMessage("Message sent. I’ll reply as soon as I can.");
-      trackPortfolioEvent("contact_submit_success", {
-        source: "homepage-contact",
-      });
-      toast.success("Message sent.");
-    } catch {
-      const fallbackMessage =
-        "Email delivery is temporarily unavailable. Please try again or use the email draft fallback.";
-
-      setStatus("error");
-      setStatusMessage(fallbackMessage);
-      toast.error(fallbackMessage);
-    }
+    setHasOpenedDraft(true);
+    trackPortfolioEvent("contact_draft_opened", {
+      source: "homepage-contact",
+    });
+    window.location.href = getContactMailtoHref(email, parsed.data);
   }
 
   return (
@@ -186,34 +105,20 @@ export function ContactForm({ email = contactEmail }: { email?: string }) {
             Message me here
           </h3>
           <p className="mt-2 text-xs leading-5 text-zinc-700 dark:text-zinc-400">
-            Share the useful bits now. I’ll receive it securely and reply from
-            my inbox.
+            Fill this in and your email app opens with the message ready to
+            send.
           </p>
         </div>
-        {status === "success" ? (
-          <CheckCircle2
-            className="mt-0.5 size-5 text-emerald-500"
-            aria-hidden="true"
-          />
-        ) : null}
       </div>
 
-      {status === "success" ? (
-        <div
+      {hasOpenedDraft ? (
+        <p
           role="status"
-          className="mb-4 border border-emerald-500/35 bg-emerald-500/10 px-3 py-2 text-xs leading-5 text-emerald-900 dark:text-emerald-200"
+          className="mb-4 border border-zinc-950/20 bg-zinc-950/[0.04] px-3 py-2 text-xs leading-5 text-zinc-800 dark:border-white/25 dark:bg-white/[0.06] dark:text-zinc-200"
         >
-          {statusMessage}
-        </div>
-      ) : null}
-
-      {status === "error" && statusMessage ? (
-        <div
-          role="alert"
-          className="mb-4 border border-red-500/35 bg-red-500/10 px-3 py-2 text-xs leading-5 text-red-900 dark:text-red-200"
-        >
-          {statusMessage}
-        </div>
+          Your email app should open with the message ready to send. If it
+          didn&apos;t, email me directly at {email}.
+        </p>
       ) : null}
 
       <form noValidate className="space-y-4" onSubmit={handleSubmit}>
@@ -469,21 +374,20 @@ export function ContactForm({ email = contactEmail }: { email?: string }) {
         <div className="flex flex-col gap-3 sm:flex-row">
           <Button
             type="submit"
-            disabled={isSubmitting}
             className="h-11 flex-1 rounded-none bg-zinc-950 text-xs font-semibold text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-300"
           >
-            {isSubmitting ? "Checking details..." : "Send message"}
+            Write email
             <Send className="size-3.5" aria-hidden="true" />
           </Button>
 
-          {status === "success" || status === "error" ? (
+          {hasOpenedDraft ? (
             <Button
               asChild
               variant="outline"
               className="h-11 rounded-none border-zinc-950/25 text-xs dark:border-white/25"
             >
               <a href={mailtoHref}>
-                Open email draft
+                Open draft again
                 <Mail className="size-3.5" aria-hidden="true" />
               </a>
             </Button>

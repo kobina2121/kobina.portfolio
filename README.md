@@ -42,7 +42,7 @@ npx playwright install chromium
 
 ## Environment variables
 
-Copy `.env.example` to `.env.local`. The site can run locally with defaults, but production contact delivery requires:
+Copy `.env.example` to `.env.local`. The site can run locally with defaults; production needs:
 
 - `NEXT_PUBLIC_SITE_URL` — canonical site URL.
 - `MONGODB_URI` — MongoDB connection string that stores portfolio content.
@@ -50,9 +50,8 @@ Copy `.env.example` to `.env.local`. The site can run locally with defaults, but
 - `ADMIN_EMAIL` — the only email allowed to sign in to `/admin`.
 - `ADMIN_PASSWORD` — password for that admin account.
 - `ADMIN_SESSION_SECRET` — at least 32 random characters used to sign admin sessions (`openssl rand -base64 32`).
-- `RESEND_API_KEY` — Resend API key.
-- `CONTACT_FROM_EMAIL` — sender address from a verified Resend domain.
-- `CONTACT_TO_EMAIL` — inbox that receives portfolio contact submissions.
+
+The contact form doesn't send email from the server. It opens the visitor's own email app with the message filled in, so no email service is needed.
 
 Abuse-protection credentials are reserved for the later security phase.
 

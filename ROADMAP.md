@@ -487,7 +487,7 @@ Record material decisions here before implementing them.
 
 | Decision          | Default                  | Change only when                                                 |
 | ----------------- | ------------------------ | ---------------------------------------------------------------- |
-| Contact provider  | Resend                   | Another provider has a concrete compliance or delivery advantage |
+| Contact provider  | Visitor's email app      | Server-side delivery (e.g. Resend) is needed again               |
 | Content source    | MongoDB + typed fallback | Editors require drafts, previews, or non-code publishing         |
 | Long-form content | MDX                      | A CMS is approved                                                |
 | CAPTCHA           | Turnstile                | Google reCAPTCHA is a firm requirement                           |

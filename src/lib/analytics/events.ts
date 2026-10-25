@@ -3,7 +3,7 @@ export type PortfolioEventName =
   | "download_cv"
   | "open_external_link"
   | "back_to_top"
-  | "contact_submit_success";
+  | "contact_draft_opened";
 
 type PortfolioEventDetail = {
   label?: string;

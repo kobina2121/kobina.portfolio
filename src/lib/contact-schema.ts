@@ -103,3 +103,26 @@ export function getInitialContactFormValues(): ContactFormValues {
     consent: false,
   };
 }
+
+// Messages go out from the visitor's own email app, so the site needs no
+// email service.
+export function getContactMailtoHref(email: string, values: ContactFormValues) {
+  const subjectLabel =
+    contactSubjectOptions.find((option) => option.value === values.subject)
+      ?.label ?? "Portfolio inquiry";
+  const budgetLabel =
+    contactBudgetOptions.find((option) => option.value === values.budget)
+      ?.label ?? "Not sure yet";
+  const body = [
+    `Name: ${values.name}`,
+    `Email: ${values.email}`,
+    `Inquiry type: ${subjectLabel}`,
+    `Budget: ${budgetLabel}`,
+    "",
+    values.message,
+  ].join("\n");
+
+  return `mailto:${email}?subject=${encodeURIComponent(
+    subjectLabel,
+  )}&body=${encodeURIComponent(body)}`;
+}
