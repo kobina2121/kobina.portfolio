@@ -66,10 +66,10 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <div className="mb-7 flex items-center gap-3">
       <h2 className="text-xl font-semibold tracking-tight text-zinc-950 dark:text-white">
-        <span className="text-[#d76bff]">#</span>
+        <span className="text-accent-brand">#</span>
         {children}
       </h2>
-      <div className="h-px flex-1 bg-gradient-to-r from-[#d76bff] via-zinc-950/20 to-transparent dark:via-white/25" />
+      <div className="from-accent-brand h-px flex-1 bg-gradient-to-r via-zinc-950/20 to-transparent dark:via-white/25" />
     </div>
   );
 }
@@ -157,7 +157,7 @@ export default async function Home() {
                 <Link
                   key={`${item.label}-${item.href}`}
                   href={item.href}
-                  className="relative inline-flex size-11 items-center justify-center hover:text-[#d76bff]"
+                  className="hover:text-accent-brand relative inline-flex size-11 items-center justify-center"
                   {...getExternalLinkAttributes(item.href)}
                   aria-label={
                     isExternal
@@ -188,11 +188,11 @@ export default async function Home() {
               className="max-w-xl text-3xl leading-tight font-bold tracking-tight text-zinc-950 sm:text-4xl dark:text-white"
             >
               Hi, I&apos;m Kobina — a{" "}
-              <span className="bg-gradient-to-r from-[#d76bff] to-[#ff79c6] bg-clip-text text-transparent">
+              <span className="text-zinc-500 dark:text-zinc-400">
                 web designer
               </span>{" "}
               and{" "}
-              <span className="bg-gradient-to-r from-[#ff79c6] to-[#9d7dff] bg-clip-text text-transparent">
+              <span className="text-zinc-500 dark:text-zinc-400">
                 full stack developer
               </span>
             </h1>
@@ -203,14 +203,14 @@ export default async function Home() {
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <Link
                 href={site.primaryCta.href}
-                className="inline-flex min-h-11 items-center gap-2 bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-[#d76bff] dark:bg-white dark:text-zinc-950"
+                className="inline-flex min-h-11 items-center gap-2 bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-300"
               >
                 {site.primaryCta.label}
                 <ArrowDown className="size-3" aria-hidden="true" />
               </Link>
               <Link
                 href={site.secondaryCta.href}
-                className="inline-flex min-h-11 items-center gap-2 border border-zinc-950/45 px-4 py-2 text-xs font-semibold text-zinc-950 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/45 dark:text-white"
+                className="hover:border-accent-brand hover:text-accent-brand inline-flex min-h-11 items-center gap-2 border border-zinc-950/45 px-4 py-2 text-xs font-semibold text-zinc-950 dark:border-white/45 dark:text-white"
               >
                 {site.secondaryCta.label}
                 <ArrowUpRight className="size-3" aria-hidden="true" />
@@ -229,7 +229,7 @@ export default async function Home() {
                   <Link
                     key={`${item.label}-${item.href}`}
                     href={item.href}
-                    className="relative inline-flex size-11 items-center justify-center border border-zinc-950/20 text-zinc-700 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/25 dark:text-zinc-300"
+                    className="hover:border-accent-brand hover:text-accent-brand relative inline-flex size-11 items-center justify-center border border-zinc-950/20 text-zinc-700 dark:border-white/25 dark:text-zinc-300"
                     {...getExternalLinkAttributes(item.href)}
                     aria-label={
                       isExternal
@@ -256,7 +256,7 @@ export default async function Home() {
             <DotGrid className="absolute right-2 bottom-16" />
 
             <div className="absolute right-3 bottom-8 left-12 border border-zinc-950/25 bg-white/75 px-3 py-1 text-[0.65rem] text-zinc-950 dark:border-white/40 dark:bg-black/70 dark:text-white">
-              <span className="mr-2 inline-block size-2 bg-[#d76bff]" />
+              <span className="bg-accent-brand mr-2 inline-block size-2" />
               currently working on <span className="font-bold">Portfolio</span>
             </div>
 
@@ -293,7 +293,7 @@ export default async function Home() {
             <SectionTitle>projects</SectionTitle>
             <Link
               href="/projects"
-              className="absolute top-24 right-0 hidden items-center gap-2 text-xs text-zinc-950 hover:text-[#d76bff] sm:inline-flex dark:text-white"
+              className="absolute top-24 right-0 hidden items-center gap-2 text-xs text-zinc-950 underline-offset-4 hover:underline sm:inline-flex dark:text-white"
             >
               View all <ArrowUpRight className="size-3" aria-hidden="true" />
             </Link>
@@ -322,7 +322,7 @@ export default async function Home() {
                   return (
                     <article
                       key={label}
-                      className="border border-zinc-950/20 bg-white/75 p-5 transition-colors hover:border-[#d76bff] dark:border-white/35 dark:bg-black/80"
+                      className="hover:border-accent-brand border border-zinc-950/20 bg-white/75 p-5 transition-colors dark:border-white/35 dark:bg-black/80"
                     >
                       <div className="mb-7 flex items-center justify-between gap-4">
                         <Icon
@@ -377,7 +377,7 @@ export default async function Home() {
                     className="flex gap-3 text-xs leading-6 text-zinc-800 dark:text-zinc-300"
                   >
                     <span
-                      className="mt-2 size-1.5 shrink-0 bg-[#d76bff]"
+                      className="bg-accent-brand mt-2 size-1.5 shrink-0"
                       aria-hidden="true"
                     />
                     {highlight}
@@ -395,7 +395,7 @@ export default async function Home() {
                 width={developerCharacter.width}
                 height={developerCharacter.height}
                 sizes="(min-width: 768px) 260px, 70vw"
-                className="mx-auto w-56 object-contain drop-shadow-[0_0_35px_rgba(215,107,255,0.2)]"
+                className="mx-auto w-56 object-contain drop-shadow-[0_0_35px_rgba(0,0,0,0.18)]"
               />
               <CornerFrame className="absolute right-2 bottom-6 h-24 w-24" />
             </div>
@@ -409,9 +409,9 @@ export default async function Home() {
               {serviceItems.map((service, index) => (
                 <article
                   key={service.title}
-                  className="group border border-zinc-950/20 bg-white/75 p-5 transition-colors hover:border-[#d76bff] dark:border-white/35 dark:bg-black/80"
+                  className="group hover:border-accent-brand border border-zinc-950/20 bg-white/75 p-5 transition-colors dark:border-white/35 dark:bg-black/80"
                 >
-                  <p className="mb-8 text-xs font-semibold text-[#d76bff]">
+                  <p className="text-accent-brand mb-8 text-xs font-semibold">
                     0{index + 1}
                   </p>
                   <h3 className="text-lg font-bold text-zinc-950 dark:text-white">
@@ -427,7 +427,7 @@ export default async function Home() {
                         className="flex items-center gap-2 text-xs text-zinc-700 dark:text-zinc-300"
                       >
                         <span
-                          className="size-1.5 bg-[#d76bff]"
+                          className="bg-accent-brand size-1.5"
                           aria-hidden="true"
                         />
                         {deliverable}
@@ -450,7 +450,7 @@ export default async function Home() {
                   className="grid gap-5 border border-zinc-950/20 bg-white/75 p-5 md:grid-cols-[0.32fr_1fr] dark:border-white/35 dark:bg-black/80"
                 >
                   <div>
-                    <p className="text-xs font-semibold text-[#d76bff]">
+                    <p className="text-accent-brand text-xs font-semibold">
                       {item.period}
                     </p>
                     <p className="mt-2 text-xs text-zinc-600 dark:text-zinc-500">
@@ -471,7 +471,7 @@ export default async function Home() {
                           className="flex gap-3 text-xs leading-6 text-zinc-700 dark:text-zinc-300"
                         >
                           <span
-                            className="mt-2 size-1.5 shrink-0 bg-[#d76bff]"
+                            className="bg-accent-brand mt-2 size-1.5 shrink-0"
                             aria-hidden="true"
                           />
                           {highlight}
@@ -498,7 +498,7 @@ export default async function Home() {
                     key={item.institution}
                     className="border border-zinc-950/20 bg-white/75 p-5 dark:border-white/35 dark:bg-black/80"
                   >
-                    <p className="text-xs font-semibold text-[#d76bff]">
+                    <p className="text-accent-brand text-xs font-semibold">
                       {item.period}
                     </p>
                     <h3 className="mt-3 text-lg font-bold text-zinc-950 dark:text-white">
@@ -532,7 +532,7 @@ export default async function Home() {
                           {item.provider}
                         </p>
                       </div>
-                      <span className="shrink-0 border border-[#d76bff]/50 px-3 py-1 text-[0.65rem] font-semibold text-[#d76bff]">
+                      <span className="border-accent-brand/50 text-accent-brand shrink-0 border px-3 py-1 text-[0.65rem] font-semibold">
                         {item.status}
                       </span>
                     </div>
@@ -584,14 +584,14 @@ export default async function Home() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <Link
                   href={`mailto:${site.email}`}
-                  className="inline-flex min-h-11 items-center gap-2 bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-[#d76bff] dark:bg-white dark:text-zinc-950"
+                  className="inline-flex min-h-11 items-center gap-2 bg-zinc-950 px-4 py-2 text-xs font-semibold text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-300"
                 >
                   Email me
                   <Mail className="size-3.5" aria-hidden="true" />
                 </Link>
                 <Link
                   href={phoneHref}
-                  className="inline-flex min-h-11 items-center gap-2 border border-zinc-950/25 px-4 py-2 text-xs font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/35"
+                  className="hover:border-accent-brand hover:text-accent-brand inline-flex min-h-11 items-center gap-2 border border-zinc-950/25 px-4 py-2 text-xs font-semibold dark:border-white/35"
                 >
                   {site.phone}
                   <Phone className="size-3.5" aria-hidden="true" />
@@ -599,7 +599,7 @@ export default async function Home() {
                 <CopyEmailButton email={site.email} source="homepage-contact" />
                 <Link
                   href="/projects"
-                  className="inline-flex min-h-11 items-center gap-2 border border-zinc-950/25 px-4 py-2 text-xs font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/35"
+                  className="hover:border-accent-brand hover:text-accent-brand inline-flex min-h-11 items-center gap-2 border border-zinc-950/25 px-4 py-2 text-xs font-semibold dark:border-white/35"
                 >
                   See work
                   <ArrowUpRight className="size-3.5" aria-hidden="true" />

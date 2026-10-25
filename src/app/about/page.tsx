@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, MapPin, Sparkles } from "lucide-react";
+import { ArrowUpRight, MapPin } from "lucide-react";
 import { Container } from "@/components/layout/container";
 import { SiteNavbar } from "@/components/site-navbar";
 import {
@@ -69,7 +69,7 @@ export default async function AboutPage() {
           </p>
           <h1 className="text-4xl leading-tight font-black tracking-tight sm:text-6xl">
             I build interfaces that feel{" "}
-            <span className="bg-gradient-to-r from-[#d76bff] to-[#ff79c6] bg-clip-text text-transparent">
+            <span className="text-zinc-500 dark:text-zinc-400">
               sharp, calm, and useful.
             </span>
           </h1>
@@ -105,8 +105,8 @@ export default async function AboutPage() {
                 key={highlight}
                 className="flex items-start gap-3 text-sm text-zinc-800 dark:text-zinc-300"
               >
-                <Sparkles
-                  className="mt-0.5 size-4 shrink-0 text-[#d76bff]"
+                <span
+                  className="bg-accent-brand mt-[7px] size-1.5 shrink-0 rounded-full"
                   aria-hidden="true"
                 />
                 {highlight}
@@ -116,7 +116,7 @@ export default async function AboutPage() {
 
           <Link
             href="/#contact-me"
-            className="mt-8 inline-flex items-center gap-2 rounded-full border border-zinc-950/15 px-5 py-3 text-sm font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15"
+            className="hover:border-accent-brand hover:text-accent-brand mt-8 inline-flex items-center gap-2 rounded-full border border-zinc-950/15 px-5 py-3 text-sm font-semibold dark:border-white/15"
           >
             Start a conversation
             <ArrowUpRight className="size-4" aria-hidden="true" />

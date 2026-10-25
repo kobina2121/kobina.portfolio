@@ -16,7 +16,7 @@ import { hasSeededContent } from "@/lib/content/seed";
 import { getDb } from "@/lib/db/mongodb";
 
 const cardClassName =
-  "group border-border hover:border-[#d76bff] flex flex-col justify-between gap-4 rounded-2xl border p-5 transition";
+  "group border-border hover:border-accent-brand flex flex-col justify-between gap-4 rounded-2xl border p-5 transition";
 
 type DashboardPageProps = {
   searchParams: Promise<{ seeded?: string }>;
@@ -45,9 +45,12 @@ export default async function AdminDashboardPage({
       </p>
 
       {!isSeeded ? (
-        <section className="mt-8 rounded-2xl border border-[#d76bff]/40 bg-[#d76bff]/5 p-6">
+        <section className="border-accent-brand/40 bg-accent-brand/5 mt-8 rounded-2xl border p-6">
           <h2 className="flex items-center gap-2 text-lg font-bold">
-            <DatabaseZap className="size-5 text-[#d76bff]" aria-hidden="true" />
+            <DatabaseZap
+              className="text-accent-brand size-5"
+              aria-hidden="true"
+            />
             Your database is empty
           </h2>
           <p className="text-muted-foreground mt-2 text-sm leading-6">

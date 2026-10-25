@@ -24,16 +24,16 @@ export type FormValues = Record<string, unknown>;
 // Tailwind only generates classes it finds in source files, so colors and
 // gradients are picked from these lists instead of typed freely.
 export const accentOptions = [
-  "from-[#dcecff] via-[#b9d6ff] to-[#fff6e9]",
-  "from-[#2b1055] via-[#7597de] to-[#d76bff]",
+  "from-[#f4f4f5] via-[#d4d4d8] to-[#fafafa]",
+  "from-[#0a0a0a] via-[#52525b] to-[#d4d4d8]",
   "from-[#050505] via-[#151515] to-[#343434]",
   "from-[#151515] via-[#1d1d1d] to-[#090909]",
-  "from-[#151515] via-[#2d1745] to-[#090909]",
+  "from-[#151515] via-[#2a2a2a] to-[#090909]",
   "from-[#171717] via-[#27272a] to-[#52525b]",
   "from-[#111827] via-[#020617] to-[#050505]",
   "from-[#1f2937] via-[#111827] to-[#030712]",
-  "from-[#1e1b4b] via-[#312e81] to-[#020617]",
-  "from-[#064e3b] via-[#022c22] to-[#020617]",
+  "from-[#18181b] via-[#3f3f46] to-[#09090b]",
+  "from-[#262626] via-[#171717] to-[#0a0a0a]",
 ] as const;
 
 export const skillColorOptions = [

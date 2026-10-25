@@ -2,13 +2,26 @@
 
 import { Clock3, Laptop, MapPin, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { cn } from "@/lib/utils";
 
 type PillMode = "theme" | "time" | "location";
 
 const pillModes: PillMode[] = ["theme", "time", "location"];
 const themeModes = ["system", "dark", "light"] as const;
+
+// False during server rendering and hydration, true once running in the
+// browser. The saved theme only exists in the browser, so reading it before
+// then makes the server and client HTML disagree.
+const subscribeToNothing = () => () => {};
+
+function useIsClient() {
+  return useSyncExternalStore(
+    subscribeToNothing,
+    () => true,
+    () => false,
+  );
+}
 
 type NavbarStatusPillProps = {
   placement?: "desktop" | "mobile";
@@ -27,7 +40,9 @@ export function NavbarStatusPill({
   placement = "desktop",
   className,
 }: NavbarStatusPillProps) {
-  const { resolvedTheme, setTheme, theme } = useTheme();
+  const { resolvedTheme, setTheme, theme: storedTheme } = useTheme();
+  const isClient = useIsClient();
+  const theme = isClient ? storedTheme : undefined;
   const [mode, setMode] = useState<PillMode>("theme");
   const [localTime, setLocalTime] = useState("--:--:--");
 

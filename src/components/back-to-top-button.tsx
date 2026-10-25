@@ -36,7 +36,7 @@ export function BackToTopButton() {
       type="button"
       onClick={scrollToTop}
       className={cn(
-        "fixed right-5 bottom-5 z-40 inline-flex size-12 items-center justify-center rounded-full border border-zinc-950/15 bg-white/90 text-zinc-950 shadow-[0_18px_45px_rgba(0,0,0,0.18)] backdrop-blur-md transition duration-200 hover:border-[#d76bff] hover:text-[#d76bff] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d76bff] dark:border-white/15 dark:bg-black/90 dark:text-white",
+        "hover:border-accent-brand hover:text-accent-brand focus-visible:outline-accent-brand fixed right-5 bottom-5 z-40 inline-flex size-12 items-center justify-center rounded-full border border-zinc-950/15 bg-white/90 text-zinc-950 shadow-[0_18px_45px_rgba(0,0,0,0.18)] backdrop-blur-md transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 dark:border-white/15 dark:bg-black/90 dark:text-white",
         visible
           ? "translate-y-0 opacity-100"
           : "pointer-events-none translate-y-3 opacity-0",

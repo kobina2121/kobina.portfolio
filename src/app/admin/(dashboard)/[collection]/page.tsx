@@ -109,7 +109,7 @@ export default async function AdminCollectionPage({
               <div className="min-w-0 flex-1">
                 <Link
                   href={`/admin/${collection}/${item.id}`}
-                  className="font-semibold hover:text-[#d76bff]"
+                  className="hover:text-accent-brand font-semibold"
                 >
                   {item.title}
                 </Link>

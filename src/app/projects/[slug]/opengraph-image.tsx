@@ -34,7 +34,7 @@ export default async function ProjectOpenGraphImage({
     >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div style={{ fontSize: 28, color: "#a1a1aa" }}>Case Study</div>
-        <div style={{ color: "#d76bff", fontSize: 28 }}>
+        <div style={{ color: "#a1a1aa", fontSize: 28 }}>
           {project?.year ?? "Portfolio"}
         </div>
       </div>
@@ -66,7 +66,7 @@ export default async function ProjectOpenGraphImage({
         style={{
           width: 180,
           height: 6,
-          background: "linear-gradient(90deg, #d76bff, #ff79c6)",
+          background: "linear-gradient(90deg, #ffffff, #52525b)",
         }}
       />
     </div>,

@@ -24,7 +24,7 @@ export default function OpenGraphImage() {
     >
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div style={{ fontSize: 34, fontWeight: 800 }}>Kobina</div>
-        <div style={{ color: "#d76bff", fontSize: 24 }}>
+        <div style={{ color: "#a1a1aa", fontSize: 24 }}>
           Full Stack Developer
         </div>
       </div>
@@ -48,7 +48,7 @@ export default function OpenGraphImage() {
         style={{
           width: 180,
           height: 6,
-          background: "linear-gradient(90deg, #d76bff, #ff79c6)",
+          background: "linear-gradient(90deg, #ffffff, #52525b)",
         }}
       />
     </div>,

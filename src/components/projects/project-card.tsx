@@ -19,13 +19,13 @@ export function ProjectCard({
     <article
       className={
         isCompact
-          ? "group border border-zinc-950/20 bg-white/70 transition-colors hover:border-[#d76bff] motion-safe:transition-transform motion-safe:duration-300 motion-safe:focus-within:-translate-y-1 motion-safe:hover:-translate-y-1 dark:border-white/35 dark:bg-black"
-          : "group overflow-hidden rounded-[1.75rem] border border-zinc-950/10 bg-white/70 transition hover:border-[#d76bff]/70 hover:bg-white motion-safe:transition-transform motion-safe:duration-300 motion-safe:focus-within:-translate-y-1 motion-safe:hover:-translate-y-1 dark:border-white/12 dark:bg-white/[0.035] dark:hover:bg-white/[0.055]"
+          ? "group hover:border-accent-brand border border-zinc-950/20 bg-white/70 transition-colors motion-safe:transition-transform motion-safe:duration-300 motion-safe:focus-within:-translate-y-1 motion-safe:hover:-translate-y-1 dark:border-white/35 dark:bg-black"
+          : "group hover:border-accent-brand/70 overflow-hidden rounded-[1.75rem] border border-zinc-950/10 bg-white/70 transition hover:bg-white motion-safe:transition-transform motion-safe:duration-300 motion-safe:focus-within:-translate-y-1 motion-safe:hover:-translate-y-1 dark:border-white/12 dark:bg-white/[0.035] dark:hover:bg-white/[0.055]"
       }
     >
       <Link
         href={`/projects/${project.slug}`}
-        className="block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d76bff]"
+        className="focus-visible:outline-accent-brand block focus-visible:outline-2 focus-visible:outline-offset-4"
       >
         <div
           className={`relative flex ${isCompact ? "aspect-[1.55]" : "aspect-[1.35]"} items-center justify-center overflow-hidden bg-gradient-to-br ${project.accent}`}
@@ -77,12 +77,12 @@ export function ProjectCard({
         )}
 
         <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
-          <span className="text-xs font-semibold text-[#d76bff]">
+          <span className="text-accent-brand text-xs font-semibold">
             {project.stack.join(", ")}
           </span>
           <Link
             href={`/projects/${project.slug}`}
-            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-zinc-950/15 px-4 py-2 text-xs text-zinc-950 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15 dark:text-white"
+            className="hover:border-accent-brand hover:text-accent-brand inline-flex min-h-11 items-center gap-2 rounded-full border border-zinc-950/15 px-4 py-2 text-xs text-zinc-950 dark:border-white/15 dark:text-white"
           >
             Case study
             <ArrowUpRight className="size-3" aria-hidden="true" />

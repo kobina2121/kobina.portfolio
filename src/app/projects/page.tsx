@@ -29,12 +29,15 @@ export default async function ProjectsPage() {
       <Container as="section" className="pt-32 pb-20">
         <div className="mb-12 max-w-3xl">
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-950/10 bg-zinc-950/[0.04] px-4 py-2 text-xs text-zinc-600 dark:border-white/15 dark:bg-white/[0.06] dark:text-zinc-400">
-            <Layers3 className="size-3.5 text-[#d76bff]" aria-hidden="true" />
+            <Layers3
+              className="text-accent-brand size-3.5"
+              aria-hidden="true"
+            />
             Selected Work
           </p>
           <h1 className="text-4xl leading-tight font-black tracking-tight sm:text-6xl">
             Projects built with{" "}
-            <span className="bg-gradient-to-r from-[#d76bff] to-[#ff79c6] bg-clip-text text-transparent">
+            <span className="text-zinc-500 dark:text-zinc-400">
               taste, clarity, and purpose.
             </span>
           </h1>

@@ -446,7 +446,7 @@ export function ContactForm({ email = contactEmail }: { email?: string }) {
                 "consent",
                 Boolean(errors.consent),
               )}
-              className="mt-1 size-4 shrink-0 accent-[#d76bff]"
+              className="accent-accent-brand mt-1 size-4 shrink-0"
               onBlur={() => validateField("consent")}
               onChange={(event) => updateField("consent", event.target.checked)}
             />
@@ -470,7 +470,7 @@ export function ContactForm({ email = contactEmail }: { email?: string }) {
           <Button
             type="submit"
             disabled={isSubmitting}
-            className="h-11 flex-1 rounded-none bg-zinc-950 text-xs font-semibold text-white hover:bg-[#d76bff] dark:bg-white dark:text-zinc-950"
+            className="h-11 flex-1 rounded-none bg-zinc-950 text-xs font-semibold text-white hover:bg-zinc-700 dark:bg-white dark:text-zinc-950 dark:hover:bg-zinc-300"
           >
             {isSubmitting ? "Checking details..." : "Send message"}
             <Send className="size-3.5" aria-hidden="true" />

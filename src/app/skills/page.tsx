@@ -61,14 +61,14 @@ export default async function SkillsPage() {
           <div>
             <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-950/10 bg-zinc-950/[0.04] px-4 py-2 text-xs text-zinc-600 dark:border-white/15 dark:bg-white/[0.06] dark:text-zinc-400">
               <BadgeCheck
-                className="size-3.5 text-[#d76bff]"
+                className="text-accent-brand size-3.5"
                 aria-hidden="true"
               />
               Technical Stack
             </p>
             <h1 className="text-4xl leading-tight font-black tracking-tight sm:text-6xl">
               Skills for building{" "}
-              <span className="bg-gradient-to-r from-[#d76bff] to-[#ff79c6] bg-clip-text text-transparent">
+              <span className="text-zinc-500 dark:text-zinc-400">
                 modern web experiences.
               </span>
             </h1>
@@ -96,7 +96,7 @@ export default async function SkillsPage() {
             return (
               <article
                 key={label}
-                className="group rounded-[1.5rem] border border-zinc-950/10 bg-white/70 p-5 transition hover:border-[#d76bff]/70 hover:bg-white dark:border-white/12 dark:bg-white/[0.035] dark:hover:bg-white/[0.055]"
+                className="group hover:border-accent-brand/70 rounded-[1.5rem] border border-zinc-950/10 bg-white/70 p-5 transition hover:bg-white dark:border-white/12 dark:bg-white/[0.035] dark:hover:bg-white/[0.055]"
               >
                 <div className="mb-8 flex items-center justify-between">
                   <div className="flex size-14 items-center justify-center rounded-2xl border border-zinc-950/10 bg-white dark:border-white/12 dark:bg-black">
@@ -127,7 +127,7 @@ export default async function SkillsPage() {
           </p>
           <Link
             href="/#contact-me"
-            className="mt-6 inline-flex items-center gap-2 rounded-full border border-zinc-950/15 px-5 py-3 text-sm font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15"
+            className="hover:border-accent-brand hover:text-accent-brand mt-6 inline-flex items-center gap-2 rounded-full border border-zinc-950/15 px-5 py-3 text-sm font-semibold dark:border-white/15"
           >
             Contact me
             <ArrowUpRight className="size-4" aria-hidden="true" />

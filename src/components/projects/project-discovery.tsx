@@ -154,8 +154,8 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
                   className={cn(
                     "min-h-11 rounded-full border px-3 py-2 text-xs font-semibold transition",
                     selectedCategory === category
-                      ? "border-[#d76bff] bg-[#d76bff] text-white"
-                      : "border-zinc-950/10 text-zinc-700 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15 dark:text-zinc-400",
+                      ? "border-zinc-950 bg-zinc-950 text-white dark:border-white dark:bg-white dark:text-zinc-950"
+                      : "hover:border-accent-brand hover:text-accent-brand border-zinc-950/10 text-zinc-700 dark:border-white/15 dark:text-zinc-400",
                   )}
                 >
                   {category === allFilter ? "All categories" : category}
@@ -177,8 +177,8 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
                   className={cn(
                     "min-h-11 rounded-full border px-3 py-2 text-xs font-semibold transition",
                     selectedTech === tech
-                      ? "border-[#d76bff] bg-[#d76bff] text-white"
-                      : "border-zinc-950/10 text-zinc-700 hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15 dark:text-zinc-400",
+                      ? "border-zinc-950 bg-zinc-950 text-white dark:border-white dark:bg-white dark:text-zinc-950"
+                      : "hover:border-accent-brand hover:text-accent-brand border-zinc-950/10 text-zinc-700 dark:border-white/15 dark:text-zinc-400",
                   )}
                 >
                   {tech === allFilter ? "All tech" : tech}
@@ -254,13 +254,15 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
 
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               <div>
-                <p className="text-xs font-semibold text-[#d76bff]">Outcome</p>
+                <p className="text-accent-brand text-xs font-semibold">
+                  Outcome
+                </p>
                 <p className="mt-2 text-sm leading-7 text-zinc-700 dark:text-zinc-300">
                   {previewProject.outcome}
                 </p>
               </div>
               <div>
-                <p className="text-xs font-semibold text-[#d76bff]">Stack</p>
+                <p className="text-accent-brand text-xs font-semibold">Stack</p>
                 <p className="mt-2 text-sm leading-7 text-zinc-700 dark:text-zinc-300">
                   {previewProject.stack.join(", ")}
                 </p>

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Mail, Phone } from "lucide-react";
 import { BrandMark } from "@/components/brand-mark";
@@ -6,11 +5,7 @@ import { CopyEmailButton } from "@/components/copy-email-button";
 import { DownloadCvLink } from "@/components/download-cv-link";
 import { getPhoneHref } from "@/lib/contact-details";
 import { getExternalLinkAttributes, isExternalHref } from "@/lib/links";
-import {
-  getNavigationItems,
-  getRequiredImageAsset,
-  getSiteConfig,
-} from "@/lib/portfolio-content";
+import { getNavigationItems, getSiteConfig } from "@/lib/portfolio-content";
 
 // The footer renders on every page, so home-page anchors need the / prefix.
 function toSiteWideHref(href: string) {
@@ -24,7 +19,6 @@ export async function SiteFooter() {
     href: toSiteWideHref(link.href),
   }));
   const siteNavItems = getNavigationItems();
-  const loopromptLogo = getRequiredImageAsset("looprompt-logo");
 
   return (
     <footer className="homepage-font bg-background text-foreground px-5 sm:px-8 lg:px-10">
@@ -117,16 +111,6 @@ export async function SiteFooter() {
 
         <div className="mt-10 text-center text-[0.68rem] text-zinc-700 dark:text-zinc-600">
           <p>© Copyright 2026. Made by Kobina.</p>
-          <p className="mt-2">
-            Product of Loo<span className="text-[#ff4028]">prompt</span>.
-          </p>
-          <Image
-            src={loopromptLogo.src}
-            alt={loopromptLogo.alt}
-            width={loopromptLogo.width}
-            height={loopromptLogo.height}
-            className="mx-auto mt-3 size-8"
-          />
         </div>
       </div>
     </footer>

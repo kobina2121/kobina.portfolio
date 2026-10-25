@@ -93,7 +93,7 @@ function ProjectActionLink({ link }: { link: ProjectLink }) {
       aria-label={
         isExternal ? `${link.label} (opens in a new tab)` : link.label
       }
-      className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-zinc-950/15 px-5 py-3 text-sm font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15"
+      className="hover:border-accent-brand hover:text-accent-brand inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-zinc-950/15 px-5 py-3 text-sm font-semibold dark:border-white/15"
     >
       {link.label}
       <ArrowUpRight className="size-4" aria-hidden="true" />
@@ -129,7 +129,7 @@ export default async function ProjectCaseStudyPage({
       <Container className="pt-32 pb-20">
         <Link
           href="/projects"
-          className="mb-10 inline-flex items-center gap-2 text-sm text-zinc-700 hover:text-[#d76bff] dark:text-zinc-400"
+          className="hover:text-accent-brand mb-10 inline-flex items-center gap-2 text-sm text-zinc-700 dark:text-zinc-400"
         >
           <ArrowLeft className="size-4" aria-hidden="true" />
           Back to projects
@@ -149,7 +149,7 @@ export default async function ProjectCaseStudyPage({
           </div>
 
           <div className="rounded-[1.75rem] border border-zinc-950/10 bg-white/70 p-5 dark:border-white/12 dark:bg-white/[0.04]">
-            <p className="text-xs font-semibold text-[#d76bff]">Outcome</p>
+            <p className="text-accent-brand text-xs font-semibold">Outcome</p>
             <p className="mt-3 text-sm leading-7 text-zinc-800 dark:text-zinc-300">
               {project.outcome}
             </p>
@@ -206,7 +206,7 @@ export default async function ProjectCaseStudyPage({
                   className="flex gap-3 text-sm leading-7 text-zinc-700 dark:text-zinc-300"
                 >
                   <span
-                    className="mt-3 size-1.5 shrink-0 bg-[#d76bff]"
+                    className="bg-accent-brand mt-3 size-1.5 shrink-0"
                     aria-hidden="true"
                   />
                   {constraint}
@@ -277,7 +277,7 @@ export default async function ProjectCaseStudyPage({
                   className="flex gap-3 text-sm leading-7 text-zinc-700 dark:text-zinc-300"
                 >
                   <span
-                    className="mt-3 size-1.5 shrink-0 bg-[#d76bff]"
+                    className="bg-accent-brand mt-3 size-1.5 shrink-0"
                     aria-hidden="true"
                   />
                   {impact}
@@ -295,7 +295,7 @@ export default async function ProjectCaseStudyPage({
                   className="flex gap-3 text-sm leading-7 text-zinc-700 dark:text-zinc-300"
                 >
                   <span
-                    className="mt-3 size-1.5 shrink-0 bg-[#d76bff]"
+                    className="bg-accent-brand mt-3 size-1.5 shrink-0"
                     aria-hidden="true"
                   />
                   {lesson}
@@ -317,12 +317,12 @@ export default async function ProjectCaseStudyPage({
           {previous ? (
             <Link
               href={`/projects/${previous.slug}`}
-              className="group flex items-center gap-3 text-sm text-zinc-700 hover:text-[#d76bff] dark:text-zinc-400"
+              className="group hover:text-accent-brand flex items-center gap-3 text-sm text-zinc-700 dark:text-zinc-400"
             >
               <ArrowLeft className="size-4" aria-hidden="true" />
               <span>
                 Previous
-                <strong className="block text-zinc-950 group-hover:text-[#d76bff] dark:text-white">
+                <strong className="block text-zinc-950 underline-offset-4 group-hover:underline dark:text-white">
                   {previous.title}
                 </strong>
               </span>
@@ -334,11 +334,11 @@ export default async function ProjectCaseStudyPage({
           {next ? (
             <Link
               href={`/projects/${next.slug}`}
-              className="group flex items-center gap-3 text-sm text-zinc-700 hover:text-[#d76bff] md:justify-end dark:text-zinc-400"
+              className="group hover:text-accent-brand flex items-center gap-3 text-sm text-zinc-700 md:justify-end dark:text-zinc-400"
             >
               <span className="text-left md:text-right">
                 Next
-                <strong className="block text-zinc-950 group-hover:text-[#d76bff] dark:text-white">
+                <strong className="block text-zinc-950 underline-offset-4 group-hover:underline dark:text-white">
                   {next.title}
                 </strong>
               </span>

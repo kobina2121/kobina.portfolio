@@ -27,7 +27,7 @@ export function DownloadCvLink({
         })
       }
       className={cn(
-        "inline-flex min-h-11 items-center gap-2 border border-zinc-950/25 px-4 py-2 text-xs font-semibold text-zinc-950 transition hover:border-[#d76bff] hover:text-[#d76bff] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#d76bff] dark:border-white/35 dark:text-white",
+        "hover:border-accent-brand hover:text-accent-brand focus-visible:outline-accent-brand inline-flex min-h-11 items-center gap-2 border border-zinc-950/25 px-4 py-2 text-xs font-semibold text-zinc-950 transition focus-visible:outline-2 focus-visible:outline-offset-4 dark:border-white/35 dark:text-white",
         className,
       )}
       aria-label={`${label} as PDF, version ${CV_VERSION}`}

@@ -61,8 +61,8 @@ export function getContactEmailHtml({
 }: ContactNotificationEmailProps) {
   return `<!doctype html>
 <main style="background-color:#050505;color:#f8fafc;font-family:Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:32px;">
-  <section style="border:1px solid rgba(215,107,255,0.45);border-radius:24px;margin:0 auto;max-width:640px;padding:28px;">
-    <p style="color:#d76bff;font-size:12px;font-weight:700;letter-spacing:0.08em;margin:0 0 12px;text-transform:uppercase;">Portfolio contact</p>
+  <section style="border:1px solid rgba(255,255,255,0.18);border-radius:24px;margin:0 auto;max-width:640px;padding:28px;">
+    <p style="color:#a1a1aa;font-size:12px;font-weight:700;letter-spacing:0.08em;margin:0 0 12px;text-transform:uppercase;">Portfolio contact</p>
     <h1 style="font-size:28px;line-height:1.2;margin:0 0 24px;">${escapeHtml(
       submission.name,
     )} sent a ${escapeHtml(subjectLabels[submission.subject])}.</h1>
@@ -114,7 +114,7 @@ export function ContactNotificationEmail({
     >
       <section
         style={{
-          border: "1px solid rgba(215, 107, 255, 0.45)",
+          border: "1px solid rgba(255, 255, 255, 0.18)",
           borderRadius: "24px",
           margin: "0 auto",
           maxWidth: "640px",
@@ -123,7 +123,7 @@ export function ContactNotificationEmail({
       >
         <p
           style={{
-            color: "#d76bff",
+            color: "#a1a1aa",
             fontSize: "12px",
             fontWeight: 700,
             letterSpacing: "0.08em",

@@ -21,7 +21,7 @@ export default function NotFound() {
           <div>
             <Link
               href="/"
-              className="inline-flex items-center gap-2 rounded-full border border-zinc-950/15 px-5 py-3 text-sm font-semibold hover:border-[#d76bff] hover:text-[#d76bff] dark:border-white/15"
+              className="hover:border-accent-brand hover:text-accent-brand inline-flex items-center gap-2 rounded-full border border-zinc-950/15 px-5 py-3 text-sm font-semibold dark:border-white/15"
             >
               <ArrowLeft className="size-4" aria-hidden="true" />
               Back home

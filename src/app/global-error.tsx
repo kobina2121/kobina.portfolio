@@ -28,7 +28,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
           }}
         >
           <section style={{ maxWidth: "34rem", textAlign: "center" }}>
-            <p style={{ color: "#d76bff", fontSize: "0.8rem" }}>
+            <p style={{ color: "#a1a1aa", fontSize: "0.8rem" }}>
               Application error
             </p>
             <h1 style={{ marginTop: "1rem", fontSize: "2rem" }}>

@@ -43,7 +43,7 @@ const rawProjects = [
     category: "Portfolio",
     description:
       "A cyberpunk portfolio exploring motion, contrast, and tiny UI.",
-    accent: "from-[#dcecff] via-[#b9d6ff] to-[#fff6e9]",
+    accent: "from-[#f4f4f5] via-[#d4d4d8] to-[#fafafa]",
     type: "Portfolio Experience",
     year: "2026",
     outcome: "Built a sharp personal brand interface with high-contrast cards.",
@@ -78,19 +78,19 @@ const rawProjects = [
         title: "Hero direction",
         caption:
           "A compact first screen pairing expressive typography with a focused introduction.",
-        accent: "from-[#dcecff] via-[#b9d6ff] to-[#fff6e9]",
+        accent: "from-[#f4f4f5] via-[#d4d4d8] to-[#fafafa]",
       },
       {
         title: "Project cards",
         caption:
           "Small cards use contrast and clear labels to make each case easy to scan.",
-        accent: "from-[#151515] via-[#2d1745] to-[#090909]",
+        accent: "from-[#151515] via-[#2a2a2a] to-[#090909]",
       },
       {
         title: "Contact path",
         caption:
           "The page keeps contact options close to the story instead of hiding them.",
-        accent: "from-[#2b1055] via-[#7597de] to-[#d76bff]",
+        accent: "from-[#0a0a0a] via-[#52525b] to-[#d4d4d8]",
       },
     ],
     live: {
@@ -226,13 +226,13 @@ const rawProjects = [
         title: "Asset watchlist",
         caption:
           "Tracked assets are presented as cards designed for fast comparison.",
-        accent: "from-[#064e3b] via-[#022c22] to-[#020617]",
+        accent: "from-[#262626] via-[#171717] to-[#0a0a0a]",
       },
       {
         title: "Chart region",
         caption:
           "The analytical surface keeps contrast high and decorative noise low.",
-        accent: "from-[#1e1b4b] via-[#312e81] to-[#020617]",
+        accent: "from-[#18181b] via-[#3f3f46] to-[#09090b]",
       },
     ],
     live: {

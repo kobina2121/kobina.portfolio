@@ -47,14 +47,6 @@ const rawImageAssets = [
     width: 739,
     height: 512,
   },
-  {
-    key: "looprompt-logo",
-    src: "/images/looprompt-logo.png",
-    alt: "Looprompt logo",
-    purpose: "brand",
-    width: 32,
-    height: 32,
-  },
 ] as const;
 
 export const navigationItems = navigationItemSchema
