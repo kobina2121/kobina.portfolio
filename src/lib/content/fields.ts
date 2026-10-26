@@ -243,12 +243,6 @@ export const certificationFields: FieldConfig[] = [
   { kind: "text", name: "status", label: "Status" },
 ];
 
-export const testimonialFields: FieldConfig[] = [
-  { kind: "textarea", name: "quote", label: "Quote" },
-  { kind: "text", name: "name", label: "Name" },
-  { kind: "text", name: "role", label: "Role" },
-];
-
 /** Blank values for a new document, shaped like the fields. */
 export function getEmptyValues(fields: FieldConfig[]): FormValues {
   return Object.fromEntries(

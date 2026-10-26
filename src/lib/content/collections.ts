@@ -9,7 +9,6 @@ import {
   serviceFields,
   settingsFields,
   skillFields,
-  testimonialFields,
 } from "@/lib/content/fields";
 import {
   certificationSchema,
@@ -19,7 +18,6 @@ import {
   serviceSchema,
   siteSettingsSchema,
   skillSchema,
-  testimonialSchema,
 } from "@/lib/content/schema";
 
 export const listCollectionKeys = [
@@ -29,7 +27,6 @@ export const listCollectionKeys = [
   "experience",
   "education",
   "certifications",
-  "testimonials",
 ] as const;
 
 export type ListCollectionKey = (typeof listCollectionKeys)[number];
@@ -110,16 +107,6 @@ export const listCollections: Record<ListCollectionKey, ListCollectionConfig> =
       fields: certificationFields,
       titleField: "name",
       subtitleField: "provider",
-    },
-    testimonials: {
-      key: "testimonials",
-      label: "Testimonials",
-      singular: "testimonial",
-      description: "Quotes from collaborators and clients.",
-      schema: testimonialSchema,
-      fields: testimonialFields,
-      titleField: "name",
-      subtitleField: "role",
     },
   };
 

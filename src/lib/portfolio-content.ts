@@ -105,10 +105,6 @@ export async function getCertificationItems() {
   return (await getPortfolioContent()).certifications;
 }
 
-export async function getTestimonialItems() {
-  return (await getPortfolioContent()).testimonials;
-}
-
 export function getContentStrategy() {
   return contentStrategy;
 }

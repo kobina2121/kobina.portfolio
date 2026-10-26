@@ -49,18 +49,18 @@ describe("MongoDB content storage", () => {
 
   it("leaves existing content alone unless asked to replace it", async () => {
     await seedPortfolioContent(db, defaultPortfolioContent);
-    const [first] = await listItems(db, "testimonials");
-    await deleteItem(db, "testimonials", first.id);
+    const [first] = await listItems(db, "certifications");
+    await deleteItem(db, "certifications", first.id);
 
     const summary = await seedPortfolioContent(db, defaultPortfolioContent);
-    expect(summary.testimonials).toBe(0);
-    expect(await listItems(db, "testimonials")).toHaveLength(
-      defaultPortfolioContent.testimonials.length - 1,
+    expect(summary.certifications).toBe(0);
+    expect(await listItems(db, "certifications")).toHaveLength(
+      defaultPortfolioContent.certifications.length - 1,
     );
 
     await seedPortfolioContent(db, defaultPortfolioContent, { replace: true });
-    expect(await listItems(db, "testimonials")).toHaveLength(
-      defaultPortfolioContent.testimonials.length,
+    expect(await listItems(db, "certifications")).toHaveLength(
+      defaultPortfolioContent.certifications.length,
     );
   });
 

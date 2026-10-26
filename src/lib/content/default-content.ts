@@ -233,27 +233,6 @@ const rawCertificationItems = [
   },
 ] as const;
 
-const rawTestimonialItems = [
-  {
-    quote:
-      "Kobina brings a calm eye for detail to interfaces. The work feels clean, modern, and easy to understand.",
-    name: "Anonymous collaborator",
-    role: "Brand feedback",
-  },
-  {
-    quote:
-      "He turns rough ideas into polished screens quickly, while still caring about usability and structure.",
-    name: "Anonymous product partner",
-    role: "Product feedback",
-  },
-  {
-    quote:
-      "The final result had the exact mood we wanted: minimal, sharp, and professional without feeling generic.",
-    name: "Anonymous founder",
-    role: "Business feedback",
-  },
-] as const;
-
 /** Content seeded into MongoDB and served whenever the database is unavailable. */
 export const defaultPortfolioContent = portfolioContentSchema.parse({
   settings: rawSiteSettings,
@@ -263,5 +242,4 @@ export const defaultPortfolioContent = portfolioContentSchema.parse({
   experience: rawExperienceItems,
   education: rawEducationItems,
   certifications: rawCertificationItems,
-  testimonials: rawTestimonialItems,
 });
