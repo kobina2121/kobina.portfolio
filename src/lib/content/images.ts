@@ -1,12 +1,13 @@
 import "server-only";
 
-import { del, put } from "@vercel/blob";
+import { del, get, put } from "@vercel/blob";
 
-import { isBlobImageUrl } from "@/lib/content/schema";
+import { getBlobPathname, getPrivateBlobUrl } from "@/lib/content/schema";
 
 export const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
 
 type ImageContentType = "image/webp" | "image/jpeg" | "image/png";
+type BlobAccess = "public" | "private";
 
 const extensions: Record<ImageContentType, string> = {
   "image/webp": "webp",
@@ -32,6 +33,30 @@ function detectContentType(bytes: Uint8Array): ImageContentType | null {
 /** Uploads use the token Vercel adds when a Blob store is connected. */
 export function isBlobConfigured() {
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
+}
+
+// A Blob store is either public or private and rejects the other kind of
+// upload. Remember which one worked so later uploads go straight there.
+let storeAccess: BlobAccess | undefined;
+
+async function upload(
+  access: BlobAccess,
+  bytes: Uint8Array,
+  contentType: ImageContentType,
+) {
+  const blob = await put(
+    `projects/screenshot.${extensions[contentType]}`,
+    Buffer.from(bytes),
+    {
+      access,
+      contentType,
+      addRandomSuffix: true,
+      // Each upload gets a unique URL, so it can be cached for a year.
+      cacheControlMaxAge: 60 * 60 * 24 * 365,
+    },
+  );
+
+  return access === "public" ? blob.url : getPrivateBlobUrl(blob.pathname);
 }
 
 export type SaveImageResult =
@@ -61,39 +86,49 @@ export async function saveImage(bytes: Uint8Array): Promise<SaveImageResult> {
     };
   }
 
-  try {
-    const blob = await put(
-      `projects/screenshot.${extensions[contentType]}`,
-      Buffer.from(bytes),
-      {
-        access: "public",
-        contentType,
-        addRandomSuffix: true,
-        // Each upload gets a unique URL, so it can be cached for a year.
-        cacheControlMaxAge: 60 * 60 * 24 * 365,
-      },
-    );
+  const attempts: BlobAccess[] = storeAccess
+    ? [storeAccess]
+    : ["public", "private"];
+  let lastError: unknown;
 
-    return { ok: true, url: blob.url };
-  } catch (error) {
-    console.error("Vercel Blob upload failed", error);
-    return {
-      ok: false,
-      message: "The upload to Vercel Blob failed. Please try again.",
-    };
+  for (const access of attempts) {
+    try {
+      const url = await upload(access, bytes, contentType);
+      storeAccess = access;
+      return { ok: true, url };
+    } catch (error) {
+      lastError = error;
+    }
   }
+
+  console.error("Vercel Blob upload failed", lastError);
+  return {
+    ok: false,
+    message: `Vercel Blob rejected the upload: ${
+      lastError instanceof Error ? lastError.message : String(lastError)
+    }`,
+  };
 }
 
-/** Deletes uploaded screenshots from Vercel Blob by URL. */
-export async function deleteImagesByUrl(urls: string[]) {
-  const blobUrls = urls.filter(isBlobImageUrl);
+/** Streams a screenshot from a private Blob store, or null if it's missing. */
+export async function getPrivateImage(pathname: string) {
+  const result = await get(pathname, { access: "private" });
 
-  if (blobUrls.length === 0 || !isBlobConfigured()) {
+  return result?.statusCode === 200 ? result : null;
+}
+
+/** Deletes uploaded screenshots from Vercel Blob. */
+export async function deleteImagesByUrl(urls: string[]) {
+  const pathnames = urls
+    .map(getBlobPathname)
+    .filter((pathname): pathname is string => pathname !== null);
+
+  if (pathnames.length === 0 || !isBlobConfigured()) {
     return;
   }
 
   try {
-    await del(blobUrls);
+    await del(pathnames);
   } catch (error) {
     // A leftover file only costs storage, so don't fail the save over it.
     console.error("Could not delete images from Vercel Blob", error);

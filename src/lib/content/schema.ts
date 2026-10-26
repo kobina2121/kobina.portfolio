@@ -105,13 +105,24 @@ export function slugify(value: string) {
 
 const optionalUrl = z.url("Enter a full URL starting with https://").optional();
 
-// Uploaded screenshots live in Vercel Blob, e.g.
-// https://abc123.public.blob.vercel-storage.com/projects/screenshot-x1y2.webp
-const blobImageUrlPattern =
-  /^https:\/\/[a-z0-9-]+\.public\.blob\.vercel-storage\.com\/\S+$/i;
+// Uploaded screenshots live in Vercel Blob. Files in a public store are linked
+// directly, e.g. https://abc123.public.blob.vercel-storage.com/projects/x.webp;
+// files in a private store are served by this site at /api/blob/projects/x.webp.
+const publicBlobUrlPattern =
+  /^https:\/\/[a-z0-9-]+\.public\.blob\.vercel-storage\.com\/(projects\/[\w.-]+)$/i;
+const privateBlobPathPattern = /^\/api\/blob\/(projects\/[\w.-]+)$/;
 
-export function isBlobImageUrl(url: string) {
-  return blobImageUrlPattern.test(url);
+/** The Blob pathname of an uploaded screenshot, or null for other URLs. */
+export function getBlobPathname(url: string) {
+  return (
+    publicBlobUrlPattern.exec(url)?.[1] ??
+    privateBlobPathPattern.exec(url)?.[1] ??
+    null
+  );
+}
+
+export function getPrivateBlobUrl(pathname: string) {
+  return `/api/blob/${pathname}`;
 }
 
 export const MAX_PROJECT_SCREENSHOTS = 8;
@@ -143,7 +154,14 @@ export const projectSchema = z.preprocess(
     liveUrl: optionalUrl,
     sourceUrl: optionalUrl,
     screenshots: z
-      .array(z.string().regex(blobImageUrlPattern, "Upload screenshots here."))
+      .array(
+        z
+          .string()
+          .refine(
+            (url) => getBlobPathname(url) !== null,
+            "Upload screenshots here.",
+          ),
+      )
       .max(
         MAX_PROJECT_SCREENSHOTS,
         `Add up to ${MAX_PROJECT_SCREENSHOTS} screenshots.`,

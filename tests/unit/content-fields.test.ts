@@ -55,6 +55,12 @@ describe("admin form fields", () => {
         screenshots: ["https://evil.example/x.png"],
       }).success,
     ).toBe(false);
+    expect(
+      projectSchema.safeParse({
+        ...project,
+        screenshots: ["/api/blob/projects/screenshot-x1y2.webp"],
+      }).success,
+    ).toBe(true);
   });
 
   it("rejects link fields that are not full URLs", () => {
