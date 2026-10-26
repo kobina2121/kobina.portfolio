@@ -148,9 +148,6 @@ export const projectSchema = z.preprocess(
     description: nonEmptyString,
     stack: z.array(nonEmptyString).min(1),
     accent: nonEmptyString,
-    role: nonEmptyString,
-    problem: nonEmptyString,
-    solution: nonEmptyString,
     liveUrl: optionalUrl,
     sourceUrl: optionalUrl,
     screenshots: z

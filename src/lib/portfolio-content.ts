@@ -81,30 +81,6 @@ export async function getFeaturedProjects() {
   return (await getAllProjects()).slice(0, 3);
 }
 
-export async function getProjectBySlug(slug: string) {
-  return (await getAllProjects()).find((project) => project.slug === slug);
-}
-
-export async function getRelatedProjects(slug: string, limit = 2) {
-  return (await getAllProjects())
-    .filter((project) => project.slug !== slug)
-    .slice(0, limit);
-}
-
-export async function getAdjacentProjects(slug: string) {
-  const projects = await getAllProjects();
-  const currentIndex = projects.findIndex((project) => project.slug === slug);
-
-  if (currentIndex === -1) {
-    return { previous: null, next: null };
-  }
-
-  return {
-    previous: projects[currentIndex - 1] ?? null,
-    next: projects[currentIndex + 1] ?? null,
-  };
-}
-
 export async function getSkillItems() {
   return (await getPortfolioContent()).skills;
 }

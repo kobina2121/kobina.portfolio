@@ -134,20 +134,13 @@ export const settingsFields: FieldConfig[] = [
 
 export const projectFields: FieldConfig[] = [
   { kind: "text", name: "title", label: "Title" },
-  {
-    kind: "text",
-    name: "slug",
-    label: "Slug",
-    optional: true,
-    help: "Used in the URL: /projects/<slug>. Leave empty to generate it from the title.",
-  },
   { kind: "text", name: "category", label: "Category" },
   { kind: "text", name: "year", label: "Year" },
   {
     kind: "textarea",
     name: "description",
     label: "Description",
-    help: "One or two sentences shown on the project card and at the top of the case study.",
+    help: "One or two sentences shown on the project card.",
   },
   {
     kind: "images",
@@ -168,14 +161,6 @@ export const projectFields: FieldConfig[] = [
     label: "Accent gradient",
     options: accentOptions,
   },
-  {
-    kind: "textarea",
-    name: "role",
-    label: "My role",
-    help: "What you did on the project.",
-  },
-  { kind: "textarea", name: "problem", label: "Problem" },
-  { kind: "textarea", name: "solution", label: "Solution" },
   {
     kind: "text",
     name: "liveUrl",

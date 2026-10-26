@@ -1,4 +1,4 @@
-import type { Project, SiteSettings } from "@/lib/content/schema";
+import type { SiteSettings } from "@/lib/content/schema";
 import { getPhoneHref } from "@/lib/contact-details";
 import { absoluteUrl } from "@/lib/site-url";
 
@@ -41,25 +41,5 @@ export function getWebsiteJsonLd(site: SiteSettings) {
         inLanguage: "en",
       },
     ],
-  };
-}
-
-export function getProjectJsonLd(project: Project, site: SiteSettings) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    "@id": absoluteUrl(`/projects/${project.slug}#project`),
-    name: project.title,
-    url: absoluteUrl(`/projects/${project.slug}`),
-    description: project.description,
-    datePublished: `${project.year}-01-01`,
-    creator: {
-      "@id": absoluteUrl("/#person"),
-      name: site.owner,
-    },
-    keywords: project.stack.join(", "),
-    genre: project.category,
-    about: project.problem,
-    educationalUse: "Case study",
   };
 }

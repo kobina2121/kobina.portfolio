@@ -1,11 +1,9 @@
 import { describe, expect, it } from "vitest";
 
 import {
-  getAdjacentProjects,
   getAllProjects,
   getContentStrategy,
   getNavigationItems,
-  getProjectBySlug,
   getRequiredImageAsset,
   getSiteConfig,
 } from "@/lib/portfolio-content";
@@ -27,10 +25,7 @@ describe("portfolio content repository", () => {
     const slugs = projects.map((project) => project.slug);
 
     expect(new Set(slugs).size).toBe(slugs.length);
-    expect((await getProjectBySlug("cryptrack"))?.title).toBe("CrypTrack");
-    expect((await getAdjacentProjects("projectx")).previous?.slug).toBe(
-      "1111afolio",
-    );
+    expect(projects.map((project) => project.title)).toContain("CrypTrack");
   });
 
   it("organizes reusable image assets by purpose", () => {

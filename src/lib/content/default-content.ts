@@ -54,11 +54,6 @@ const rawProjects = [
       "A cyberpunk portfolio exploring motion, contrast, and tiny UI.",
     stack: ["HTML", "CSS", "JavaScript"],
     accent: "from-[#f4f4f5] via-[#d4d4d8] to-[#fafafa]",
-    role: "Handled the interface direction, responsive layout, component structure, and visual polish.",
-    problem:
-      "Most starter portfolios feel interchangeable. The challenge was to create a simple portfolio experience that still had a distinct mood and fast first impression.",
-    solution:
-      "A high-contrast landing page with sharp project cards, compact copy blocks, and a focused path from introduction to contact.",
   },
   {
     title: "ProjectX",
@@ -69,11 +64,6 @@ const rawProjects = [
       "Online cloud storage interface with lightweight sharing flows.",
     stack: ["React", "API Design", "UI Systems"],
     accent: "from-[#151515] via-[#1d1d1d] to-[#090909]",
-    role: "Designed the dashboard information architecture and translated it into reusable frontend UI patterns.",
-    problem:
-      "File dashboards can become visually noisy very quickly. The goal was to make common actions visible without turning the interface into clutter.",
-    solution:
-      "A dark SaaS dashboard concept with clear file groups, strong primary actions, and a calm visual system for sharing workflows.",
   },
   {
     title: "CrypTrack",
@@ -83,11 +73,6 @@ const rawProjects = [
     description: "Crypto market dashboard with search, watchlists, and charts.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     accent: "from-[#111827] via-[#020617] to-[#050505]",
-    role: "Planned the product layout, dashboard cards, responsive behavior, and visual hierarchy.",
-    problem:
-      "Crypto interfaces often overload users with charts, metrics, and motion. CrypTrack needed to make important market information feel organized and quick to compare.",
-    solution:
-      "A responsive analytics dashboard with watchlist cards, search-first navigation, and a dark interface optimized for quick comparisons.",
   },
 ];
 
