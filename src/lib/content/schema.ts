@@ -105,6 +105,17 @@ export function slugify(value: string) {
 
 const optionalUrl = z.url("Enter a full URL starting with https://").optional();
 
+// Uploaded screenshots live in Vercel Blob, e.g.
+// https://abc123.public.blob.vercel-storage.com/projects/screenshot-x1y2.webp
+const blobImageUrlPattern =
+  /^https:\/\/[a-z0-9-]+\.public\.blob\.vercel-storage\.com\/\S+$/i;
+
+export function isBlobImageUrl(url: string) {
+  return blobImageUrlPattern.test(url);
+}
+
+export const MAX_PROJECT_SCREENSHOTS = 8;
+
 export const projectSchema = z.preprocess(
   (input) => {
     // An empty slug is generated from the title.
@@ -131,6 +142,13 @@ export const projectSchema = z.preprocess(
     solution: nonEmptyString,
     liveUrl: optionalUrl,
     sourceUrl: optionalUrl,
+    screenshots: z
+      .array(z.string().regex(blobImageUrlPattern, "Upload screenshots here."))
+      .max(
+        MAX_PROJECT_SCREENSHOTS,
+        `Add up to ${MAX_PROJECT_SCREENSHOTS} screenshots.`,
+      )
+      .default([]),
   }),
 );
 

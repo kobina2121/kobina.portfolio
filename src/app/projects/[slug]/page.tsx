@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
@@ -175,6 +176,25 @@ export default async function ProjectCaseStudyPage({
             </article>
           ))}
         </section>
+
+        {project.screenshots.length > 0 ? (
+          <section className="mt-14">
+            <h2 className="text-2xl font-black">Screenshots</h2>
+            <div className="mt-6 grid gap-5 md:grid-cols-2">
+              {project.screenshots.map((src, index) => (
+                <Image
+                  key={src}
+                  src={src}
+                  alt={`${project.title} screenshot ${index + 1}`}
+                  width={1920}
+                  height={1080}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  className={`h-auto w-full rounded-[1.5rem] border border-zinc-950/10 dark:border-white/12 ${index === 0 && project.screenshots.length % 2 === 1 ? "md:col-span-2" : ""}`}
+                />
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         {project.liveUrl || project.sourceUrl ? (
           <section className="mt-14 flex flex-wrap gap-4">

@@ -38,6 +38,25 @@ describe("admin form fields", () => {
     expect(slugify("  Hello,  World!  ")).toBe("hello-world");
   });
 
+  it("keeps only uploaded screenshot URLs", () => {
+    const [project] = defaultPortfolioContent.projects;
+    const upload =
+      "https://abc123.public.blob.vercel-storage.com/projects/screenshot-x1y2.webp";
+    const values = normalizeValues(projectFields, {
+      ...project,
+      screenshots: [upload, "", 42],
+    });
+
+    expect(values.screenshots).toEqual([upload]);
+    expect(projectSchema.parse(values).screenshots).toEqual([upload]);
+    expect(
+      projectSchema.safeParse({
+        ...project,
+        screenshots: ["https://evil.example/x.png"],
+      }).success,
+    ).toBe(false);
+  });
+
   it("rejects link fields that are not full URLs", () => {
     const [project] = defaultPortfolioContent.projects;
     const result = projectSchema.safeParse({ ...project, liveUrl: "my-site" });

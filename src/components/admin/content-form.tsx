@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowDown, ArrowUp, Plus, Trash2 } from "lucide-react";
 
 import type { AdminFormResult } from "@/app/admin/actions";
+import { ImagesField } from "@/components/admin/images-field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -256,6 +257,18 @@ function FieldControl(props: FieldProps) {
     }
     case "list":
       return <ListField {...props} />;
+    case "images":
+      return (
+        <ImagesField
+          id={path}
+          label={field.label}
+          max={field.max}
+          value={value}
+          describedBy={ariaProps["aria-describedby"]}
+          invalid={Boolean(error)}
+          onChange={onChange}
+        />
+      );
     case "repeater":
       return <RepeaterField {...props} field={field} />;
     case "group":

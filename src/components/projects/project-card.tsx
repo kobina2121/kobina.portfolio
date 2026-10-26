@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/lib/content/schema";
@@ -14,6 +15,7 @@ export function ProjectCard({
   variant = "featured",
 }: ProjectCardProps) {
   const isCompact = variant === "compact";
+  const [cover] = project.screenshots;
 
   return (
     <article
@@ -30,19 +32,37 @@ export function ProjectCard({
         <div
           className={`relative flex ${isCompact ? "aspect-[1.55]" : "aspect-[1.35]"} items-center justify-center overflow-hidden bg-gradient-to-br ${project.accent}`}
         >
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.35),transparent_30%),linear-gradient(180deg,transparent,rgba(0,0,0,0.45))]" />
-          <div className="relative rounded-2xl border border-white/20 bg-black/65 px-6 py-4 text-center text-white shadow-2xl backdrop-blur-sm">
-            <p className="text-xs text-zinc-400">0{index + 1}</p>
-            <h3
-              className={
-                isCompact
-                  ? "mt-1 text-lg font-black"
-                  : "mt-1 text-xl font-black"
-              }
-            >
-              {project.title}
-            </h3>
-          </div>
+          {cover ? (
+            <>
+              <Image
+                src={cover}
+                alt={`${project.title} screenshot`}
+                fill
+                sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
+                className="object-cover object-top transition duration-500 motion-safe:group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
+              <h3 className="absolute bottom-3 left-3 rounded-full bg-black/70 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
+                {project.title}
+              </h3>
+            </>
+          ) : (
+            <>
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.35),transparent_30%),linear-gradient(180deg,transparent,rgba(0,0,0,0.45))]" />
+              <div className="relative rounded-2xl border border-white/20 bg-black/65 px-6 py-4 text-center text-white shadow-2xl backdrop-blur-sm">
+                <p className="text-xs text-zinc-400">0{index + 1}</p>
+                <h3
+                  className={
+                    isCompact
+                      ? "mt-1 text-lg font-black"
+                      : "mt-1 text-xl font-black"
+                  }
+                >
+                  {project.title}
+                </h3>
+              </div>
+            </>
+          )}
         </div>
       </Link>
 

@@ -19,10 +19,16 @@ import { defaultPortfolioContent } from "@/lib/content/default-content";
 import { type FormValues, normalizeValues } from "@/lib/content/fields";
 import {
   deleteItem,
+  getItem,
   moveItem,
   saveItem,
   saveSettings,
 } from "@/lib/content/repository";
+import {
+  deleteImagesByUrl,
+  saveImage,
+  type SaveImageResult,
+} from "@/lib/content/images";
 import { seedPortfolioContent } from "@/lib/content/seed";
 import { getDb } from "@/lib/db/mongodb";
 
@@ -61,6 +67,14 @@ function getSafeRedirect(value: FormDataEntryValue | null) {
   return target.startsWith("/admin") && !target.startsWith("//")
     ? target
     : "/admin";
+}
+
+function getScreenshotUrls(item: Record<string, unknown> | null) {
+  const screenshots = item?.screenshots;
+
+  return Array.isArray(screenshots)
+    ? screenshots.filter((url): url is string => typeof url === "string")
+    : [];
 }
 
 export async function loginAction(
@@ -116,11 +130,19 @@ export async function saveItemAction(
     };
   }
 
-  const result = await saveItem(await getDb(), collectionKey, id, parsed.data);
+  const db = await getDb();
+  const previous = id ? await getItem(db, collectionKey, id) : null;
+  const result = await saveItem(db, collectionKey, id, parsed.data);
 
   if (!result.ok) {
     return result;
   }
+
+  // Delete screenshots that were removed from the project in this edit.
+  const kept = new Set(getScreenshotUrls(parsed.data));
+  await deleteImagesByUrl(
+    getScreenshotUrls(previous).filter((url) => !kept.has(url)),
+  );
 
   revalidateSite();
   redirect(`/admin/${collectionKey}?saved=1`);
@@ -155,7 +177,10 @@ export async function deleteItemAction(formData: FormData) {
   const id = String(formData.get("id"));
 
   if (isListCollectionKey(collectionKey)) {
-    await deleteItem(await getDb(), collectionKey, id);
+    const db = await getDb();
+    const item = await getItem(db, collectionKey, id);
+    await deleteItem(db, collectionKey, id);
+    await deleteImagesByUrl(getScreenshotUrls(item));
     revalidateSite();
     redirect(`/admin/${collectionKey}?deleted=1`);
   }
@@ -187,4 +212,18 @@ export async function seedContentAction(formData: FormData) {
   });
   revalidateSite();
   redirect("/admin?seeded=1");
+}
+
+export async function uploadImageAction(
+  formData: FormData,
+): Promise<SaveImageResult> {
+  await assertAdmin();
+
+  const file = formData.get("file");
+
+  if (!(file instanceof File)) {
+    return { ok: false, message: "Choose an image to upload." };
+  }
+
+  return saveImage(new Uint8Array(await file.arrayBuffer()));
 }

@@ -50,6 +50,7 @@ Copy `.env.example` to `.env.local`. The site can run locally with defaults; pro
 - `ADMIN_EMAIL` — the only email allowed to sign in to `/admin`.
 - `ADMIN_PASSWORD` — password for that admin account.
 - `ADMIN_SESSION_SECRET` — at least 32 random characters used to sign admin sessions (`openssl rand -base64 32`).
+- `BLOB_READ_WRITE_TOKEN` — Vercel Blob token for uploading project screenshots. Vercel adds it automatically when a Blob store is connected to the project.
 
 The contact form doesn't send email from the server. It opens the visitor's own email app with the message filled in, so no email service is needed.
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ArrowUpRight, Search, X } from "lucide-react";
@@ -237,19 +238,31 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
               </DialogDescription>
             </DialogHeader>
 
-            <div
-              className={`mt-4 flex aspect-[1.8] items-center justify-center rounded-3xl bg-gradient-to-br ${previewProject.accent}`}
-              aria-hidden="true"
-            >
-              <div className="rounded-2xl border border-white/20 bg-black/65 px-6 py-4 text-center text-white shadow-2xl backdrop-blur-sm">
-                <p className="text-xs text-zinc-400">
-                  {previewProject.category}
-                </p>
-                <p className="mt-1 text-xl font-black">
-                  {previewProject.title}
-                </p>
+            {previewProject.screenshots[0] ? (
+              <div className="relative mt-4 aspect-[1.8] overflow-hidden rounded-3xl border border-zinc-950/10 dark:border-white/12">
+                <Image
+                  src={previewProject.screenshots[0]}
+                  alt={`${previewProject.title} screenshot`}
+                  fill
+                  sizes="(min-width: 640px) 640px, 100vw"
+                  className="object-cover object-top"
+                />
               </div>
-            </div>
+            ) : (
+              <div
+                className={`mt-4 flex aspect-[1.8] items-center justify-center rounded-3xl bg-gradient-to-br ${previewProject.accent}`}
+                aria-hidden="true"
+              >
+                <div className="rounded-2xl border border-white/20 bg-black/65 px-6 py-4 text-center text-white shadow-2xl backdrop-blur-sm">
+                  <p className="text-xs text-zinc-400">
+                    {previewProject.category}
+                  </p>
+                  <p className="mt-1 text-xl font-black">
+                    {previewProject.title}
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               <div>
