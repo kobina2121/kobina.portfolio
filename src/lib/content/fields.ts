@@ -59,24 +59,6 @@ const linkFields: FieldConfig[] = [
   },
 ];
 
-const projectLinkFields: FieldConfig[] = [
-  { kind: "text", name: "label", label: "Label" },
-  {
-    kind: "text",
-    name: "href",
-    label: "Link",
-    nullable: true,
-    help: "Leave empty when the link is unavailable.",
-  },
-  {
-    kind: "text",
-    name: "unavailableReason",
-    label: "Reason it is unavailable",
-    optional: true,
-    help: "Required when the link is empty.",
-  },
-];
-
 const periodHelp = "A year, Ongoing, or a range like 2024 — Present.";
 
 export const settingsFields: FieldConfig[] = [
@@ -155,67 +137,50 @@ export const projectFields: FieldConfig[] = [
     kind: "text",
     name: "slug",
     label: "Slug",
-    help: "Used in the URL: /projects/<slug>. Lowercase letters, numbers, and hyphens.",
+    optional: true,
+    help: "Used in the URL: /projects/<slug>. Leave empty to generate it from the title.",
   },
   { kind: "text", name: "category", label: "Category" },
-  { kind: "text", name: "type", label: "Type" },
   { kind: "text", name: "year", label: "Year" },
-  { kind: "textarea", name: "description", label: "Card description" },
-  { kind: "textarea", name: "outcome", label: "Outcome" },
+  {
+    kind: "textarea",
+    name: "description",
+    label: "Description",
+    help: "One or two sentences shown on the project card and at the top of the case study.",
+  },
+  {
+    kind: "list",
+    name: "stack",
+    label: "Stack",
+    help: "Tools and technologies, one per line.",
+  },
   {
     kind: "select",
     name: "accent",
     label: "Accent gradient",
     options: accentOptions,
   },
-  { kind: "list", name: "stack", label: "Stack", help: "One per line." },
-  { kind: "list", name: "tags", label: "Tags", help: "One per line." },
-  { kind: "textarea", name: "context", label: "Context" },
-  { kind: "textarea", name: "role", label: "Role" },
-  { kind: "textarea", name: "problem", label: "Problem" },
-  {
-    kind: "list",
-    name: "constraints",
-    label: "Constraints",
-    help: "One per line.",
-  },
-  { kind: "list", name: "process", label: "Process", help: "One per line." },
-  { kind: "textarea", name: "solution", label: "Solution" },
-  { kind: "list", name: "impact", label: "Impact", help: "One per line." },
-  { kind: "list", name: "lessons", label: "Lessons", help: "One per line." },
-  {
-    kind: "repeater",
-    name: "gallery",
-    label: "Gallery",
-    itemLabel: "Gallery item",
-    fields: [
-      { kind: "text", name: "title", label: "Title" },
-      { kind: "textarea", name: "caption", label: "Caption" },
-      {
-        kind: "select",
-        name: "accent",
-        label: "Accent gradient",
-        options: accentOptions,
-      },
-    ],
-  },
-  {
-    kind: "group",
-    name: "live",
-    label: "Live link",
-    fields: projectLinkFields,
-  },
-  {
-    kind: "group",
-    name: "source",
-    label: "Source link",
-    fields: projectLinkFields,
-  },
   {
     kind: "textarea",
-    name: "confidentiality",
-    label: "Confidentiality note",
+    name: "role",
+    label: "My role",
+    help: "What you did on the project.",
+  },
+  { kind: "textarea", name: "problem", label: "Problem" },
+  { kind: "textarea", name: "solution", label: "Solution" },
+  {
+    kind: "text",
+    name: "liveUrl",
+    label: "Live site URL",
     optional: true,
+    help: "Leave empty if there is no public version.",
+  },
+  {
+    kind: "text",
+    name: "sourceUrl",
+    label: "Source code URL",
+    optional: true,
+    help: "Leave empty if the code is private.",
   },
 ];
 

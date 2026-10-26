@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Lock } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import { JsonLd } from "@/components/json-ld";
 import { Container } from "@/components/layout/container";
 import { ProjectCard } from "@/components/projects/project-card";
@@ -14,7 +14,6 @@ import {
   getProjectBySlug,
   getRelatedProjects,
   getSiteConfig,
-  type ProjectLink,
 } from "@/lib/portfolio-content";
 import { getProjectJsonLd } from "@/lib/structured-data";
 
@@ -48,7 +47,7 @@ export async function generateMetadata({
     },
     openGraph: {
       title: `${project.title} Case Study — Kobina`,
-      description: project.outcome,
+      description: project.description,
       url: absoluteUrl(`/projects/${project.slug}`),
       type: "article",
       images: [
@@ -63,39 +62,23 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: `${project.title} Case Study — Kobina`,
-      description: project.outcome,
+      description: project.description,
       images: [`/projects/${project.slug}/opengraph-image`],
     },
   };
 }
 
-function ProjectActionLink({ link }: { link: ProjectLink }) {
-  if (!link.href) {
-    return (
-      <div className="rounded-2xl border border-zinc-950/10 bg-zinc-950/[0.04] p-4 text-sm text-zinc-700 dark:border-white/12 dark:bg-white/[0.04] dark:text-zinc-400">
-        <p className="flex items-center gap-2 font-semibold text-zinc-950 dark:text-white">
-          <Lock className="size-4" aria-hidden="true" />
-          {link.label}
-        </p>
-        <p className="mt-2 text-xs leading-5">
-          {link.unavailableReason ?? "This link is not available yet."}
-        </p>
-      </div>
-    );
-  }
-
-  const isExternal = isExternalHref(link.href);
-
+function ProjectActionLink({ label, href }: { label: string; href: string }) {
   return (
     <Link
-      href={link.href}
-      {...getExternalLinkAttributes(link.href)}
+      href={href}
+      {...getExternalLinkAttributes(href)}
       aria-label={
-        isExternal ? `${link.label} (opens in a new tab)` : link.label
+        isExternalHref(href) ? `${label} (opens in a new tab)` : label
       }
       className="hover:border-accent-brand hover:text-accent-brand inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-zinc-950/15 px-5 py-3 text-sm font-semibold dark:border-white/15"
     >
-      {link.label}
+      {label}
       <ArrowUpRight className="size-4" aria-hidden="true" />
     </Link>
   );
@@ -149,9 +132,9 @@ export default async function ProjectCaseStudyPage({
           </div>
 
           <div className="rounded-[1.75rem] border border-zinc-950/10 bg-white/70 p-5 dark:border-white/12 dark:bg-white/[0.04]">
-            <p className="text-accent-brand text-xs font-semibold">Outcome</p>
+            <p className="text-accent-brand text-xs font-semibold">My role</p>
             <p className="mt-3 text-sm leading-7 text-zinc-800 dark:text-zinc-300">
-              {project.outcome}
+              {project.role}
             </p>
           </div>
         </section>
@@ -161,154 +144,54 @@ export default async function ProjectCaseStudyPage({
           aria-label={`${project.title} visual summary`}
         >
           <div className="max-w-xl rounded-3xl border border-white/20 bg-black/60 p-6 backdrop-blur-sm">
-            <p className="text-xs text-zinc-300">{project.type}</p>
+            <p className="text-xs text-zinc-300">{project.category}</p>
             <h2 className="mt-2 text-3xl font-black">{project.title}</h2>
             <div className="mt-6 flex flex-wrap gap-2">
-              {project.tags.map((tag) => (
+              {project.stack.map((tool) => (
                 <span
-                  key={tag}
+                  key={tool}
                   className="rounded-full border border-white/20 px-3 py-1 text-xs text-zinc-200"
                 >
-                  {tag}
+                  {tool}
                 </span>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="mt-14 grid gap-5 md:grid-cols-3">
+        <section className="mt-14 grid gap-5 md:grid-cols-2">
           {[
-            ["Context", project.context],
-            ["Role", project.role],
             ["Problem", project.problem],
+            ["Solution", project.solution],
           ].map(([title, body]) => (
             <article
               key={title}
-              className="rounded-[1.5rem] border border-zinc-950/10 bg-white/70 p-5 dark:border-white/12 dark:bg-white/[0.04]"
+              className="rounded-[1.5rem] border border-zinc-950/10 bg-white/70 p-6 dark:border-white/12 dark:bg-white/[0.04]"
             >
-              <h2 className="text-sm font-black text-zinc-950 dark:text-white">
-                {title}
-              </h2>
-              <p className="mt-4 text-sm leading-7 text-zinc-700 dark:text-zinc-400">
+              <h2 className="text-2xl font-black">{title}</h2>
+              <p className="mt-4 text-sm leading-7 text-zinc-700 dark:text-zinc-300">
                 {body}
               </p>
             </article>
           ))}
         </section>
 
-        <section className="mt-14 grid gap-8 lg:grid-cols-[0.75fr_1fr]">
-          <div>
-            <h2 className="text-2xl font-black">Constraints</h2>
-            <ul className="mt-5 space-y-3">
-              {project.constraints.map((constraint) => (
-                <li
-                  key={constraint}
-                  className="flex gap-3 text-sm leading-7 text-zinc-700 dark:text-zinc-300"
-                >
-                  <span
-                    className="bg-accent-brand mt-3 size-1.5 shrink-0"
-                    aria-hidden="true"
-                  />
-                  {constraint}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="rounded-[1.75rem] border border-zinc-950/10 bg-white/70 p-6 dark:border-white/12 dark:bg-white/[0.04]">
-            <h2 className="text-2xl font-black">Process</h2>
-            <ol className="mt-6 space-y-5">
-              {project.process.map((step, index) => (
-                <li key={step} className="flex gap-4">
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-zinc-950 text-xs font-black text-white dark:bg-white dark:text-zinc-950">
-                    {index + 1}
-                  </span>
-                  <p className="text-sm leading-7 text-zinc-700 dark:text-zinc-300">
-                    {step}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <section className="mt-14 rounded-[1.75rem] border border-zinc-950/10 bg-white/70 p-6 dark:border-white/12 dark:bg-white/[0.04]">
-          <h2 className="text-2xl font-black">Solution</h2>
-          <p className="mt-4 max-w-3xl text-sm leading-7 text-zinc-700 dark:text-zinc-300">
-            {project.solution}
-          </p>
-        </section>
-
-        <section className="mt-14">
-          <h2 className="text-2xl font-black">Gallery</h2>
-          <div className="mt-6 grid gap-5 md:grid-cols-3">
-            {project.gallery.map((item) => (
-              <figure
-                key={item.title}
-                className="overflow-hidden rounded-[1.5rem] border border-zinc-950/10 bg-white/70 dark:border-white/12 dark:bg-white/[0.04]"
-              >
-                <div
-                  className={`flex aspect-[1.35] items-center justify-center bg-gradient-to-br ${item.accent} p-5`}
-                >
-                  <div className="rounded-2xl border border-white/20 bg-black/60 px-5 py-3 text-center text-sm font-black text-white shadow-2xl backdrop-blur-sm">
-                    {item.title}
-                  </div>
-                </div>
-                <figcaption className="p-5">
-                  <p className="text-sm font-bold text-zinc-950 dark:text-white">
-                    {item.title}
-                  </p>
-                  <p className="mt-2 text-xs leading-6 text-zinc-700 dark:text-zinc-400">
-                    {item.caption}
-                  </p>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-14 grid gap-8 lg:grid-cols-2">
-          <div>
-            <h2 className="text-2xl font-black">Impact</h2>
-            <ul className="mt-5 space-y-3">
-              {project.impact.map((impact) => (
-                <li
-                  key={impact}
-                  className="flex gap-3 text-sm leading-7 text-zinc-700 dark:text-zinc-300"
-                >
-                  <span
-                    className="bg-accent-brand mt-3 size-1.5 shrink-0"
-                    aria-hidden="true"
-                  />
-                  {impact}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h2 className="text-2xl font-black">Lessons learned</h2>
-            <ul className="mt-5 space-y-3">
-              {project.lessons.map((lesson) => (
-                <li
-                  key={lesson}
-                  className="flex gap-3 text-sm leading-7 text-zinc-700 dark:text-zinc-300"
-                >
-                  <span
-                    className="bg-accent-brand mt-3 size-1.5 shrink-0"
-                    aria-hidden="true"
-                  />
-                  {lesson}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section className="mt-14 grid gap-5 md:grid-cols-2">
-          <ProjectActionLink link={project.live} />
-          <ProjectActionLink link={project.source} />
-        </section>
+        {project.liveUrl || project.sourceUrl ? (
+          <section className="mt-14 flex flex-wrap gap-4">
+            {project.liveUrl ? (
+              <ProjectActionLink
+                label="View live site"
+                href={project.liveUrl}
+              />
+            ) : null}
+            {project.sourceUrl ? (
+              <ProjectActionLink
+                label="View source code"
+                href={project.sourceUrl}
+              />
+            ) : null}
+          </section>
+        ) : null}
 
         <nav
           className="mt-14 grid gap-4 border-y border-zinc-950/10 py-6 md:grid-cols-2 dark:border-white/12"

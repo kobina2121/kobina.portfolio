@@ -32,13 +32,10 @@ function getSearchableText(project: Project) {
   return [
     project.title,
     project.description,
-    project.outcome,
     project.category,
-    project.type,
     project.role,
     project.problem,
     ...project.stack,
-    ...project.tags,
   ]
     .join(" ")
     .toLowerCase();
@@ -245,7 +242,9 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
               aria-hidden="true"
             >
               <div className="rounded-2xl border border-white/20 bg-black/65 px-6 py-4 text-center text-white shadow-2xl backdrop-blur-sm">
-                <p className="text-xs text-zinc-400">{previewProject.type}</p>
+                <p className="text-xs text-zinc-400">
+                  {previewProject.category}
+                </p>
                 <p className="mt-1 text-xl font-black">
                   {previewProject.title}
                 </p>
@@ -255,10 +254,10 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
             <div className="mt-5 grid gap-4 sm:grid-cols-2">
               <div>
                 <p className="text-accent-brand text-xs font-semibold">
-                  Outcome
+                  My role
                 </p>
                 <p className="mt-2 text-sm leading-7 text-zinc-700 dark:text-zinc-300">
-                  {previewProject.outcome}
+                  {previewProject.role}
                 </p>
               </div>
               <div>

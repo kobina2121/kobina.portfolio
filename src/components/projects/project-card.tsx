@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, Lock } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/lib/content/schema";
 
 type ProjectCardProps = {
@@ -54,7 +54,7 @@ export function ProjectCard({
         }
       >
         <div className="mb-5 flex items-center justify-between gap-4 text-xs text-zinc-600 dark:text-zinc-500">
-          <span>{project.type}</span>
+          <span>{project.category}</span>
           <span>{project.year}</span>
         </div>
 
@@ -70,12 +70,6 @@ export function ProjectCard({
           {project.description}
         </p>
 
-        {!isCompact && (
-          <p className="mt-4 text-xs leading-5 text-zinc-700 dark:text-zinc-500">
-            {project.outcome}
-          </p>
-        )}
-
         <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
           <span className="text-accent-brand text-xs font-semibold">
             {project.stack.join(", ")}
@@ -88,13 +82,6 @@ export function ProjectCard({
             <ArrowUpRight className="size-3" aria-hidden="true" />
           </Link>
         </div>
-
-        {project.confidentiality && !isCompact ? (
-          <p className="mt-4 flex items-center gap-2 text-[0.68rem] leading-5 text-zinc-600 dark:text-zinc-500">
-            <Lock className="size-3.5 shrink-0" aria-hidden="true" />
-            {project.confidentiality}
-          </p>
-        ) : null}
       </div>
     </article>
   );

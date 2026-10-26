@@ -57,7 +57,7 @@ export function getProjectJsonLd(project: Project, site: SiteSettings) {
       "@id": absoluteUrl("/#person"),
       name: site.owner,
     },
-    keywords: project.tags.join(", "),
+    keywords: project.stack.join(", "),
     genre: project.category,
     about: project.problem,
     educationalUse: "Case study",

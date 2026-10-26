@@ -48,217 +48,46 @@ const rawProjects = [
   {
     title: "1111Afolio",
     slug: "1111afolio",
-    stack: ["HTML", "CSS", "JavaScript"],
-    tags: ["Portfolio", "Personal brand", "High contrast"],
     category: "Portfolio",
+    year: "2026",
     description:
       "A cyberpunk portfolio exploring motion, contrast, and tiny UI.",
+    stack: ["HTML", "CSS", "JavaScript"],
     accent: "from-[#f4f4f5] via-[#d4d4d8] to-[#fafafa]",
-    type: "Portfolio Experience",
-    year: "2026",
-    outcome: "Built a sharp personal brand interface with high-contrast cards.",
-    context:
-      "A concept portfolio created to explore a more memorable visual direction for personal developer websites.",
     role: "Handled the interface direction, responsive layout, component structure, and visual polish.",
     problem:
       "Most starter portfolios feel interchangeable. The challenge was to create a simple portfolio experience that still had a distinct mood and fast first impression.",
-    constraints: [
-      "Keep the interface lightweight enough to load quickly.",
-      "Use strong visuals without overwhelming the project content.",
-      "Make the layout work from small mobile screens to desktop.",
-    ],
-    process: [
-      "Defined a compact content structure for hero, projects, skills, and contact.",
-      "Explored contrast-heavy cards and small interface details to create a cyberpunk tone.",
-      "Refined spacing and typography so the design stayed readable despite the visual direction.",
-    ],
     solution:
       "A high-contrast landing page with sharp project cards, compact copy blocks, and a focused path from introduction to contact.",
-    impact: [
-      "Created a stronger brand mood than a generic developer template.",
-      "Established reusable section patterns for future portfolio iterations.",
-      "Kept the page easy to scan while still feeling expressive.",
-    ],
-    lessons: [
-      "A bold interface needs disciplined spacing to remain professional.",
-      "Visual personality works best when the content hierarchy stays simple.",
-    ],
-    gallery: [
-      {
-        title: "Hero direction",
-        caption:
-          "A compact first screen pairing expressive typography with a focused introduction.",
-        accent: "from-[#f4f4f5] via-[#d4d4d8] to-[#fafafa]",
-      },
-      {
-        title: "Project cards",
-        caption:
-          "Small cards use contrast and clear labels to make each case easy to scan.",
-        accent: "from-[#151515] via-[#2a2a2a] to-[#090909]",
-      },
-      {
-        title: "Contact path",
-        caption:
-          "The page keeps contact options close to the story instead of hiding them.",
-        accent: "from-[#0a0a0a] via-[#52525b] to-[#d4d4d8]",
-      },
-    ],
-    live: {
-      label: "Live concept",
-      href: null,
-      unavailableReason: "Live demo will be attached after deployment.",
-    },
-    source: {
-      label: "Source code",
-      href: null,
-      unavailableReason:
-        "Source is private while the concept is being refined.",
-    },
-    confidentiality:
-      "Concept project; no private client data or proprietary assets are included.",
   },
   {
     title: "ProjectX",
     slug: "projectx",
-    stack: ["React", "API Design", "UI Systems"],
-    tags: ["SaaS", "Cloud storage", "Dashboard"],
     category: "SaaS",
+    year: "2026",
     description:
       "Online cloud storage interface with lightweight sharing flows.",
+    stack: ["React", "API Design", "UI Systems"],
     accent: "from-[#151515] via-[#1d1d1d] to-[#090909]",
-    type: "SaaS Interface",
-    year: "2026",
-    outcome: "Designed a clean product dashboard for file sharing workflows.",
-    context:
-      "A product interface concept for teams that need a clearer way to organize, preview, and share files.",
     role: "Designed the dashboard information architecture and translated it into reusable frontend UI patterns.",
     problem:
       "File dashboards can become visually noisy very quickly. The goal was to make common actions visible without turning the interface into clutter.",
-    constraints: [
-      "Balance quick actions with calm visual hierarchy.",
-      "Support future states such as empty folders, previews, and sharing permissions.",
-      "Keep the interface modular enough for additional dashboard panels.",
-    ],
-    process: [
-      "Mapped the core file-sharing actions and reduced the dashboard to the most frequent tasks.",
-      "Built card, list, and action patterns that could scale across multiple file states.",
-      "Used muted surfaces and stronger primary actions to guide attention.",
-    ],
     solution:
       "A dark SaaS dashboard concept with clear file groups, strong primary actions, and a calm visual system for sharing workflows.",
-    impact: [
-      "Improved task clarity by grouping related file actions together.",
-      "Created a design direction that can scale into settings, teams, and preview pages.",
-      "Reduced visual noise through consistent spacing and surface contrast.",
-    ],
-    lessons: [
-      "Dashboards need restraint more than decoration.",
-      "A reusable layout system makes product screens much easier to extend.",
-    ],
-    gallery: [
-      {
-        title: "Dashboard shell",
-        caption:
-          "A calm interface shell gives file actions and storage information clear places to live.",
-        accent: "from-[#050505] via-[#151515] to-[#343434]",
-      },
-      {
-        title: "Sharing flow",
-        caption:
-          "Primary actions are grouped so sharing feels discoverable without being loud.",
-        accent: "from-[#1f2937] via-[#111827] to-[#030712]",
-      },
-      {
-        title: "State system",
-        caption:
-          "Cards and panels are prepared for empty, loading, and unavailable states.",
-        accent: "from-[#171717] via-[#27272a] to-[#52525b]",
-      },
-    ],
-    live: {
-      label: "Live preview",
-      href: null,
-      unavailableReason: "Preview is not public yet.",
-    },
-    source: {
-      label: "Repository",
-      href: null,
-      unavailableReason: "Repository is private for now.",
-    },
-    confidentiality:
-      "Product concept only; all data shown is illustrative and non-sensitive.",
   },
   {
     title: "CrypTrack",
     slug: "cryptrack",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    tags: ["Analytics", "Crypto", "Search"],
     category: "Analytics",
-    description: "Crypto market dashboard with search, watchlists, and charts.",
-    accent: "from-[#111827] via-[#020617] to-[#050505]",
-    type: "Analytics Dashboard",
     year: "2026",
-    outcome: "Created a market-focused UI for tracking assets quickly.",
-    context:
-      "A crypto tracking interface concept focused on faster asset scanning and clearer market snapshots.",
+    description: "Crypto market dashboard with search, watchlists, and charts.",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
+    accent: "from-[#111827] via-[#020617] to-[#050505]",
     role: "Planned the product layout, dashboard cards, responsive behavior, and visual hierarchy.",
     problem:
       "Crypto interfaces often overload users with charts, metrics, and motion. CrypTrack needed to make important market information feel organized and quick to compare.",
-    constraints: [
-      "Keep metric cards readable on mobile.",
-      "Design for changing market states without relying on clutter.",
-      "Make search, watchlist, and chart areas feel connected.",
-    ],
-    process: [
-      "Grouped market information into scan-friendly dashboard regions.",
-      "Defined visual states for gain/loss indicators and tracked assets.",
-      "Created a dark analytical UI with strong contrast for data-heavy areas.",
-    ],
     solution:
       "A responsive analytics dashboard with watchlist cards, search-first navigation, and a dark interface optimized for quick comparisons.",
-    impact: [
-      "Made market scanning feel less visually overwhelming.",
-      "Created reusable dashboard sections for charts, lists, and watchlists.",
-      "Improved small-screen readability through tighter information grouping.",
-    ],
-    lessons: [
-      "Data-heavy products need hierarchy before they need more charts.",
-      "A restrained color system keeps analytics interfaces easier to trust.",
-    ],
-    gallery: [
-      {
-        title: "Market overview",
-        caption:
-          "A focused dashboard area groups the highest-value market information first.",
-        accent: "from-[#111827] via-[#020617] to-[#050505]",
-      },
-      {
-        title: "Asset watchlist",
-        caption:
-          "Tracked assets are presented as cards designed for fast comparison.",
-        accent: "from-[#262626] via-[#171717] to-[#0a0a0a]",
-      },
-      {
-        title: "Chart region",
-        caption:
-          "The analytical surface keeps contrast high and decorative noise low.",
-        accent: "from-[#18181b] via-[#3f3f46] to-[#09090b]",
-      },
-    ],
-    live: {
-      label: "Live dashboard",
-      href: null,
-      unavailableReason:
-        "Live dashboard will be attached after public release.",
-    },
-    source: {
-      label: "Source code",
-      href: null,
-      unavailableReason:
-        "Source is unavailable while the dashboard is in concept stage.",
-    },
-    confidentiality:
-      "Concept dashboard using illustrative market data; no financial advice or real user data.",
   },
 ];
 

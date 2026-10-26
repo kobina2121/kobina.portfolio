@@ -13,8 +13,6 @@ import { getDb, isMongoConfigured } from "@/lib/db/mongodb";
 export type {
   ImageAsset,
   Project,
-  ProjectLink,
-  ProjectMedia,
   SiteNavKey,
   SiteSettings,
   Skill,

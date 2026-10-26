@@ -59,7 +59,7 @@ export default async function ProjectOpenGraphImage({
             lineHeight: 1.3,
           }}
         >
-          {project?.outcome ?? "Explore selected project work by Kobina."}
+          {project?.description ?? "Explore selected project work by Kobina."}
         </div>
       </div>
       <div

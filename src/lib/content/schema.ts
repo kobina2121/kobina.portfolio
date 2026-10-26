@@ -86,23 +86,6 @@ export const siteSettingsSchema = z.object({
   metaDescription: nonEmptyString,
 });
 
-const projectMediaSchema = z.object({
-  title: nonEmptyString,
-  caption: nonEmptyString,
-  accent: nonEmptyString,
-});
-
-const projectLinkSchema = z
-  .object({
-    label: nonEmptyString,
-    href: routeHrefSchema.nullable(),
-    unavailableReason: nonEmptyString.optional(),
-  })
-  .refine((link) => link.href || link.unavailableReason, {
-    message: "Unavailable project links need a reason.",
-    path: ["unavailableReason"],
-  });
-
 export const projectSlugSchema = z
   .string()
   .regex(
@@ -110,30 +93,46 @@ export const projectSlugSchema = z
     "Use lowercase letters, numbers, and single hyphens.",
   );
 
-export const projectSchema = z.object({
-  title: nonEmptyString,
-  slug: projectSlugSchema,
-  stack: z.array(nonEmptyString).min(1),
-  tags: z.array(nonEmptyString).min(1),
-  category: nonEmptyString,
-  description: nonEmptyString,
-  accent: nonEmptyString,
-  type: nonEmptyString,
-  year: yearSchema,
-  outcome: nonEmptyString,
-  context: nonEmptyString,
-  role: nonEmptyString,
-  problem: nonEmptyString,
-  constraints: z.array(nonEmptyString).min(1),
-  process: z.array(nonEmptyString).min(1),
-  solution: nonEmptyString,
-  impact: z.array(nonEmptyString).min(1),
-  lessons: z.array(nonEmptyString).min(1),
-  gallery: z.array(projectMediaSchema).min(1),
-  live: projectLinkSchema,
-  source: projectLinkSchema,
-  confidentiality: nonEmptyString.optional(),
-});
+// Turns a title into a URL slug, e.g. "My App 2.0" -> "my-app-2-0".
+export function slugify(value: string) {
+  return value
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const optionalUrl = z.url("Enter a full URL starting with https://").optional();
+
+export const projectSchema = z.preprocess(
+  (input) => {
+    // An empty slug is generated from the title.
+    if (typeof input === "object" && input !== null && !("slug" in input)) {
+      const title = (input as { title?: unknown }).title;
+      return {
+        ...input,
+        slug: typeof title === "string" ? slugify(title) : undefined,
+      };
+    }
+
+    return input;
+  },
+  z.object({
+    title: nonEmptyString,
+    slug: projectSlugSchema,
+    category: nonEmptyString,
+    year: yearSchema,
+    description: nonEmptyString,
+    stack: z.array(nonEmptyString).min(1),
+    accent: nonEmptyString,
+    role: nonEmptyString,
+    problem: nonEmptyString,
+    solution: nonEmptyString,
+    liveUrl: optionalUrl,
+    sourceUrl: optionalUrl,
+  }),
+);
 
 export const skillSchema = z.object({
   label: nonEmptyString,
@@ -208,8 +207,6 @@ export type NavigationItem = z.infer<typeof navigationItemSchema>;
 export type ImageAsset = z.infer<typeof imageAssetSchema>;
 export type ContentStrategy = z.infer<typeof contentStrategySchema>;
 export type SiteSettings = z.infer<typeof siteSettingsSchema>;
-export type ProjectMedia = z.infer<typeof projectMediaSchema>;
-export type ProjectLink = z.infer<typeof projectLinkSchema>;
 export type Project = z.infer<typeof projectSchema>;
 export type Skill = z.infer<typeof skillSchema>;
 export type SkillIcon = z.infer<typeof skillIconSchema>;
