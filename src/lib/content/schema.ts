@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { splitStack } from "@/lib/tech-stack";
+
 const routeHrefSchema = z.string().refine(
   (href) => {
     if (
@@ -146,7 +148,10 @@ export const projectSchema = z.preprocess(
     category: nonEmptyString,
     year: yearSchema,
     description: nonEmptyString,
-    stack: z.array(nonEmptyString).min(1),
+    stack: z
+      .array(z.string())
+      .transform(splitStack)
+      .pipe(z.array(nonEmptyString).min(1, "Add at least one technology.")),
     accent: nonEmptyString,
     liveUrl: optionalUrl,
     sourceUrl: optionalUrl,

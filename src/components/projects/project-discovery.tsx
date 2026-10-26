@@ -8,6 +8,7 @@ import { ProjectCard } from "@/components/projects/project-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { Project } from "@/lib/content/schema";
+import { getUniqueTechNames, usesTech } from "@/lib/tech-stack";
 import { cn } from "@/lib/utils";
 
 type ProjectDiscoveryProps = {
@@ -46,7 +47,10 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
   );
 
   const technologies = useMemo(
-    () => [allFilter, ...new Set(projects.flatMap((project) => project.stack))],
+    () => [
+      allFilter,
+      ...getUniqueTechNames(projects.map((project) => project.stack)),
+    ],
     [projects],
   );
 
@@ -60,7 +64,7 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
       const matchesCategory =
         selectedCategory === allFilter || project.category === selectedCategory;
       const matchesTech =
-        selectedTech === allFilter || project.stack.includes(selectedTech);
+        selectedTech === allFilter || usesTech(project.stack, selectedTech);
 
       return matchesSearch && matchesCategory && matchesTech;
     });

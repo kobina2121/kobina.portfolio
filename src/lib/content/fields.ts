@@ -153,7 +153,7 @@ export const projectFields: FieldConfig[] = [
     kind: "list",
     name: "stack",
     label: "Stack",
-    help: "Tools and technologies, one per line.",
+    help: "Tools and technologies, one per line or separated by commas.",
   },
   {
     kind: "select",
