@@ -13,8 +13,8 @@
   --surface-muted: oklch(0.94 0.01 90 / 78%);
   --surface-strong: oklch(1 0 0);
   --muted-copy: oklch(0.36 0.02 260);
-  /* Blue accent (Tailwind blue-600 on light backgrounds). */
-  --accent-brand: oklch(0.546 0.245 262.881);
+  /* Burnt orange accent (#c2410c) on light backgrounds. */
+  --accent-brand: oklch(0.553 0.195 38.402);
   --accent-brand-foreground: oklch(0.99 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
@@ -41,8 +41,8 @@
   --surface-muted: oklch(1 0 0 / 7%);
   --surface-strong: oklch(0.13 0 0);
   --muted-copy: oklch(0.72 0 0);
-  /* Lighter blue (blue-400) so it stays readable on dark backgrounds. */
-  --accent-brand: oklch(0.707 0.165 254.624);
+  /* Lighter orange (#fb923c) so it stays readable on dark backgrounds. */
+  --accent-brand: oklch(0.75 0.183 55.934);
   --accent-brand-foreground: oklch(0.145 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
