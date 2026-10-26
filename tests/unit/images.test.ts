@@ -39,7 +39,7 @@ describe("screenshot storage", () => {
 
     expect(await saveImage(png)).toEqual({ ok: true, url: publicUrl });
     expect(blob.put).toHaveBeenCalledWith(
-      "projects/screenshot.png",
+      "projects/preview.png",
       expect.any(Buffer),
       expect.objectContaining({
         access: "public",
@@ -62,7 +62,7 @@ describe("screenshot storage", () => {
       url: `/api/blob/${pathname}`,
     });
     expect(blob.put).toHaveBeenLastCalledWith(
-      "projects/screenshot.png",
+      "projects/preview.png",
       expect.any(Buffer),
       expect.objectContaining({ access: "private" }),
     );

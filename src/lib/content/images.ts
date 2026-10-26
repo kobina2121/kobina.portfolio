@@ -45,7 +45,7 @@ async function upload(
   contentType: ImageContentType,
 ) {
   const blob = await put(
-    `projects/screenshot.${extensions[contentType]}`,
+    `projects/preview.${extensions[contentType]}`,
     Buffer.from(bytes),
     {
       access,

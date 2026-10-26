@@ -152,9 +152,9 @@ export const projectFields: FieldConfig[] = [
   {
     kind: "images",
     name: "screenshots",
-    label: "Screenshots",
+    label: "Preview",
     max: 8,
-    help: "PNG, JPEG, or WebP. The first one is used as the project's cover image.",
+    help: "Images of the website. PNG, JPEG, or WebP. The first one is used as the project's cover image.",
   },
   {
     kind: "list",

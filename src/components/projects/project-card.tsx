@@ -36,7 +36,7 @@ export function ProjectCard({
             <>
               <Image
                 src={cover}
-                alt={`${project.title} screenshot`}
+                alt={`${project.title} preview`}
                 fill
                 sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
                 className="object-cover object-top transition duration-500 motion-safe:group-hover:scale-[1.03]"

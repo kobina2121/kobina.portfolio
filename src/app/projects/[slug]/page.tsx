@@ -179,13 +179,13 @@ export default async function ProjectCaseStudyPage({
 
         {project.screenshots.length > 0 ? (
           <section className="mt-14">
-            <h2 className="text-2xl font-black">Screenshots</h2>
+            <h2 className="text-2xl font-black">Preview</h2>
             <div className="mt-6 grid gap-5 md:grid-cols-2">
               {project.screenshots.map((src, index) => (
                 <Image
                   key={src}
                   src={src}
-                  alt={`${project.title} screenshot ${index + 1}`}
+                  alt={`${project.title} preview ${index + 1}`}
                   width={1920}
                   height={1080}
                   sizes="(min-width: 768px) 50vw, 100vw"

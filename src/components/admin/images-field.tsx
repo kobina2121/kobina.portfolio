@@ -51,7 +51,7 @@ export function ImagesField({
 
     setMessage(
       files.length > chosen.length
-        ? `You can add up to ${max} screenshots.`
+        ? `You can add up to ${max} preview images.`
         : null,
     );
     setUploadingCount(chosen.length);
@@ -117,7 +117,7 @@ export function ImagesField({
                   variant="ghost"
                   size="icon-sm"
                   disabled={index === 0}
-                  aria-label={`Move screenshot ${index + 1} earlier`}
+                  aria-label={`Move preview image ${index + 1} earlier`}
                   onClick={() => move(index, -1)}
                 >
                   <ArrowLeft />
@@ -127,7 +127,7 @@ export function ImagesField({
                   variant="ghost"
                   size="icon-sm"
                   disabled={index === urls.length - 1}
-                  aria-label={`Move screenshot ${index + 1} later`}
+                  aria-label={`Move preview image ${index + 1} later`}
                   onClick={() => move(index, 1)}
                 >
                   <ArrowRight />
@@ -136,7 +136,7 @@ export function ImagesField({
                   type="button"
                   variant="ghost"
                   size="icon-sm"
-                  aria-label={`Remove screenshot ${index + 1}`}
+                  aria-label={`Remove preview image ${index + 1}`}
                   onClick={() =>
                     onChange(urls.filter((_, urlIndex) => urlIndex !== index))
                   }
@@ -172,8 +172,8 @@ export function ImagesField({
         {uploadingCount > 0
           ? `Uploading ${uploadingCount}…`
           : urls.length >= max
-            ? `${max} screenshots added`
-            : "Upload screenshots"}
+            ? `${max} preview images added`
+            : "Upload preview images"}
       </Button>
       {message ? (
         <p role="alert" className="text-destructive text-xs font-medium">

@@ -242,7 +242,7 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
               <div className="relative mt-4 aspect-[1.8] overflow-hidden rounded-3xl border border-zinc-950/10 dark:border-white/12">
                 <Image
                   src={previewProject.screenshots[0]}
-                  alt={`${previewProject.title} screenshot`}
+                  alt={`${previewProject.title} preview`}
                   fill
                   sizes="(min-width: 640px) 640px, 100vw"
                   className="object-cover object-top"

@@ -159,12 +159,12 @@ export const projectSchema = z.preprocess(
           .string()
           .refine(
             (url) => getBlobPathname(url) !== null,
-            "Upload screenshots here.",
+            "Upload preview images here.",
           ),
       )
       .max(
         MAX_PROJECT_SCREENSHOTS,
-        `Add up to ${MAX_PROJECT_SCREENSHOTS} screenshots.`,
+        `Add up to ${MAX_PROJECT_SCREENSHOTS} preview images.`,
       )
       .default([]),
   }),
