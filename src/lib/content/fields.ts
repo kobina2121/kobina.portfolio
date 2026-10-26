@@ -11,6 +11,7 @@ export type FieldConfig =
   | (BaseField & { kind: "text"; optional?: boolean; nullable?: boolean })
   | (BaseField & { kind: "textarea"; optional?: boolean })
   | (BaseField & { kind: "list" })
+  | (BaseField & { kind: "tags" })
   | (BaseField & { kind: "images"; max: number })
   | (BaseField & { kind: "select"; options: readonly string[] })
   | (BaseField & { kind: "group"; fields: FieldConfig[] })
@@ -150,10 +151,10 @@ export const projectFields: FieldConfig[] = [
     help: "Images of the website. PNG, JPEG, or WebP. The first one is used as the project's cover image.",
   },
   {
-    kind: "list",
+    kind: "tags",
     name: "stack",
     label: "Stack",
-    help: "Tools and technologies, one per line or separated by commas.",
+    help: "Pick from the suggestions, or type a technology and press Enter.",
   },
   {
     kind: "select",
@@ -249,6 +250,7 @@ export function getEmptyValues(fields: FieldConfig[]): FormValues {
     fields.map((field) => {
       switch (field.kind) {
         case "list":
+        case "tags":
         case "images":
         case "repeater":
           return [field.name, []];
@@ -295,7 +297,8 @@ export function normalizeValues(
       case "select":
         result[field.name] = typeof value === "string" ? value : "";
         break;
-      case "list": {
+      case "list":
+      case "tags": {
         const lines = Array.isArray(value)
           ? value
           : typeof value === "string"

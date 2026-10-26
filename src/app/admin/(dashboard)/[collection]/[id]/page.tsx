@@ -7,7 +7,7 @@ import {
   isListCollectionKey,
   listCollections,
 } from "@/lib/content/collections";
-import { getItem } from "@/lib/content/repository";
+import { getItem, getStackSuggestions } from "@/lib/content/repository";
 import { getDb } from "@/lib/db/mongodb";
 
 type EditItemPageProps = {
@@ -30,6 +30,10 @@ export default async function AdminEditItemPage({ params }: EditItemPageProps) {
   }
 
   const config = listCollections[collection];
+  const suggestions =
+    collection === "projects"
+      ? { stack: await getStackSuggestions(await getDb()) }
+      : undefined;
 
   return (
     <>
@@ -42,6 +46,7 @@ export default async function AdminEditItemPage({ params }: EditItemPageProps) {
         action={saveItemAction.bind(null, collection, id)}
         submitLabel="Save changes"
         cancelHref={`/admin/${collection}`}
+        suggestions={suggestions}
       />
     </>
   );

@@ -1,3 +1,28 @@
+// Offered in the admin stack picker alongside technologies from existing
+// projects.
+export const commonTechnologies = [
+  "Next.js",
+  "React",
+  "TypeScript",
+  "JavaScript",
+  "Tailwind CSS",
+  "shadcn/ui",
+  "Framer Motion",
+  "Node.js",
+  "Express",
+  "MongoDB",
+  "PostgreSQL",
+  "Prisma",
+  "Supabase",
+  "Firebase",
+  "Vercel",
+  "HTML",
+  "CSS",
+  "Figma",
+  "React Native",
+  "Electron",
+] as const;
+
 /**
  * Splits stack entries typed as "TypeScript, MongoDB" or
  * "Tailwind CSS + shadcn/ui" into separate tools, dropping blanks and

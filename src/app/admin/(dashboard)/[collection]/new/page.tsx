@@ -8,6 +8,8 @@ import {
   listCollections,
 } from "@/lib/content/collections";
 import { getEmptyValues } from "@/lib/content/fields";
+import { getStackSuggestions } from "@/lib/content/repository";
+import { getDb } from "@/lib/db/mongodb";
 
 type NewItemPageProps = {
   params: Promise<{ collection: string }>;
@@ -23,6 +25,10 @@ export default async function AdminNewItemPage({ params }: NewItemPageProps) {
   }
 
   const config = listCollections[collection];
+  const suggestions =
+    collection === "projects"
+      ? { stack: await getStackSuggestions(await getDb()) }
+      : undefined;
 
   return (
     <>
@@ -35,6 +41,7 @@ export default async function AdminNewItemPage({ params }: NewItemPageProps) {
         action={saveItemAction.bind(null, collection, null)}
         submitLabel={`Create ${config.singular}`}
         cancelHref={`/admin/${collection}`}
+        suggestions={suggestions}
       />
     </>
   );

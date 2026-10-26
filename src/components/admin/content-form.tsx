@@ -1,11 +1,18 @@
 "use client";
 
-import { type FormEvent, useState, useTransition } from "react";
+import {
+  createContext,
+  type FormEvent,
+  useContext,
+  useState,
+  useTransition,
+} from "react";
 import Link from "next/link";
 import { ArrowDown, ArrowUp, Plus, Trash2 } from "lucide-react";
 
 import type { AdminFormResult } from "@/app/admin/actions";
 import { ImagesField } from "@/components/admin/images-field";
+import { TagsField } from "@/components/admin/tags-field";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,7 +30,11 @@ type ContentFormProps = {
   action: (values: FormValues) => Promise<AdminFormResult>;
   submitLabel: string;
   cancelHref: string;
+  /** Picker suggestions for "tags" fields, keyed by field name. */
+  suggestions?: Record<string, string[]>;
 };
+
+const SuggestionsContext = createContext<Record<string, string[]>>({});
 
 type FieldProps<T extends FieldConfig = FieldConfig> = {
   field: T;
@@ -207,6 +218,33 @@ function RepeaterField({
   );
 }
 
+function TagsFieldControl({
+  field,
+  path,
+  value,
+  error,
+  onChange,
+}: {
+  field: FieldConfig;
+  path: string;
+  value: unknown;
+  error?: string;
+  onChange: (value: unknown) => void;
+}) {
+  const suggestions = useContext(SuggestionsContext)[field.name] ?? [];
+
+  return (
+    <TagsField
+      id={path}
+      value={value}
+      suggestions={suggestions}
+      describedBy={describedBy(path, field.help, error)}
+      invalid={Boolean(error)}
+      onChange={onChange}
+    />
+  );
+}
+
 function FieldControl(props: FieldProps) {
   const { field, path, value, errors, onChange } = props;
   const error = errors[path];
@@ -257,6 +295,16 @@ function FieldControl(props: FieldProps) {
     }
     case "list":
       return <ListField {...props} />;
+    case "tags":
+      return (
+        <TagsFieldControl
+          field={field}
+          path={path}
+          value={value}
+          error={error}
+          onChange={onChange}
+        />
+      );
     case "images":
       return (
         <ImagesField
@@ -340,6 +388,7 @@ export function ContentForm({
   action,
   submitLabel,
   cancelHref,
+  suggestions = {},
 }: ContentFormProps) {
   const [values, setValues] = useState(initialValues);
   const [result, setResult] = useState<AdminFormResult | null>(null);
@@ -371,12 +420,14 @@ export function ContentForm({
         </div>
       ) : null}
 
-      <FieldList
-        fields={fields}
-        values={values}
-        errors={result?.fieldErrors ?? {}}
-        onChange={setValues}
-      />
+      <SuggestionsContext.Provider value={suggestions}>
+        <FieldList
+          fields={fields}
+          values={values}
+          errors={result?.fieldErrors ?? {}}
+          onChange={setValues}
+        />
+      </SuggestionsContext.Provider>
 
       <div className="bg-background/90 border-border sticky bottom-0 flex flex-wrap gap-3 border-t py-4 backdrop-blur">
         <Button type="submit" disabled={isPending}>

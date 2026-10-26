@@ -10,6 +10,11 @@ import {
   settingsCollection,
 } from "@/lib/content/collections";
 import {
+  commonTechnologies,
+  getUniqueTechNames,
+  splitStack,
+} from "@/lib/tech-stack";
+import {
   type PortfolioContent,
   type SiteSettings,
   siteSettingsSchema,
@@ -239,4 +244,26 @@ export async function saveSettings(db: Db, settings: SiteSettings) {
     { ...settings, updatedAt: new Date() },
     { upsert: true },
   );
+}
+
+/**
+ * Technologies for the admin stack picker: the ones already used in
+ * projects first, then common ones, each listed once.
+ */
+export async function getStackSuggestions(db: Db) {
+  const projects = await db
+    .collection("projects")
+    .find({}, { projection: { stack: 1 } })
+    .toArray();
+  const stacks = projects.map((project) =>
+    splitStack(
+      Array.isArray(project.stack)
+        ? project.stack.filter(
+            (tool: unknown): tool is string => typeof tool === "string",
+          )
+        : [],
+    ),
+  );
+
+  return getUniqueTechNames([...stacks, [...commonTechnologies]]);
 }
