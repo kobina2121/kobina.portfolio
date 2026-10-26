@@ -303,7 +303,7 @@ export default async function Home() {
                   key={project.slug}
                   project={project}
                   index={index}
-                  variant="compact"
+                  total={featuredProjects.length}
                 />
               ))}
             </div>

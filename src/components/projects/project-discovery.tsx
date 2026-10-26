@@ -1,20 +1,11 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ArrowUpRight, Search, X } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Search, X } from "lucide-react";
+import { useMemo } from "react";
 import { EmptyState } from "@/components/layout/empty-state";
 import { ProjectCard } from "@/components/projects/project-card";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import type { Project } from "@/lib/content/schema";
 import { cn } from "@/lib/utils";
@@ -34,8 +25,6 @@ function getSearchableText(project: Project) {
     project.title,
     project.description,
     project.category,
-    project.role,
-    project.problem,
     ...project.stack,
   ]
     .join(" ")
@@ -46,7 +35,6 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [previewProject, setPreviewProject] = useState<Project | null>(null);
 
   const query = searchParams.get("q") ?? "";
   const selectedCategory = searchParams.get("category") ?? allFilter;
@@ -124,7 +112,7 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
                 type="search"
                 value={query}
                 onChange={(event) => setFilter("q", event.target.value)}
-                placeholder="Search title, stack, tags, or outcome..."
+                placeholder="Search title, category, or tech…"
                 className="pl-10"
               />
             </div>
@@ -195,19 +183,14 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
       </div>
 
       {filteredProjects.length > 0 ? (
-        <div className="grid gap-5 lg:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {filteredProjects.map((project, index) => (
-            <div key={project.slug} className="space-y-3">
-              <ProjectCard project={project} index={index} />
-              <Button
-                type="button"
-                variant="outline"
-                className="h-11 w-full"
-                onClick={() => setPreviewProject(project)}
-              >
-                Preview {project.title}
-              </Button>
-            </div>
+            <ProjectCard
+              key={project.slug}
+              project={project}
+              index={index}
+              total={filteredProjects.length}
+            />
           ))}
         </div>
       ) : (
@@ -220,85 +203,6 @@ export function ProjectDiscovery({ projects }: ProjectDiscoveryProps) {
           }}
         />
       )}
-
-      <Dialog
-        open={Boolean(previewProject)}
-        onOpenChange={(open) => {
-          if (!open) {
-            setPreviewProject(null);
-          }
-        }}
-      >
-        {previewProject ? (
-          <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
-            <DialogHeader>
-              <DialogTitle>{previewProject.title}</DialogTitle>
-              <DialogDescription>
-                {previewProject.description}
-              </DialogDescription>
-            </DialogHeader>
-
-            {previewProject.screenshots[0] ? (
-              <div className="relative mt-4 aspect-[1.8] overflow-hidden rounded-3xl border border-zinc-950/10 dark:border-white/12">
-                <Image
-                  src={previewProject.screenshots[0]}
-                  alt={`${previewProject.title} preview`}
-                  fill
-                  sizes="(min-width: 640px) 640px, 100vw"
-                  className="object-cover object-top"
-                />
-              </div>
-            ) : (
-              <div
-                className={`mt-4 flex aspect-[1.8] items-center justify-center rounded-3xl bg-gradient-to-br ${previewProject.accent}`}
-                aria-hidden="true"
-              >
-                <div className="rounded-2xl border border-white/20 bg-black/65 px-6 py-4 text-center text-white shadow-2xl backdrop-blur-sm">
-                  <p className="text-xs text-zinc-400">
-                    {previewProject.category}
-                  </p>
-                  <p className="mt-1 text-xl font-black">
-                    {previewProject.title}
-                  </p>
-                </div>
-              </div>
-            )}
-
-            <div className="mt-5 grid gap-4 sm:grid-cols-2">
-              <div>
-                <p className="text-accent-brand text-xs font-semibold">
-                  My role
-                </p>
-                <p className="mt-2 text-sm leading-7 text-zinc-700 dark:text-zinc-300">
-                  {previewProject.role}
-                </p>
-              </div>
-              <div>
-                <p className="text-accent-brand text-xs font-semibold">Stack</p>
-                <p className="mt-2 text-sm leading-7 text-zinc-700 dark:text-zinc-300">
-                  {previewProject.stack.join(", ")}
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button asChild>
-                <Link href={`/projects/${previewProject.slug}`}>
-                  Read full case study
-                  <ArrowUpRight className="size-4" aria-hidden="true" />
-                </Link>
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => setPreviewProject(null)}
-              >
-                Close preview
-              </Button>
-            </div>
-          </DialogContent>
-        ) : null}
-      </Dialog>
     </div>
   );
 }
