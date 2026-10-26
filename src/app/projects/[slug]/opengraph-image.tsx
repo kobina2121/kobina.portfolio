@@ -66,7 +66,7 @@ export default async function ProjectOpenGraphImage({
         style={{
           width: 180,
           height: 6,
-          background: "linear-gradient(90deg, #ffffff, #52525b)",
+          background: "linear-gradient(90deg, #60a5fa, #2563eb)",
         }}
       />
     </div>,

@@ -146,7 +146,7 @@ export function NavbarStatusPill({
             aria-hidden="true"
           />
         ) : (
-          <MapPin className="size-3.5 text-emerald-400" aria-hidden="true" />
+          <MapPin className="text-accent-brand size-3.5" aria-hidden="true" />
         )}
         <span>{label}</span>
       </span>
@@ -170,7 +170,7 @@ export function NavbarStatusPill({
           />
         ) : isLocationMode ? (
           <span
-            className="size-1.5 rounded-full bg-emerald-400"
+            className="bg-accent-brand size-1.5 rounded-full"
             aria-hidden="true"
           />
         ) : null}
