@@ -41,7 +41,7 @@ export default function OpenGraphImage() {
           Polished digital experiences with clarity and taste.
         </div>
         <div style={{ marginTop: 32, color: "#a1a1aa", fontSize: 28 }}>
-          Projects · Skills · Services · Contact
+          Projects · Stack · Services · Contact
         </div>
       </div>
       <div

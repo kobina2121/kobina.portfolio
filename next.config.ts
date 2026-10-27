@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [{ source: "/skills", destination: "/stack", permanent: true }];
+  },
   images: {
     // Project screenshots uploaded to Vercel Blob.
     remotePatterns: [

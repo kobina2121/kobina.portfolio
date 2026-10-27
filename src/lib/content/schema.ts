@@ -28,7 +28,7 @@ const periodSchema = z
     "Expected a year, Ongoing, or a year range.",
   );
 
-export const siteNavKeySchema = z.enum(["home", "about", "projects", "skills"]);
+export const siteNavKeySchema = z.enum(["home", "about", "projects", "stack"]);
 export const skillIconSchema = z.enum([
   "html",
   "css",

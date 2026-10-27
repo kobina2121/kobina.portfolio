@@ -10,6 +10,7 @@ import { ProjectCard } from "@/components/projects/project-card";
 import { getPhoneHref } from "@/lib/contact-details";
 import { getExternalLinkAttributes, isExternalHref } from "@/lib/links";
 import { skillIconMap } from "@/lib/skill-icons";
+import { groupStack } from "@/lib/stack-groups";
 import {
   getAboutHighlights,
   getCertificationItems,
@@ -284,37 +285,39 @@ export default async function Home() {
         </Reveal>
 
         <Reveal>
-          <section id="skills" className="relative scroll-mt-24 pt-20">
-            <SectionTitle>skills</SectionTitle>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {skillItems.map(
-                ({ label, icon, color, category, description }) => {
-                  const Icon = skillIconMap[icon];
+          <section id="stack" className="relative scroll-mt-24 pt-20">
+            <SectionTitle>stack</SectionTitle>
+            <div className="space-y-10">
+              {groupStack([...skillItems]).map((group) => (
+                <div key={group.name}>
+                  <h3 className="mb-4 font-mono text-xs tracking-[0.18em] text-zinc-600 uppercase dark:text-zinc-400">
+                    {group.name}
+                  </h3>
+                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    {group.items.map(({ label, icon, color, description }) => {
+                      const Icon = skillIconMap[icon];
 
-                  return (
-                    <article
-                      key={label}
-                      className="hover:border-accent-brand border border-zinc-950/20 bg-white/75 p-5 transition-colors dark:border-white/35 dark:bg-black/80"
-                    >
-                      <div className="mb-7 flex items-center justify-between gap-4">
-                        <Icon
-                          className={`size-9 ${color}`}
-                          aria-hidden="true"
-                        />
-                        <span className="border border-zinc-950/15 px-3 py-1 text-[0.65rem] text-zinc-600 dark:border-white/20 dark:text-zinc-400">
-                          {category}
-                        </span>
-                      </div>
-                      <h3 className="text-lg font-bold text-zinc-950 dark:text-white">
-                        {label}
-                      </h3>
-                      <p className="mt-3 text-xs leading-6 text-zinc-700 dark:text-zinc-400">
-                        {description}
-                      </p>
-                    </article>
-                  );
-                },
-              )}
+                      return (
+                        <article
+                          key={label}
+                          className="hover:border-accent-brand border border-zinc-950/20 bg-white/75 p-5 transition-colors dark:border-white/35 dark:bg-black/80"
+                        >
+                          <Icon
+                            className={`mb-6 size-9 ${color}`}
+                            aria-hidden="true"
+                          />
+                          <h4 className="text-lg font-bold text-zinc-950 dark:text-white">
+                            {label}
+                          </h4>
+                          <p className="mt-3 text-xs leading-6 text-zinc-700 dark:text-zinc-400">
+                            {description}
+                          </p>
+                        </article>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
         </Reveal>

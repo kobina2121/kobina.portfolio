@@ -57,9 +57,10 @@ export const listCollections: Record<ListCollectionKey, ListCollectionConfig> =
     },
     skills: {
       key: "skills",
-      label: "Skills",
-      singular: "skill",
-      description: "Tools and technologies on the home page and /skills.",
+      label: "Stack",
+      singular: "technology",
+      description:
+        "Technologies on the home page and /stack, grouped by category.",
       schema: skillSchema,
       fields: skillFields,
       titleField: "label",

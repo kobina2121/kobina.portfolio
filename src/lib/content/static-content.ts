@@ -11,7 +11,7 @@ const rawSiteNavItems = [
   { key: "home", label: "home", href: "/" },
   { key: "about", label: "about", href: "/about" },
   { key: "projects", label: "projects", href: "/projects" },
-  { key: "skills", label: "skills", href: "/skills" },
+  { key: "stack", label: "stack", href: "/stack" },
 ] as const;
 
 const rawImageAssets = [

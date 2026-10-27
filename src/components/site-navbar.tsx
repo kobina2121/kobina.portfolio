@@ -17,13 +17,13 @@ const sectionToNavKey: Record<string, SiteNavKey> = {
   home: "home",
   "about-me": "about",
   projects: "projects",
-  skills: "skills",
+  stack: "stack",
 };
 
 function getRouteActiveKey(pathname: string, fallback: SiteNavKey): SiteNavKey {
   if (pathname.startsWith("/about")) return "about";
   if (pathname.startsWith("/projects")) return "projects";
-  if (pathname.startsWith("/skills")) return "skills";
+  if (pathname.startsWith("/stack")) return "stack";
   return fallback;
 }
 

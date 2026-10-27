@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/site-url";
 
-const staticRoutes = ["/", "/about", "/projects", "/skills"] as const;
+const staticRoutes = ["/", "/about", "/projects", "/stack"] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

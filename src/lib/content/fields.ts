@@ -1,3 +1,5 @@
+import { stackGroups } from "@/lib/stack-groups";
+
 // Plain, serializable form descriptions for the admin editor. Kept free of
 // zod and server code so they can be passed to client components.
 
@@ -216,7 +218,12 @@ export const skillFields: FieldConfig[] = [
     label: "Icon color",
     options: skillColorOptions,
   },
-  { kind: "text", name: "category", label: "Category" },
+  {
+    kind: "select",
+    name: "category",
+    label: "Group",
+    options: stackGroups,
+  },
   { kind: "textarea", name: "description", label: "Description" },
 ];
 

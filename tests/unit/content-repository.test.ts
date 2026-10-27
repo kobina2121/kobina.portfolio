@@ -16,7 +16,7 @@ describe("portfolio content repository", () => {
       "home",
       "about",
       "projects",
-      "skills",
+      "stack",
     ]);
   });
 
