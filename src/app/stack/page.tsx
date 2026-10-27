@@ -72,20 +72,20 @@ export default async function StackPage() {
             <section key={group.name} aria-labelledby={`stack-${group.name}`}>
               <h2
                 id={`stack-${group.name}`}
-                className="mb-5 text-2xl font-black tracking-tight"
+                className="mb-5 text-center text-2xl font-black tracking-tight"
               >
                 {group.name}
               </h2>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="flex flex-wrap justify-center gap-4">
                 {group.items.map(({ label, icon, color, description }) => {
                   const Icon = skillIconMap[icon];
 
                   return (
                     <article
                       key={label}
-                      className="group hover:border-accent-brand/70 rounded-[1.5rem] border border-zinc-950/10 bg-white/70 p-5 transition hover:bg-white dark:border-white/12 dark:bg-white/[0.035] dark:hover:bg-white/[0.055]"
+                      className="group hover:border-accent-brand/70 w-full rounded-[1.5rem] border border-zinc-950/10 bg-white/70 p-5 text-center transition hover:bg-white sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2rem)/3)] dark:border-white/12 dark:bg-white/[0.035] dark:hover:bg-white/[0.055]"
                     >
-                      <div className="mb-8 flex size-14 items-center justify-center rounded-2xl border border-zinc-950/10 bg-white dark:border-white/12 dark:bg-black">
+                      <div className="mx-auto mb-8 flex size-14 items-center justify-center rounded-2xl border border-zinc-950/10 bg-white dark:border-white/12 dark:bg-black">
                         <Icon
                           className={`size-8 ${color}`}
                           aria-hidden="true"

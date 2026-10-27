@@ -290,20 +290,20 @@ export default async function Home() {
             <div className="space-y-10">
               {groupStack([...skillItems]).map((group) => (
                 <div key={group.name}>
-                  <h3 className="mb-4 font-mono text-xs tracking-[0.18em] text-zinc-600 uppercase dark:text-zinc-400">
+                  <h3 className="mb-4 text-center font-mono text-xs tracking-[0.18em] text-zinc-600 uppercase dark:text-zinc-400">
                     {group.name}
                   </h3>
-                  <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  <div className="flex flex-wrap justify-center gap-4">
                     {group.items.map(({ label, icon, color, description }) => {
                       const Icon = skillIconMap[icon];
 
                       return (
                         <article
                           key={label}
-                          className="hover:border-accent-brand border border-zinc-950/20 bg-white/75 p-5 transition-colors dark:border-white/35 dark:bg-black/80"
+                          className="hover:border-accent-brand w-full border border-zinc-950/20 bg-white/75 p-5 text-center transition-colors sm:w-[calc((100%-1rem)/2)] lg:w-[calc((100%-2rem)/3)] dark:border-white/35 dark:bg-black/80"
                         >
                           <Icon
-                            className={`mb-6 size-9 ${color}`}
+                            className={`mx-auto mb-6 size-9 ${color}`}
                             aria-hidden="true"
                           />
                           <h4 className="text-lg font-bold text-zinc-950 dark:text-white">
