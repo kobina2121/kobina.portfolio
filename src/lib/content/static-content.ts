@@ -18,7 +18,7 @@ const rawImageAssets = [
   {
     key: "formal-portrait",
     src: "/images/kobina-formal-portrait-background-removed.png",
-    alt: "Portrait of Kobina Boakye",
+    alt: "Portrait of Kobina Kyereboah",
     purpose: "portrait",
     width: 1024,
     height: 1024,

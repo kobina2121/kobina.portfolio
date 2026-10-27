@@ -25,7 +25,7 @@ describe("portfolio content repository", () => {
     const slugs = projects.map((project) => project.slug);
 
     expect(new Set(slugs).size).toBe(slugs.length);
-    expect(projects.map((project) => project.title)).toContain("CrypTrack");
+    expect(projects.map((project) => project.title)).toContain("TrustKonnect");
   });
 
   it("organizes reusable image assets by purpose", () => {

@@ -2,18 +2,18 @@ import { contactEmail, contactPhoneDisplay } from "@/lib/contact-details";
 import { portfolioContentSchema } from "@/lib/content/schema";
 
 const rawAboutHighlights = [
-  "Full stack developer focused on clean, accessible product experiences.",
-  "Designer-minded builder who cares about visual polish and interaction.",
-  "Based in Accra, Ghana, building digital products with global taste.",
+  "Computer Science graduate (B.Tech Computer Technology, Second Class Upper) from Kumasi Technical University.",
+  "Builds web and desktop applications, from TrustKonnect to internal production tools at ICPS.",
+  "Works across software development, UI/UX design, data analytics, and process automation.",
 ] as const;
 
 const rawSiteSettings = {
   name: "Kobina Portfolio",
-  owner: "Kobina Boakye",
+  owner: "Kobina Kyereboah",
   title: "Full Stack Developer",
   email: contactEmail,
   phone: contactPhoneDisplay,
-  location: "Accra, Ghana",
+  location: "Tema, Ghana",
   availability: "Available for selected builds",
   primaryCta: {
     label: "View projects",
@@ -34,45 +34,46 @@ const rawSiteSettings = {
   aboutHighlights: rawAboutHighlights,
   aboutStats: [
     { label: "Focus", value: "Full stack" },
-    { label: "Base", value: "Accra" },
+    { label: "Base", value: "Tema" },
     { label: "Style", value: "Premium UI" },
   ],
   heroIntro:
     "I craft responsive websites and product interfaces where clean engineering meets visual taste.",
   metaTitle: "Kobina — Full Stack Developer",
   metaDescription:
-    "A premium personal portfolio for Kobina, a Ghana-based full stack developer building polished, accessible digital experiences.",
+    "Portfolio of Kobina Kyereboah, a Ghana-based full stack developer building web and desktop applications, with a background in UI/UX design and data analytics.",
 };
 
 const rawProjects = [
   {
-    title: "1111Afolio",
-    slug: "1111afolio",
-    category: "Portfolio",
-    year: "2026",
+    title: "TrustKonnect",
+    slug: "trustkonnect",
+    category: "Mobile Web App",
+    year: "2024",
     description:
-      "A cyberpunk portfolio exploring motion, contrast, and tiny UI.",
-    stack: ["HTML", "CSS", "JavaScript"],
+      "A platform connecting customers with trusted artisans and service providers, built during an internship at HapaSpace Innovation Hub.",
+    stack: ["FlutterFlow", "Firebase", "Figma"],
     accent: "from-[#f4f4f5] via-[#d4d4d8] to-[#fafafa]",
   },
   {
-    title: "ProjectX",
-    slug: "projectx",
-    category: "SaaS",
+    title: "Whitelist Analyzer",
+    slug: "whitelist-analyzer",
+    category: "Desktop App",
     year: "2026",
     description:
-      "Online cloud storage interface with lightweight sharing flows.",
-    stack: ["React", "API Design", "UI Systems"],
-    accent: "from-[#151515] via-[#1d1d1d] to-[#090909]",
+      "An internal audit tool at ICPS that processes and validates whitelist data from large smart-card production files.",
+    stack: ["Electron", "React", "SQLite", "TypeScript", "Node.js"],
+    accent: "from-[#151515] via-[#2a2a2a] to-[#090909]",
   },
   {
-    title: "CrypTrack",
-    slug: "cryptrack",
-    category: "Analytics",
+    title: "Remake App",
+    slug: "remake-app",
+    category: "Desktop App",
     year: "2026",
-    description: "Crypto market dashboard with search, watchlists, and charts.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    accent: "from-[#111827] via-[#020617] to-[#050505]",
+    description:
+      "An internal ICPS app that organizes card records and validates their identifiers so cards can be tracked reliably during remakes.",
+    stack: ["Electron", "SQLite", "React", "TypeScript", "shadcn/ui"],
+    accent: "from-[#18181b] via-[#3f3f46] to-[#09090b]",
   },
 ];
 
@@ -82,154 +83,202 @@ const rawSkillItems = [
     icon: "html",
     color: "text-orange-500",
     category: "Frontend",
-    description:
-      "Semantic structure, accessibility, and polished page layouts.",
+    description: "Semantic, accessible page structure.",
   },
   {
     label: "css",
     icon: "css",
     color: "text-blue-500",
     category: "Frontend",
-    description: "Responsive styling, animation, and design-system thinking.",
+    description: "Responsive layouts and polished styling.",
   },
   {
     label: "javascript",
     icon: "javascript",
     color: "text-yellow-300",
     category: "Language",
-    description: "Interactive UI logic, browser APIs, and product behavior.",
+    description: "Interactive features for the web.",
   },
   {
-    label: "react.js",
+    label: "typescript",
+    icon: "typescript",
+    color: "text-blue-600",
+    category: "Language",
+    description: "Typed, maintainable application code.",
+  },
+  {
+    label: "php",
+    icon: "php",
+    color: "text-indigo-400",
+    category: "Backend",
+    description: "Server-side scripting for web applications.",
+  },
+  {
+    label: "next.js",
+    icon: "nextjs",
+    color: "text-zinc-950 dark:text-white",
+    category: "Framework",
+    description: "Full-stack React apps with server rendering.",
+  },
+  {
+    label: "react",
     icon: "react",
-    color: "text-cyan-400",
+    color: "text-sky-500",
     category: "Frontend",
-    description: "Component-driven interfaces with reusable UI patterns.",
+    description: "Component-driven web and desktop interfaces.",
   },
   {
     label: "node.js",
     icon: "node",
     color: "text-lime-400",
     category: "Backend",
-    description: "Server-side JavaScript, APIs, and app foundations.",
-  },
-  {
-    label: "figma",
-    icon: "figma",
-    color: "text-pink-400",
-    category: "Design",
-    description: "Wireframes, visual direction, and interface exploration.",
-  },
-  {
-    label: "git",
-    icon: "git",
-    color: "text-red-500",
-    category: "Workflow",
-    description: "Version control, collaboration, and clean delivery habits.",
-  },
-  {
-    label: "mysql",
-    icon: "mysql",
-    color: "text-sky-500",
-    category: "Database",
-    description: "Relational data modeling for reliable application storage.",
+    description: "JavaScript runtime for servers and desktop tools.",
   },
   {
     label: "firebase",
     icon: "firebase",
     color: "text-amber-400",
     category: "Backend",
-    description: "Authentication, real-time data, and rapid product builds.",
+    description: "Authentication, data, and backend services.",
   },
   {
-    label: "java",
-    icon: "java",
-    color: "text-red-400",
-    category: "Language",
-    description: "Object-oriented programming and structured app logic.",
+    label: "mongodb",
+    icon: "mongodb",
+    color: "text-green-600",
+    category: "Database",
+    description: "Document databases for web applications.",
+  },
+  {
+    label: "sql",
+    icon: "mysql",
+    color: "text-cyan-400",
+    category: "Database",
+    description: "Relational data modelling and queries.",
+  },
+  {
+    label: "git & github",
+    icon: "git",
+    color: "text-red-500",
+    category: "Workflow",
+    description: "Version control and collaboration.",
+  },
+  {
+    label: "figma",
+    icon: "figma",
+    color: "text-pink-400",
+    category: "Design",
+    description: "UI/UX design, wireframes, and prototypes.",
+  },
+  {
+    label: "flutterflow",
+    icon: "flutter",
+    color: "text-sky-400",
+    category: "Mobile",
+    description: "Visual app building for mobile and web.",
+  },
+  {
+    label: "power bi",
+    icon: "powerbi",
+    color: "text-yellow-500",
+    category: "Data",
+    description: "Interactive dashboards and reports with DAX.",
+  },
+  {
+    label: "excel",
+    icon: "excel",
+    color: "text-green-600",
+    category: "Data",
+    description: "Data cleaning, analysis, and PivotTables.",
   },
 ] as const;
 
 const rawServiceItems = [
   {
-    title: "Portfolio & brand websites",
+    title: "Web development",
     description:
-      "Premium personal and business websites that make the first impression feel intentional.",
-    deliverables: ["Responsive UI", "SEO-ready pages", "Launch support"],
+      "Responsive websites and web applications, from business sites to full-stack platforms.",
+    deliverables: ["Responsive UI", "Admin dashboards", "Launch support"],
   },
   {
-    title: "Full-stack implementation",
+    title: "Internal tools and automation",
     description:
-      "Clean React and Next.js experiences connected to practical product foundations.",
-    deliverables: [
-      "Component systems",
-      "Accessible markup",
-      "Performance pass",
-    ],
+      "Desktop and web tools that streamline operational workflows, like audit and production apps.",
+    deliverables: ["Desktop apps", "Data validation", "Process automation"],
   },
   {
-    title: "Product interface polish",
+    title: "UI/UX design and data dashboards",
     description:
-      "Sharper dashboards, landing pages, and flows with stronger hierarchy and interaction details.",
-    deliverables: ["UI audit", "Design cleanup", "Interaction states"],
+      "Clear interfaces designed in Figma, and dashboards that turn data into decisions.",
+    deliverables: ["Figma designs", "Power BI dashboards", "Reports"],
   },
 ] as const;
 
 const rawExperienceItems = [
   {
-    role: "Full Stack Developer",
-    company: "Looprompt",
-    period: "2026 — Present",
-    location: "Accra, Ghana",
+    role: "Smart Card Operator (National Service)",
+    company: "Intelligent Card Production Systems (ICPS)",
+    period: "2025 — Present",
+    location: "Spintex, Accra",
     highlights: [
-      "Building polished web experiences with Next.js, Tailwind CSS, and React.",
-      "Designing interfaces with a strong focus on clarity, accessibility, and conversion.",
+      "Operate and monitor smart card milling, embedding, serialization, and quality assurance processes.",
+      "Developed Whitelist Analyzer, an internal desktop application for audit verification and whitelist processing.",
+      "Developed Remaker, an internal desktop application supporting smart card remake workflows.",
+      "Perform quality checks and inspections to maintain production accuracy and high-quality smart cards.",
+      "Ensure production checklists are completed and support stock control within the milling section.",
     ],
   },
   {
-    role: "Independent Web Designer",
-    company: "Freelance",
-    period: "2025 — Present",
-    location: "Remote",
+    role: "Computer Science Intern",
+    company: "HapaSpace Innovation Hub",
+    period: "2024",
+    location: "Danyame, Kumasi",
     highlights: [
-      "Creating portfolio, landing page, and product interface concepts for growing brands.",
-      "Translating visual references into responsive, production-minded implementations.",
+      "Designed and developed TrustKonnect, a mobile web application connecting users with trusted artisans and service providers.",
+      "Created user interfaces using Figma and FlutterFlow, with Firebase for backend services and data management.",
+      "Supported data entry and digital innovation activities.",
+      "Participated in Ghana Digital & Innovation Week and the R4DAC pilot training.",
+    ],
+  },
+  {
+    role: "Data Analytics Intern",
+    company: "Institute for Digital Marketing & Communication (IDMC)",
+    period: "2023",
+    location: "Osu, Accra",
+    highlights: [
+      "Analysed datasets using Microsoft Excel and Power BI.",
+      "Performed data cleaning, transformation, statistical analysis, and visualization.",
+      "Created interactive dashboards and reports using Power BI Desktop and DAX.",
+      "Applied Excel formulas, functions, PivotTables, and charts for data analysis.",
     ],
   },
 ] as const;
 
 const rawEducationItems = [
   {
-    institution: "Self-directed learning",
-    qualification: "Full-stack engineering, UI design, and product thinking",
-    period: "Ongoing",
-    detail:
-      "Focused learning through production builds, design references, and modern web tooling.",
+    institution: "Kumasi Technical University",
+    qualification: "Bachelor of Technology, Computer Technology",
+    period: "2021 — 2025",
+    detail: "Graduated with Second Class Upper. Kumasi, Ghana.",
   },
   {
-    institution: "Practical project work",
-    qualification: "React, Next.js, TypeScript, Tailwind CSS",
-    period: "2025 — Present",
+    institution: "Chemu Senior High School",
+    qualification: "General Arts",
+    period: "2017 — 2020",
     detail:
-      "Hands-on projects covering responsive layouts, reusable components, and deployment workflows.",
+      "Elective Mathematics, Geography, Economics, and French. Tema, Ghana.",
   },
 ] as const;
 
 const rawCertificationItems = [
   {
-    name: "Responsive Web Design",
-    provider: "Self-guided certification track",
-    status: "In progress",
+    name: "Data Analytics and Visualization",
+    provider: "Institute for Digital Marketing & Communication (IDMC)",
+    status: "Completed",
   },
   {
-    name: "Full Stack Engineering",
-    provider: "Portfolio project practice",
-    status: "Ongoing",
-  },
-  {
-    name: "Accessibility Foundations",
-    provider: "Portfolio quality standard",
-    status: "Ongoing",
+    name: "R4DAC Pilot Training",
+    provider: "HapaSpace Innovation Hub",
+    status: "Completed",
   },
 ] as const;
 

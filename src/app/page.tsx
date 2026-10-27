@@ -9,6 +9,7 @@ import { SiteNavbar } from "@/components/site-navbar";
 import { ProjectCard } from "@/components/projects/project-card";
 import { getPhoneHref } from "@/lib/contact-details";
 import { getExternalLinkAttributes, isExternalHref } from "@/lib/links";
+import { skillIconMap } from "@/lib/skill-icons";
 import {
   getAboutHighlights,
   getCertificationItems,
@@ -21,33 +22,11 @@ import {
   getSkillItems,
 } from "@/lib/portfolio-content";
 import {
-  FaCss3Alt,
-  FaFigma,
-  FaGitAlt,
   FaGithub,
-  FaHtml5,
   FaInstagram,
-  FaJava,
-  FaJs,
   FaLinkedinIn,
-  FaNodeJs,
-  FaReact,
   FaXTwitter,
 } from "react-icons/fa6";
-import { SiFirebase, SiMysql } from "react-icons/si";
-
-const skillIconMap = {
-  html: FaHtml5,
-  css: FaCss3Alt,
-  javascript: FaJs,
-  react: FaReact,
-  node: FaNodeJs,
-  figma: FaFigma,
-  git: FaGitAlt,
-  mysql: SiMysql,
-  firebase: SiFirebase,
-  java: FaJava,
-};
 
 // Picks an icon from the link's label or URL, e.g. "LinkedIn" or github.com.
 function getSocialIcon({ label, href }: { label: string; href: string }) {

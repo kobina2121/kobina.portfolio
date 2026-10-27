@@ -134,7 +134,7 @@ export default function DesignSystemPage() {
               <CardContent className="space-y-4">
                 <Field>
                   <FieldLabel htmlFor="name">Name</FieldLabel>
-                  <Input id="name" placeholder="Kobina Boakye" />
+                  <Input id="name" placeholder="Kobina Kyereboah" />
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="message">Message</FieldLabel>

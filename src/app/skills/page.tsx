@@ -1,20 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight, BadgeCheck } from "lucide-react";
-import {
-  FaCss3Alt,
-  FaFigma,
-  FaGitAlt,
-  FaHtml5,
-  FaJava,
-  FaJs,
-  FaNodeJs,
-  FaReact,
-} from "react-icons/fa6";
-import { SiFirebase, SiMysql } from "react-icons/si";
 import { Container } from "@/components/layout/container";
 import { SiteNavbar } from "@/components/site-navbar";
 import { getSkillItems } from "@/lib/portfolio-content";
+import { skillIconMap } from "@/lib/skill-icons";
 
 export const metadata: Metadata = {
   title: "Skills — Kobina",
@@ -23,19 +13,6 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/skills",
   },
-};
-
-const skillIconMap = {
-  html: FaHtml5,
-  css: FaCss3Alt,
-  javascript: FaJs,
-  react: FaReact,
-  node: FaNodeJs,
-  figma: FaFigma,
-  git: FaGitAlt,
-  mysql: SiMysql,
-  firebase: SiFirebase,
-  java: FaJava,
 };
 
 const focusAreas = [
