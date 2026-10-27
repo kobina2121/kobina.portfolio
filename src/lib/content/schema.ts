@@ -201,13 +201,6 @@ export const experienceSchema = z.object({
   highlights: z.array(nonEmptyString).min(1),
 });
 
-export const educationSchema = z.object({
-  institution: nonEmptyString,
-  qualification: nonEmptyString,
-  period: periodSchema,
-  detail: nonEmptyString,
-});
-
 export const certificationSchema = z.object({
   name: nonEmptyString,
   provider: nonEmptyString,
@@ -221,7 +214,6 @@ export const portfolioContentSchema = z
     skills: z.array(skillSchema),
     services: z.array(serviceSchema),
     experience: z.array(experienceSchema),
-    education: z.array(educationSchema),
     certifications: z.array(certificationSchema),
   })
   .superRefine((content, context) => {
@@ -250,6 +242,5 @@ export type Skill = z.infer<typeof skillSchema>;
 export type SkillIcon = z.infer<typeof skillIconSchema>;
 export type Service = z.infer<typeof serviceSchema>;
 export type Experience = z.infer<typeof experienceSchema>;
-export type Education = z.infer<typeof educationSchema>;
 export type Certification = z.infer<typeof certificationSchema>;
 export type PortfolioContent = z.infer<typeof portfolioContentSchema>;

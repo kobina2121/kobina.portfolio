@@ -60,7 +60,7 @@ Environment parsing is centralized in `src/lib/env.ts`. Server secrets must neve
 
 ## Content database and admin
 
-Portfolio content (site settings, projects, skills, services, experience, education, and certifications) is stored in MongoDB. Navigation and image assets stay in code because they point at routes and files in the repository.
+Portfolio content (site settings, projects, skills, services, experience, and certifications) is stored in MongoDB. Navigation and image assets stay in code because they point at routes and files in the repository.
 
 Until `MONGODB_URI` is set, or while the database is empty or unreachable, the site serves the built-in content from `src/lib/content/default-content.ts`, so it never goes blank.
 

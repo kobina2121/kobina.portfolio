@@ -97,10 +97,6 @@ export async function getExperienceItems() {
   return (await getPortfolioContent()).experience;
 }
 
-export async function getEducationItems() {
-  return (await getPortfolioContent()).education;
-}
-
 export async function getCertificationItems() {
   return (await getPortfolioContent()).certifications;
 }

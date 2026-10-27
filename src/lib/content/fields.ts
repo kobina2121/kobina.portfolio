@@ -244,13 +244,6 @@ export const experienceFields: FieldConfig[] = [
   },
 ];
 
-export const educationFields: FieldConfig[] = [
-  { kind: "text", name: "institution", label: "Institution" },
-  { kind: "text", name: "qualification", label: "Qualification" },
-  { kind: "text", name: "period", label: "Period", help: periodHelp },
-  { kind: "textarea", name: "detail", label: "Detail" },
-];
-
 export const certificationFields: FieldConfig[] = [
   { kind: "text", name: "name", label: "Name" },
   { kind: "text", name: "provider", label: "Provider" },

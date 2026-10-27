@@ -13,7 +13,6 @@ import { skillIconMap } from "@/lib/skill-icons";
 import {
   getAboutHighlights,
   getCertificationItems,
-  getEducationItems,
   getExperienceItems,
   getFeaturedProjects,
   getRequiredImageAsset,
@@ -82,7 +81,6 @@ export default async function Home() {
     aboutHighlights,
     serviceItems,
     experienceItems,
-    educationItems,
     certificationItems,
   ] = await Promise.all([
     getSiteConfig(),
@@ -91,7 +89,6 @@ export default async function Home() {
     getAboutHighlights(),
     getServiceItems(),
     getExperienceItems(),
-    getEducationItems(),
     getCertificationItems(),
   ]);
   const heroSocialLinks = site.socialLinks.map((link) => ({
@@ -461,35 +458,7 @@ export default async function Home() {
         </Reveal>
 
         <Reveal>
-          <section
-            id="credentials"
-            className="relative grid scroll-mt-24 gap-8 pt-20 md:grid-cols-2"
-          >
-            <div>
-              <SectionTitle>education</SectionTitle>
-              <div className="space-y-4">
-                {educationItems.map((item) => (
-                  <article
-                    key={item.institution}
-                    className="border border-zinc-950/20 bg-white/75 p-5 dark:border-white/35 dark:bg-black/80"
-                  >
-                    <p className="text-accent-brand text-xs font-semibold">
-                      {item.period}
-                    </p>
-                    <h3 className="mt-3 text-lg font-bold text-zinc-950 dark:text-white">
-                      {item.institution}
-                    </h3>
-                    <p className="mt-2 text-sm text-zinc-700 dark:text-zinc-300">
-                      {item.qualification}
-                    </p>
-                    <p className="mt-4 text-xs leading-6 text-zinc-700 dark:text-zinc-400">
-                      {item.detail}
-                    </p>
-                  </article>
-                ))}
-              </div>
-            </div>
-
+          <section id="credentials" className="relative scroll-mt-24 pt-20">
             <div id="certifications" className="scroll-mt-24">
               <SectionTitle>certifications</SectionTitle>
               <div className="space-y-4">

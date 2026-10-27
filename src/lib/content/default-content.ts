@@ -253,22 +253,6 @@ const rawExperienceItems = [
   },
 ] as const;
 
-const rawEducationItems = [
-  {
-    institution: "Kumasi Technical University",
-    qualification: "Bachelor of Technology, Computer Technology",
-    period: "2021 — 2025",
-    detail: "Graduated with Second Class Upper. Kumasi, Ghana.",
-  },
-  {
-    institution: "Chemu Senior High School",
-    qualification: "General Arts",
-    period: "2017 — 2020",
-    detail:
-      "Elective Mathematics, Geography, Economics, and French. Tema, Ghana.",
-  },
-] as const;
-
 const rawCertificationItems = [
   {
     name: "Data Analytics and Visualization",
@@ -289,6 +273,5 @@ export const defaultPortfolioContent = portfolioContentSchema.parse({
   skills: rawSkillItems,
   services: rawServiceItems,
   experience: rawExperienceItems,
-  education: rawEducationItems,
   certifications: rawCertificationItems,
 });

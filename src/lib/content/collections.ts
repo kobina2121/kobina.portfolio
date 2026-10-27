@@ -2,7 +2,6 @@ import type { z } from "zod";
 
 import {
   certificationFields,
-  educationFields,
   experienceFields,
   type FieldConfig,
   projectFields,
@@ -12,7 +11,6 @@ import {
 } from "@/lib/content/fields";
 import {
   certificationSchema,
-  educationSchema,
   experienceSchema,
   projectSchema,
   serviceSchema,
@@ -25,7 +23,6 @@ export const listCollectionKeys = [
   "skills",
   "services",
   "experience",
-  "education",
   "certifications",
 ] as const;
 
@@ -87,16 +84,6 @@ export const listCollections: Record<ListCollectionKey, ListCollectionConfig> =
       fields: experienceFields,
       titleField: "role",
       subtitleField: "company",
-    },
-    education: {
-      key: "education",
-      label: "Education",
-      singular: "education entry",
-      description: "Schools and qualifications.",
-      schema: educationSchema,
-      fields: educationFields,
-      titleField: "qualification",
-      subtitleField: "institution",
     },
     certifications: {
       key: "certifications",
