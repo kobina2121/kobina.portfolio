@@ -311,6 +311,8 @@ function FieldControl(props: FieldProps) {
           id={path}
           label={field.label}
           max={field.max}
+          folder={field.folder}
+          itemLabel={field.itemLabel}
           value={value}
           describedBy={ariaProps["aria-describedby"]}
           invalid={Boolean(error)}

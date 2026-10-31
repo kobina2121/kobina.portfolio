@@ -83,6 +83,15 @@ export const siteSettingsSchema = z.object({
   phone: nonEmptyString,
   location: nonEmptyString,
   availability: nonEmptyString,
+  // Empty until a photo is uploaded; the built-in portrait is used meanwhile.
+  profilePhoto: z
+    .array(
+      z
+        .string()
+        .refine((url) => getBlobPathname(url) !== null, "Upload a photo here."),
+    )
+    .max(1)
+    .default([]),
   primaryCta: linkSchema,
   secondaryCta: linkSchema,
   socialLinks: z.array(linkSchema),
@@ -117,11 +126,14 @@ const optionalUrl = z.url("Enter a full URL starting with https://").optional();
 // Uploaded screenshots live in Vercel Blob. Files in a public store are linked
 // directly, e.g. https://abc123.public.blob.vercel-storage.com/projects/x.webp;
 // files in a private store are served by this site at /api/blob/projects/x.webp.
-const publicBlobUrlPattern =
-  /^https:\/\/[a-z0-9-]+\.public\.blob\.vercel-storage\.com\/(projects\/[\w.-]+)$/i;
-const privateBlobPathPattern = /^\/api\/blob\/(projects\/[\w.-]+)$/;
+export const imageFolders = ["projects", "profile"] as const;
+export type ImageFolder = (typeof imageFolders)[number];
 
-/** The Blob pathname of an uploaded screenshot, or null for other URLs. */
+const publicBlobUrlPattern =
+  /^https:\/\/[a-z0-9-]+\.public\.blob\.vercel-storage\.com\/((?:projects|profile)\/[\w.-]+)$/i;
+const privateBlobPathPattern = /^\/api\/blob\/((?:projects|profile)\/[\w.-]+)$/;
+
+/** The Blob pathname of an uploaded image, or null for other URLs. */
 export function getBlobPathname(url: string) {
   return (
     publicBlobUrlPattern.exec(url)?.[1] ??

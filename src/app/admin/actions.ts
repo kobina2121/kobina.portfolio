@@ -20,6 +20,7 @@ import { type FormValues, normalizeValues } from "@/lib/content/fields";
 import {
   deleteItem,
   getItem,
+  getSettings,
   moveItem,
   saveItem,
   saveSettings,
@@ -29,6 +30,7 @@ import {
   saveImage,
   type SaveImageResult,
 } from "@/lib/content/images";
+import { imageFolders } from "@/lib/content/schema";
 import { seedPortfolioContent } from "@/lib/content/seed";
 import { getDb } from "@/lib/db/mongodb";
 
@@ -165,7 +167,19 @@ export async function saveSettingsAction(
     };
   }
 
-  await saveSettings(await getDb(), parsed.data);
+  const db = await getDb();
+  const previous = await getSettings(db);
+  await saveSettings(db, parsed.data);
+
+  // Delete a profile photo that was replaced or removed in this edit.
+  const kept = new Set(parsed.data.profilePhoto);
+  const previousPhotos = Array.isArray(previous?.profilePhoto)
+    ? previous.profilePhoto.filter(
+        (url): url is string => typeof url === "string",
+      )
+    : [];
+  await deleteImagesByUrl(previousPhotos.filter((url) => !kept.has(url)));
+
   revalidateSite();
   redirect("/admin/settings?saved=1");
 }
@@ -225,5 +239,10 @@ export async function uploadImageAction(
     return { ok: false, message: "Choose an image to upload." };
   }
 
-  return saveImage(new Uint8Array(await file.arrayBuffer()));
+  const folder = formData.get("folder");
+
+  return saveImage(
+    new Uint8Array(await file.arrayBuffer()),
+    imageFolders.find((name) => name === folder) ?? "projects",
+  );
 }

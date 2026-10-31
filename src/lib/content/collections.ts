@@ -103,7 +103,8 @@ export const settingsCollection = {
   name: "settings",
   documentId: "site",
   label: "Site settings",
-  description: "Name, contact details, calls to action, and about highlights.",
+  description:
+    "Name, profile photo, contact details, calls to action, and about highlights.",
   schema: siteSettingsSchema,
   fields: settingsFields,
 } as const;

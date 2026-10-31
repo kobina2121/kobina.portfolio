@@ -98,6 +98,8 @@ export default async function Home() {
   }));
   const phoneHref = getPhoneHref(site.phone);
   const formalPortrait = getRequiredImageAsset("formal-portrait");
+  // An uploaded profile photo replaces the built-in portrait.
+  const portraitSrc = site.profilePhoto[0] ?? formalPortrait.src;
   const developerCharacter = getRequiredImageAsset("developer-character");
 
   return (
@@ -235,7 +237,7 @@ export default async function Home() {
 
             <div className="relative mx-auto aspect-[0.84] w-64 overflow-hidden bg-gradient-to-b from-zinc-200 to-white md:w-72 dark:from-zinc-900 dark:to-black">
               <Image
-                src={formalPortrait.src}
+                src={portraitSrc}
                 alt={formalPortrait.alt}
                 fill
                 priority

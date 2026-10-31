@@ -73,6 +73,29 @@ describe("screenshot storage", () => {
     expect(blob.put).toHaveBeenCalledTimes(1);
   });
 
+  it("stores profile photos in their own folder", async () => {
+    const photoUrl =
+      "https://abc123.public.blob.vercel-storage.com/profile/photo-x1y2.png";
+    blob.put.mockResolvedValue({
+      url: photoUrl,
+      pathname: "profile/photo-x1y2.png",
+    });
+    const { saveImage, deleteImagesByUrl } = await loadImages();
+
+    expect(await saveImage(png, "profile")).toEqual({
+      ok: true,
+      url: photoUrl,
+    });
+    expect(blob.put).toHaveBeenCalledWith(
+      "profile/photo.png",
+      expect.any(Buffer),
+      expect.objectContaining({ access: "public" }),
+    );
+
+    await deleteImagesByUrl([photoUrl]);
+    expect(blob.del).toHaveBeenCalledWith(["profile/photo-x1y2.png"]);
+  });
+
   it("shows Vercel Blob's reason when every upload fails", async () => {
     blob.put.mockRejectedValue(new Error("This store has been suspended."));
     const { saveImage } = await loadImages();

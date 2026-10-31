@@ -25,6 +25,8 @@ export default async function AboutPage() {
     getAboutHighlights(),
   ]);
   const formalPortrait = getRequiredImageAsset("formal-portrait");
+  // An uploaded profile photo replaces the built-in portrait.
+  const portraitSrc = site.profilePhoto[0] ?? formalPortrait.src;
 
   return (
     <main
@@ -40,7 +42,7 @@ export default async function AboutPage() {
       >
         <div className="relative mx-auto aspect-[0.82] w-full max-w-sm">
           <Image
-            src={formalPortrait.src}
+            src={portraitSrc}
             alt={formalPortrait.alt}
             fill
             priority

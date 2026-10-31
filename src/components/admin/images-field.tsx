@@ -7,11 +7,15 @@ import { ArrowLeft, ArrowRight, ImagePlus, Trash2 } from "lucide-react";
 import { uploadImageAction } from "@/app/admin/actions";
 import { Button } from "@/components/ui/button";
 import { compressImage } from "@/lib/admin/compress-image";
+import type { ImageFolder } from "@/lib/content/schema";
 
 type ImagesFieldProps = {
   id: string;
   label: string;
   max: number;
+  folder: ImageFolder;
+  /** What one image is called, e.g. "preview image" or "photo". */
+  itemLabel: string;
   value: unknown;
   describedBy?: string;
   invalid: boolean;
@@ -28,12 +32,18 @@ export function ImagesField({
   id,
   label,
   max,
+  folder,
+  itemLabel,
   value,
   describedBy,
   invalid,
   onChange,
 }: ImagesFieldProps) {
   const urls = asUrls(value);
+  // A single-image field (like the profile photo) replaces its image instead
+  // of filling up.
+  const isSingle = max === 1;
+  const isFull = !isSingle && urls.length >= max;
   const [uploadingCount, setUploadingCount] = useState(0);
   const [message, setMessage] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -46,12 +56,12 @@ export function ImagesField({
   });
 
   async function handleFiles(files: File[]) {
-    const room = max - latest.current.urls.length;
+    const room = isSingle ? 1 : max - latest.current.urls.length;
     const chosen = files.slice(0, Math.max(room, 0));
 
     setMessage(
       files.length > chosen.length
-        ? `You can add up to ${max} preview images.`
+        ? `You can add up to ${max} ${itemLabel}s.`
         : null,
     );
     setUploadingCount(chosen.length);
@@ -60,11 +70,14 @@ export function ImagesField({
       try {
         const formData = new FormData();
         formData.append("file", await compressImage(file), file.name);
+        formData.append("folder", folder);
 
         const result = await uploadImageAction(formData);
 
         if (result.ok) {
-          const next = [...latest.current.urls, result.url];
+          const next = isSingle
+            ? [result.url]
+            : [...latest.current.urls, result.url];
           latest.current.urls = next;
           latest.current.onChange(next);
         } else {
@@ -91,13 +104,19 @@ export function ImagesField({
   return (
     <div className="space-y-3">
       {urls.length > 0 ? (
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <ul
+          className={
+            isSingle ? "w-40" : "grid grid-cols-2 gap-3 sm:grid-cols-3"
+          }
+        >
           {urls.map((url, index) => (
             <li
               key={url}
               className="border-border overflow-hidden rounded-xl border"
             >
-              <div className="bg-muted relative aspect-video">
+              <div
+                className={`bg-muted relative ${isSingle ? "aspect-square" : "aspect-video"}`}
+              >
                 <Image
                   src={url}
                   alt={`${label} ${index + 1}`}
@@ -105,38 +124,46 @@ export function ImagesField({
                   sizes="240px"
                   className="object-cover object-top"
                 />
-                {index === 0 ? (
+                {!isSingle && index === 0 ? (
                   <span className="absolute top-2 left-2 rounded-full bg-black/75 px-2 py-0.5 text-[0.65rem] font-semibold text-white">
                     Cover
                   </span>
                 ) : null}
               </div>
               <div className="flex justify-end gap-1 p-1.5">
+                {!isSingle ? (
+                  <>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon-sm"
+                      disabled={index === 0}
+                      aria-label={`Move ${itemLabel} ${index + 1} earlier`}
+                      onClick={() => move(index, -1)}
+                    >
+                      <ArrowLeft />
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon-sm"
+                      disabled={index === urls.length - 1}
+                      aria-label={`Move ${itemLabel} ${index + 1} later`}
+                      onClick={() => move(index, 1)}
+                    >
+                      <ArrowRight />
+                    </Button>
+                  </>
+                ) : null}
                 <Button
                   type="button"
                   variant="ghost"
                   size="icon-sm"
-                  disabled={index === 0}
-                  aria-label={`Move preview image ${index + 1} earlier`}
-                  onClick={() => move(index, -1)}
-                >
-                  <ArrowLeft />
-                </Button>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon-sm"
-                  disabled={index === urls.length - 1}
-                  aria-label={`Move preview image ${index + 1} later`}
-                  onClick={() => move(index, 1)}
-                >
-                  <ArrowRight />
-                </Button>
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon-sm"
-                  aria-label={`Remove preview image ${index + 1}`}
+                  aria-label={
+                    isSingle
+                      ? `Remove ${itemLabel}`
+                      : `Remove ${itemLabel} ${index + 1}`
+                  }
                   onClick={() =>
                     onChange(urls.filter((_, urlIndex) => urlIndex !== index))
                   }
@@ -154,26 +181,30 @@ export function ImagesField({
         id={id}
         type="file"
         accept="image/png,image/jpeg,image/webp"
-        multiple
+        multiple={!isSingle}
         className="sr-only"
         aria-describedby={describedBy}
         aria-invalid={invalid}
-        disabled={uploadingCount > 0 || urls.length >= max}
+        disabled={uploadingCount > 0 || isFull}
         onChange={(event) => handleFiles(Array.from(event.target.files ?? []))}
       />
       <Button
         type="button"
         variant="outline"
         size="sm"
-        disabled={uploadingCount > 0 || urls.length >= max}
+        disabled={uploadingCount > 0 || isFull}
         onClick={() => inputRef.current?.click()}
       >
         <ImagePlus />
         {uploadingCount > 0
-          ? `Uploading ${uploadingCount}…`
-          : urls.length >= max
-            ? `${max} preview images added`
-            : "Upload preview images"}
+          ? "Uploading…"
+          : isSingle
+            ? urls.length > 0
+              ? `Replace ${itemLabel}`
+              : `Upload ${itemLabel}`
+            : isFull
+              ? `${max} ${itemLabel}s added`
+              : `Upload ${itemLabel}s`}
       </Button>
       {message ? (
         <p role="alert" className="text-destructive text-xs font-medium">

@@ -6,7 +6,11 @@ import {
   projectFields,
 } from "@/lib/content/fields";
 import { defaultPortfolioContent } from "@/lib/content/default-content";
-import { projectSchema, slugify } from "@/lib/content/schema";
+import {
+  projectSchema,
+  siteSettingsSchema,
+  slugify,
+} from "@/lib/content/schema";
 
 describe("admin form fields", () => {
   it("normalizes raw form values into schema-ready data", () => {
@@ -61,6 +65,30 @@ describe("admin form fields", () => {
         screenshots: ["/api/blob/projects/screenshot-x1y2.webp"],
       }).success,
     ).toBe(true);
+  });
+
+  it("accepts one uploaded profile photo in site settings", () => {
+    const { settings } = defaultPortfolioContent;
+    const photo =
+      "https://abc123.public.blob.vercel-storage.com/profile/photo-x1y2.webp";
+
+    expect(siteSettingsSchema.parse(settings).profilePhoto).toEqual([]);
+    expect(
+      siteSettingsSchema.parse({ ...settings, profilePhoto: [photo] })
+        .profilePhoto,
+    ).toEqual([photo]);
+    expect(
+      siteSettingsSchema.safeParse({
+        ...settings,
+        profilePhoto: ["https://example.com/me.png"],
+      }).success,
+    ).toBe(false);
+    expect(
+      siteSettingsSchema.safeParse({
+        ...settings,
+        profilePhoto: [photo, photo],
+      }).success,
+    ).toBe(false);
   });
 
   it("rejects link fields that are not full URLs", () => {

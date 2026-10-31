@@ -1,3 +1,4 @@
+import type { ImageFolder } from "@/lib/content/schema";
 import { stackGroups } from "@/lib/stack-groups";
 
 // Plain, serializable form descriptions for the admin editor. Kept free of
@@ -14,7 +15,12 @@ export type FieldConfig =
   | (BaseField & { kind: "textarea"; optional?: boolean })
   | (BaseField & { kind: "list" })
   | (BaseField & { kind: "tags" })
-  | (BaseField & { kind: "images"; max: number })
+  | (BaseField & {
+      kind: "images";
+      max: number;
+      folder: ImageFolder;
+      itemLabel: string;
+    })
   | (BaseField & { kind: "select"; options: readonly string[] })
   | (BaseField & { kind: "group"; fields: FieldConfig[] })
   | (BaseField & {
@@ -84,6 +90,15 @@ export const settingsFields: FieldConfig[] = [
   },
   { kind: "text", name: "location", label: "Location" },
   { kind: "text", name: "availability", label: "Availability" },
+  {
+    kind: "images",
+    name: "profilePhoto",
+    label: "Profile photo",
+    max: 1,
+    folder: "profile",
+    itemLabel: "photo",
+    help: "Shown on the home and about pages. A PNG with a transparent background looks best.",
+  },
   {
     kind: "group",
     name: "primaryCta",
@@ -156,6 +171,8 @@ export const projectFields: FieldConfig[] = [
     name: "screenshots",
     label: "Preview",
     max: 8,
+    folder: "projects",
+    itemLabel: "preview image",
     help: "Images of the website. PNG, JPEG, or WebP. The first one is used as the project's cover image.",
   },
   {

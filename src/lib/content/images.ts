@@ -2,7 +2,11 @@ import "server-only";
 
 import { del, get, put } from "@vercel/blob";
 
-import { getBlobPathname, getPrivateBlobUrl } from "@/lib/content/schema";
+import {
+  getBlobPathname,
+  getPrivateBlobUrl,
+  type ImageFolder,
+} from "@/lib/content/schema";
 
 export const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
 
@@ -39,13 +43,19 @@ export function isBlobConfigured() {
 // upload. Remember which one worked so later uploads go straight there.
 let storeAccess: BlobAccess | undefined;
 
+const fileNames: Record<ImageFolder, string> = {
+  projects: "preview",
+  profile: "photo",
+};
+
 async function upload(
   access: BlobAccess,
   bytes: Uint8Array,
   contentType: ImageContentType,
+  folder: ImageFolder,
 ) {
   const blob = await put(
-    `projects/preview.${extensions[contentType]}`,
+    `${folder}/${fileNames[folder]}.${extensions[contentType]}`,
     Buffer.from(bytes),
     {
       access,
@@ -63,7 +73,10 @@ export type SaveImageResult =
   | { ok: true; url: string }
   | { ok: false; message: string };
 
-export async function saveImage(bytes: Uint8Array): Promise<SaveImageResult> {
+export async function saveImage(
+  bytes: Uint8Array,
+  folder: ImageFolder = "projects",
+): Promise<SaveImageResult> {
   if (bytes.byteLength === 0) {
     return { ok: false, message: "That file is empty." };
   }
@@ -93,7 +106,7 @@ export async function saveImage(bytes: Uint8Array): Promise<SaveImageResult> {
 
   for (const access of attempts) {
     try {
-      const url = await upload(access, bytes, contentType);
+      const url = await upload(access, bytes, contentType, folder);
       storeAccess = access;
       return { ok: true, url };
     } catch (error) {
