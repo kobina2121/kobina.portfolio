@@ -65,32 +65,6 @@ export default async function AboutPage() {
               sharp, calm, and useful.
             </span>
           </h1>
-          <div className="mt-6 max-w-2xl space-y-5 text-sm leading-7 text-zinc-700 dark:text-zinc-400">
-            <p>
-              Hello, I&apos;m Kobina — a full stack developer with a strong eye
-              for visual systems, interaction details, and responsive product
-              experiences.
-            </p>
-            <p>
-              I like building websites that are simple to understand, polished
-              enough to remember, and practical enough to ship.
-            </p>
-          </div>
-
-          <div className="mt-8 grid gap-3 sm:grid-cols-3">
-            {site.aboutStats.map((item) => (
-              <div
-                key={item.label}
-                className="rounded-2xl border border-zinc-950/10 bg-white/60 p-4 dark:border-white/12 dark:bg-white/[0.04]"
-              >
-                <p className="text-xs text-zinc-600 dark:text-zinc-500">
-                  {item.label}
-                </p>
-                <p className="mt-2 text-sm font-bold">{item.value}</p>
-              </div>
-            ))}
-          </div>
-
           <div className="mt-8 space-y-3">
             {aboutHighlights.map((highlight) => (
               <div

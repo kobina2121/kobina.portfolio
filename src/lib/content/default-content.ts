@@ -32,11 +32,6 @@ const rawSiteSettings = {
     { label: "Email", href: `mailto:${contactEmail}` },
   ],
   aboutHighlights: rawAboutHighlights,
-  aboutStats: [
-    { label: "Focus", value: "Full stack" },
-    { label: "Base", value: "Tema" },
-    { label: "Style", value: "Premium UI" },
-  ],
   heroIntro:
     "I craft responsive websites and product interfaces where clean engineering meets visual taste.",
   metaTitle: "Kobina — Full Stack Developer",

@@ -132,17 +132,6 @@ export const settingsFields: FieldConfig[] = [
     help: "One highlight per line.",
   },
   {
-    kind: "repeater",
-    name: "aboutStats",
-    label: "About page cards",
-    itemLabel: "Card",
-    help: "Short facts shown as cards on the about page, e.g. Base: Accra.",
-    fields: [
-      { kind: "text", name: "label", label: "Label" },
-      { kind: "text", name: "value", label: "Value" },
-    ],
-  },
-  {
     kind: "text",
     name: "metaTitle",
     label: "Browser and search title",
