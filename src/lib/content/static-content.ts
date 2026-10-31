@@ -31,22 +31,6 @@ const rawImageAssets = [
     width: 420,
     height: 614,
   },
-  {
-    key: "kobina-logo",
-    src: "/images/kobina-logo.png",
-    alt: "Kobina logo",
-    purpose: "brand",
-    width: 739,
-    height: 512,
-  },
-  {
-    key: "kobina-logo-light",
-    src: "/images/kobina-logo-light.png",
-    alt: "Kobina logo",
-    purpose: "brand",
-    width: 739,
-    height: 512,
-  },
 ] as const;
 
 export const navigationItems = navigationItemSchema

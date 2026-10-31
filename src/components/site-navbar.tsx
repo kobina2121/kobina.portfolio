@@ -88,7 +88,7 @@ export function SiteNavbar({ active }: SiteNavbarProps) {
             className="col-start-2 flex items-center justify-self-center"
             aria-label="Kobina home"
           >
-            <BrandMark className="h-9" priority />
+            <BrandMark className="h-9" />
           </Link>
 
           <nav
@@ -143,7 +143,7 @@ export function SiteNavbar({ active }: SiteNavbarProps) {
                   "bg-zinc-950/[0.06] dark:bg-white/10",
               )}
             >
-              <BrandMark className="h-6 shrink-0" priority />
+              <BrandMark className="h-6 shrink-0" />
             </Link>
           </li>
           {siteNavItems
