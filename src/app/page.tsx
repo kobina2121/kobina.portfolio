@@ -9,11 +9,11 @@ import { PhotoFrame } from "@/components/photo-frame";
 import { SiteNavbar } from "@/components/site-navbar";
 import { ProjectCard } from "@/components/projects/project-card";
 import { getPhoneHref } from "@/lib/contact-details";
+import { defaultPortfolioContent } from "@/lib/content/default-content";
 import { getExternalLinkAttributes, isExternalHref } from "@/lib/links";
 import { skillIconMap } from "@/lib/skill-icons";
 import { groupStack } from "@/lib/stack-groups";
 import {
-  getAboutHighlights,
   getCertificationItems,
   getExperienceItems,
   getFeaturedProjects,
@@ -80,7 +80,6 @@ export default async function Home() {
     site,
     featuredProjects,
     skillItems,
-    aboutHighlights,
     serviceItems,
     experienceItems,
     certificationItems,
@@ -88,7 +87,6 @@ export default async function Home() {
     getSiteConfig(),
     getFeaturedProjects(),
     getSkillItems(),
-    getAboutHighlights(),
     getServiceItems(),
     getExperienceItems(),
     getCertificationItems(),
@@ -101,6 +99,14 @@ export default async function Home() {
   const formalPortrait = getRequiredImageAsset("formal-portrait");
   // An uploaded profile photo replaces the built-in portrait.
   const portraitSrc = site.profilePhoto[0] ?? formalPortrait.src;
+  const aboutParagraphs = (
+    site.aboutText ??
+    defaultPortfolioContent.settings.aboutText ??
+    ""
+  )
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
   const developerCharacter = getRequiredImageAsset("developer-character");
 
   return (
@@ -338,32 +344,10 @@ export default async function Home() {
                 Hello, I&apos;m Kobina!
               </p>
               <div className="max-w-xl space-y-4 text-xs leading-6 text-zinc-700 dark:text-zinc-400">
-                <p>
-                  I&apos;m a self-taught full stack developer based in Ghana. I
-                  transform ideas into responsive websites with clean
-                  interfaces, careful interaction design, and reliable product
-                  foundations.
-                </p>
-                <p>
-                  I work comfortably across design and development, creating
-                  experiences that feel simple to use and polished enough to
-                  ship.
-                </p>
-              </div>
-              <ul className="mt-6 grid gap-3">
-                {aboutHighlights.map((highlight) => (
-                  <li
-                    key={highlight}
-                    className="flex gap-3 text-xs leading-6 text-zinc-800 dark:text-zinc-300"
-                  >
-                    <span
-                      className="bg-accent-brand mt-2 size-1.5 shrink-0"
-                      aria-hidden="true"
-                    />
-                    {highlight}
-                  </li>
+                {aboutParagraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
                 ))}
-              </ul>
+              </div>
               <DownloadCvLink source="about-section" className="mt-6" />
             </div>
 

@@ -32,6 +32,8 @@ const rawSiteSettings = {
     { label: "Email", href: `mailto:${contactEmail}` },
   ],
   aboutHighlights: rawAboutHighlights,
+  aboutText:
+    "I'm Kobina Kyereboah, a full stack developer based in Accra, Ghana, passionate about turning everyday challenges into practical digital solutions. I build web and desktop applications with React, Next.js, and TypeScript, working comfortably across design and development to create software that is intuitive, reliable, and built to last.\n\nMy approach goes beyond writing code. The best solutions start with understanding the people who use them and the processes they want to improve. That's how I built internal tools for smart card production: I spotted repetitive manual tasks and created software that made existing workflows faster and more efficient. For me, good software isn't about adding complexity; it's about making things work better.\n\nI enjoy taking ideas from concept to completion, pairing clean interfaces and careful interaction design with solid engineering, so every feature serves a purpose and every detail feels polished enough to ship. As I keep growing, I'm focused on learning through real-world projects and building software that makes a measurable difference in how people work.",
   heroIntro:
     "I craft responsive websites and product interfaces where clean engineering meets visual taste.",
   metaTitle: "Kobina — Full Stack Developer",

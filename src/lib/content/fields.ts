@@ -126,6 +126,12 @@ export const settingsFields: FieldConfig[] = [
     help: "The short paragraph under the headline on the home page.",
   },
   {
+    kind: "textarea",
+    name: "aboutText",
+    label: "About me (home page)",
+    help: 'Shown under "Hello, I\'m Kobina!" on the home page. Separate paragraphs with a blank line.',
+  },
+  {
     kind: "list",
     name: "aboutHighlights",
     label: "About highlights",

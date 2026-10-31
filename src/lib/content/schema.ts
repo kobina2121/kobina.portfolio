@@ -96,6 +96,8 @@ export const siteSettingsSchema = z.object({
   secondaryCta: linkSchema,
   socialLinks: z.array(linkSchema),
   aboutHighlights: z.array(nonEmptyString).min(1),
+  // Paragraphs separated by blank lines, shown in the home page's about-me.
+  aboutText: nonEmptyString.optional(),
   heroIntro: nonEmptyString,
   metaTitle: nonEmptyString,
   metaDescription: nonEmptyString,
