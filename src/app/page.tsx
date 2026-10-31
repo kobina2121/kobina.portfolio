@@ -5,6 +5,7 @@ import { CopyEmailButton } from "@/components/copy-email-button";
 import { DownloadCvLink } from "@/components/download-cv-link";
 import { ContactForm } from "@/components/forms/contact-form";
 import { Reveal } from "@/components/motion/reveal";
+import { PhotoFrame } from "@/components/photo-frame";
 import { SiteNavbar } from "@/components/site-navbar";
 import { ProjectCard } from "@/components/projects/project-card";
 import { getPhoneHref } from "@/lib/contact-details";
@@ -235,16 +236,18 @@ export default async function Home() {
               currently working on <span className="font-bold">Portfolio</span>
             </div>
 
-            <div className="relative mx-auto aspect-[0.84] w-64 overflow-hidden bg-gradient-to-b from-zinc-200 to-white md:w-72 dark:from-zinc-900 dark:to-black">
-              <Image
-                src={portraitSrc}
-                alt={formalPortrait.alt}
-                fill
-                priority
-                sizes="(min-width: 768px) 288px, 70vw"
-                className="object-cover object-top"
-              />
-            </div>
+            <PhotoFrame className="mx-auto w-64 md:w-72">
+              <div className="relative aspect-[0.84] overflow-hidden bg-gradient-to-b from-zinc-200 to-white dark:from-zinc-900 dark:to-black">
+                <Image
+                  src={portraitSrc}
+                  alt={formalPortrait.alt}
+                  fill
+                  priority
+                  sizes="(min-width: 768px) 288px, 70vw"
+                  className="object-cover object-top"
+                />
+              </div>
+            </PhotoFrame>
           </div>
         </section>
 

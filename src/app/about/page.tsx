@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { Container } from "@/components/layout/container";
+import { PhotoFrame } from "@/components/photo-frame";
 import { SiteNavbar } from "@/components/site-navbar";
 import {
   getAboutHighlights,
@@ -40,16 +41,18 @@ export default async function AboutPage() {
         as="section"
         className="relative grid gap-12 pt-32 pb-20 md:grid-cols-[0.95fr_1.05fr] md:items-center"
       >
-        <div className="relative mx-auto aspect-[0.82] w-full max-w-sm">
-          <Image
-            src={portraitSrc}
-            alt={formalPortrait.alt}
-            fill
-            priority
-            sizes="(min-width: 768px) 360px, 80vw"
-            className="object-cover object-top"
-          />
-        </div>
+        <PhotoFrame className="mx-auto w-full max-w-sm">
+          <div className="relative aspect-[0.82] overflow-hidden bg-gradient-to-b from-zinc-200 to-white dark:from-zinc-900 dark:to-black">
+            <Image
+              src={portraitSrc}
+              alt={formalPortrait.alt}
+              fill
+              priority
+              sizes="(min-width: 768px) 360px, 80vw"
+              className="object-cover object-top"
+            />
+          </div>
+        </PhotoFrame>
 
         <div>
           <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-950/10 bg-zinc-950/[0.04] px-4 py-2 text-xs text-zinc-600 dark:border-white/15 dark:bg-white/[0.06] dark:text-zinc-400">
