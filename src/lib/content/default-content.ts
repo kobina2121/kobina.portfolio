@@ -13,7 +13,7 @@ const rawSiteSettings = {
   title: "Full Stack Developer",
   email: contactEmail,
   phone: contactPhoneDisplay,
-  location: "Tema, Ghana",
+  location: "Accra, Ghana",
   availability: "Available for selected builds",
   primaryCta: {
     label: "View projects",
